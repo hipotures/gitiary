@@ -50,6 +50,7 @@ export function getReposWithStats(): RepoSummary[] {
 			id: r.id,
 			owner: r.owner,
 			name: r.name,
+			displayName: r.displayName,
 			commits7d: countSince(day7),
 			commits30d: countSince(day30),
 			commits90d: countSince(day90),
@@ -106,7 +107,7 @@ export function getAllDailyData(days: number = 90) {
 			.get();
 
 		return {
-			repo: { id: r.id, owner: r.owner, name: r.name },
+			repo: { id: r.id, owner: r.owner, name: r.name, displayName: r.displayName },
 			daily: dailyData,
 			firstCommitDate: firstCommitResult?.minDay ?? null
 		};
@@ -118,6 +119,7 @@ export function getAllRepos(): Array<{
 	id: number;
 	owner: string;
 	name: string;
+	displayName: string | null;
 	isActive: boolean;
 	lastSyncAt: string | null;
 }> {
@@ -127,6 +129,7 @@ export function getAllRepos(): Array<{
 			id: repo.id,
 			owner: repo.owner,
 			name: repo.name,
+			displayName: repo.displayName,
 			isActive: repo.isActive,
 			lastSyncAt: repo.lastSyncAt
 		})
@@ -209,4 +212,10 @@ export function deleteRepo(repoId: number): void {
 
 	// Delete repo
 	db.delete(repo).where(eq(repo.id, repoId)).run();
+}
+
+// Update repository display name
+export function updateRepoDisplayName(repoId: number, displayName: string | null): void {
+	const db = getDb();
+	db.update(repo).set({ displayName }).where(eq(repo.id, repoId)).run();
 }

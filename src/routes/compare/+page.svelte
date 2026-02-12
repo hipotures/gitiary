@@ -29,6 +29,7 @@
 					id: item.repo.id,
 					owner: item.repo.owner,
 					name: item.repo.name,
+					displayName: item.repo.displayName,
 					totalCommits,
 					activeDays,
 					regularity: calculateRegularity(filteredDaily, days),

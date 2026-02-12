@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { RepoSummary } from '$lib/domain/types.js';
+	import { getDisplayName } from '$lib/utils/repoDisplay.js';
 
 	let { repo }: { repo: RepoSummary } = $props();
 
@@ -7,7 +8,7 @@
 
 <a href="/repo/{repo.id}" class="card repo-card">
 	<div class="repo-header">
-		<span class="repo-name text-mono">{repo.name}</span>
+		<span class="repo-name text-mono">{getDisplayName(repo)}</span>
 	</div>
 	<div class="repo-stats">
 		<div class="stat">

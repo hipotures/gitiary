@@ -1,5 +1,10 @@
 import { json, error } from '@sveltejs/kit';
-import { updateRepoActiveStatus, getRepoById, deleteRepo } from '$lib/server/db/queries.js';
+import {
+	updateRepoActiveStatus,
+	getRepoById,
+	deleteRepo,
+	updateRepoDisplayName
+} from '$lib/server/db/queries.js';
 import type { RequestHandler } from './$types.js';
 
 export const PATCH: RequestHandler = async ({ params, request }) => {
@@ -16,15 +21,30 @@ export const PATCH: RequestHandler = async ({ params, request }) => {
 
 	try {
 		const body = await request.json();
-		const { isActive } = body;
+		const { isActive, displayName } = body;
 
-		if (typeof isActive !== 'boolean') {
-			return error(400, 'isActive must be a boolean');
+		// Handle isActive update
+		if (typeof isActive === 'boolean') {
+			updateRepoActiveStatus(repoId, isActive);
 		}
 
-		updateRepoActiveStatus(repoId, isActive);
+		// Handle displayName update
+		if ('displayName' in body) {
+			if (displayName !== null && typeof displayName !== 'string') {
+				return error(400, 'displayName must be a string or null');
+			}
+			// Trim and convert empty strings to null
+			const trimmed = displayName?.trim();
+			const finalValue = trimmed && trimmed.length > 0 ? trimmed : null;
+			updateRepoDisplayName(repoId, finalValue);
+		}
 
-		return json({ success: true, id: repoId, isActive });
+		return json({
+			success: true,
+			id: repoId,
+			isActive: repo.isActive,
+			displayName: body.displayName
+		});
 	} catch (err) {
 		console.error('Failed to update repo:', err);
 		return error(500, 'Failed to update repository');

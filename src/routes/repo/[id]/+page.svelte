@@ -2,6 +2,7 @@
 	import TimeSeriesChart from '$lib/components/TimeSeriesChart.svelte';
 	import CalendarHeatmap from '$lib/components/CalendarHeatmap.svelte';
 	import { dateRange, filterDailyData, getRangeLabel } from '$lib/stores/dateRange';
+	import { getDisplayName } from '$lib/utils/repoDisplay.js';
 	import type { PageData } from './$types.js';
 
 	let { data }: { data: PageData } = $props();
@@ -10,7 +11,7 @@
 </script>
 
 <div class="repo-header">
-	<h1 class="text-mono">{data.repo.name}</h1>
+	<h1 class="text-mono">{getDisplayName(data.repo)}</h1>
 	<a href="/" class="back-link">← Back to repos</a>
 </div>
 

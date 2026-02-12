@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Moon, Sun, RefreshCw, CheckSquare, Square, Trash2 } from 'lucide-svelte';
+	import { Moon, Sun, RefreshCw, CheckSquare, Square, Trash2, Pencil } from 'lucide-svelte';
 	import { theme } from '$lib/stores/theme';
 	import { repoSort } from '$lib/stores/repoSort';
 	import type { RepoSortField, SortDirection } from '$lib/domain/repoSort';
@@ -8,6 +8,7 @@
 		id: number;
 		owner: string;
 		name: string;
+		displayName: string | null;
 		isActive: boolean;
 		lastSyncAt: string | null;
 	}
@@ -26,6 +27,8 @@
 	let syncingRepoId = $state<number | null>(null);
 	let deletingRepoId = $state<number | null>(null);
 	let deleteConfirmRepo = $state<{ id: number; name: string } | null>(null);
+	let editingRepo = $state<{ id: number; name: string; displayName: string | null } | null>(null);
+	let editDisplayName = $state('');
 
 	// Sort preferences
 	let sortField = $state<RepoSortField>($repoSort.field);
@@ -142,6 +145,45 @@
 
 	function cancelDelete() {
 		deleteConfirmRepo = null;
+	}
+
+	function showEditDisplayName(repoId: number, repoName: string, currentDisplayName: string | null) {
+		editingRepo = { id: repoId, name: repoName, displayName: currentDisplayName };
+		editDisplayName = currentDisplayName || '';
+	}
+
+	async function saveDisplayName() {
+		if (!editingRepo) return;
+
+		const repoId = editingRepo.id;
+		const newDisplayName = editDisplayName.trim() || null;
+
+		try {
+			const response = await fetch(`/api/repos/${repoId}`, {
+				method: 'PATCH',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ displayName: newDisplayName })
+			});
+
+			if (!response.ok) {
+				throw new Error('Update failed');
+			}
+
+			// Update local state
+			repos = repos.map((r) =>
+				r.id === repoId ? { ...r, displayName: newDisplayName } : r
+			);
+
+			editingRepo = null;
+			editDisplayName = '';
+		} catch (error) {
+			console.error('Failed to update display name:', error);
+		}
+	}
+
+	function cancelEditDisplayName() {
+		editingRepo = null;
+		editDisplayName = '';
 	}
 
 	function handleSortChange() {
@@ -267,7 +309,12 @@
 							{/if}
 						</button>
 						<div class="repo-info">
-							<span class="repo-name">{repo.owner}/{repo.name}</span>
+							<div class="repo-names-inline">
+								<span class="repo-name">{repo.owner}/{repo.name}</span>
+								{#if repo.displayName}
+									<span class="repo-display-name">{repo.displayName}</span>
+								{/if}
+							</div>
 							{#if repo.lastSyncAt}
 								<span class="repo-sync">
 									Last sync: {new Date(repo.lastSyncAt).toLocaleString('en-GB', {
@@ -317,6 +364,17 @@
 						{/if}
 
 						<button
+							class="edit-btn"
+							onclick={(e) => {
+								e.preventDefault();
+								showEditDisplayName(repo.id, `${repo.owner}/${repo.name}`, repo.displayName);
+							}}
+							title="Edit display name"
+						>
+							<Pencil size={16} />
+						</button>
+
+						<button
 							class="delete-btn"
 							onclick={(e) => {
 								e.preventDefault();
@@ -350,9 +408,37 @@
 	</div>
 {/if}
 
+{#if editingRepo}
+	<div class="modal-overlay" onclick={cancelEditDisplayName}>
+		<div class="modal-content" onclick={(e) => e.stopPropagation()}>
+			<h3>Edit Display Name</h3>
+			<p class="repo-identifier">Repository: <strong>{editingRepo.name}</strong></p>
+			<p class="modal-description">
+				Set a custom display name for this repository. Leave empty to use the original name.
+			</p>
+
+			<div class="form-group">
+				<label for="displayName">Display Name</label>
+				<input
+					id="displayName"
+					type="text"
+					bind:value={editDisplayName}
+					placeholder="Custom display name"
+					class="text-input"
+				/>
+			</div>
+
+			<div class="modal-actions">
+				<button class="modal-btn cancel" onclick={cancelEditDisplayName}>Cancel</button>
+				<button class="modal-btn save" onclick={saveDisplayName}>Save</button>
+			</div>
+		</div>
+	</div>
+{/if}
+
 <style>
 	.settings-page {
-		max-width: 800px;
+		/* Width constraint removed to match other pages */
 	}
 
 	.settings-header {
@@ -742,5 +828,90 @@
 
 	.modal-btn.confirm:hover {
 		opacity: 0.9;
+	}
+
+	.modal-btn.save {
+		background: var(--color-accent);
+		color: white;
+	}
+
+	.modal-btn.save:hover {
+		opacity: 0.9;
+	}
+
+	.repo-names-inline {
+		display: flex;
+		align-items: baseline;
+		gap: var(--space-sm);
+		flex-wrap: wrap;
+	}
+
+	.repo-display-name {
+		font-size: 0.75rem;
+		color: var(--color-text-secondary);
+		font-style: italic;
+	}
+
+	.edit-btn {
+		background: none;
+		border: none;
+		padding: var(--space-xs);
+		cursor: pointer;
+		color: var(--color-text-secondary);
+		transition: color 0.15s ease;
+		border-radius: var(--radius);
+	}
+
+	.edit-btn:hover {
+		color: var(--color-accent);
+		background: var(--color-surface-hover);
+	}
+
+	.repo-identifier {
+		font-family: var(--font-mono);
+		font-size: 0.875rem;
+		padding: var(--space-sm);
+		background: var(--color-bg);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+		margin-bottom: var(--space-md);
+	}
+
+	.modal-description {
+		font-size: 0.875rem;
+		color: var(--color-text-secondary);
+		margin-bottom: var(--space-lg) !important;
+	}
+
+	.form-group {
+		margin-bottom: var(--space-lg);
+	}
+
+	.form-group label {
+		display: block;
+		font-weight: 500;
+		margin-bottom: var(--space-sm);
+		font-size: 0.875rem;
+	}
+
+	.text-input {
+		width: 100%;
+		padding: var(--space-sm) var(--space-md);
+		background: var(--color-bg);
+		border: 2px solid var(--color-border);
+		border-radius: var(--radius);
+		color: var(--color-text);
+		font-size: 0.875rem;
+		transition: border-color 0.2s ease;
+	}
+
+	.text-input:focus {
+		outline: none;
+		border-color: var(--color-accent);
+	}
+
+	.text-input::placeholder {
+		color: var(--color-text-secondary);
+		opacity: 0.6;
 	}
 </style>

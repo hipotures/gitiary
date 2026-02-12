@@ -1,6 +1,7 @@
 <script lang="ts">
 	import MetricCard from './MetricCard.svelte';
 	import type { StorySummary } from '$lib/domain/stats.js';
+	import { getDisplayName } from '$lib/utils/repoDisplay.js';
 
 	let { story, period }: { story: StorySummary; period: '30d' | '90d' } = $props();
 
@@ -24,7 +25,7 @@
 		<div class="card highlight-card">
 			<h3>Most Active Repository</h3>
 			<p class="repo-name text-mono">
-				{story.mostActiveRepo.name}
+				{getDisplayName(story.mostActiveRepo)}
 			</p>
 			<p class="metric">
 				<span class="value">{story.mostActiveRepo.commits}</span>
@@ -37,7 +38,7 @@
 		<div class="card highlight-card">
 			<h3>Most Consistent Repository</h3>
 			<p class="repo-name text-mono">
-				{story.mostConsistentRepo.name}
+				{getDisplayName(story.mostConsistentRepo)}
 			</p>
 			<p class="metric">
 				<span class="value">{Math.round(story.mostConsistentRepo.regularity * 100)}%</span>

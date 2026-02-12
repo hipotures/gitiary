@@ -82,14 +82,14 @@ export interface StorySummary {
 	totalCommits: number;
 	activeDays: number;
 	totalDays: number;
-	mostActiveRepo: { owner: string; name: string; commits: number } | null;
-	mostConsistentRepo: { owner: string; name: string; regularity: number } | null;
+	mostActiveRepo: { owner: string; name: string; displayName: string | null; commits: number } | null;
+	mostConsistentRepo: { owner: string; name: string; displayName: string | null; regularity: number } | null;
 	longestStreak: number;
 	highlights: Array<{ day: string; commits: number; repos: string[] }>;
 }
 
 export function generateStorySummary(
-	allData: Array<{ repo: { id: number; owner: string; name: string }; daily: DailyEntry[] }>,
+	allData: Array<{ repo: { id: number; owner: string; name: string; displayName: string | null }; daily: DailyEntry[] }>,
 	periodDays: number
 ): StorySummary {
 	// Total commits across all repos
@@ -108,22 +108,24 @@ export function generateStorySummary(
 	const repoCommits = allData.map((item) => ({
 		owner: item.repo.owner,
 		name: item.repo.name,
+		displayName: item.repo.displayName,
 		commits: item.daily.reduce((sum, d) => sum + d.commits, 0)
 	}));
 	const mostActiveRepo = repoCommits.reduce(
 		(max, r) => (r.commits > max.commits ? r : max),
-		repoCommits[0] || { owner: '', name: '', commits: 0 }
+		repoCommits[0] || { owner: '', name: '', displayName: null, commits: 0 }
 	);
 
 	// Most consistent repo
 	const repoRegularity = allData.map((item) => ({
 		owner: item.repo.owner,
 		name: item.repo.name,
+		displayName: item.repo.displayName,
 		regularity: calculateRegularity(item.daily, periodDays)
 	}));
 	const mostConsistentRepo = repoRegularity.reduce(
 		(max, r) => (r.regularity > max.regularity ? r : max),
-		repoRegularity[0] || { owner: '', name: '', regularity: 0 }
+		repoRegularity[0] || { owner: '', name: '', displayName: null, regularity: 0 }
 	);
 
 	// Longest streak across all repos

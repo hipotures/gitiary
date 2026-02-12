@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { sortRepos, type SortField, type SortDirection } from '$lib/domain/rankings.js';
 	import type { ComparisonRepo } from '$lib/domain/types.js';
+	import { getDisplayName } from '$lib/utils/repoDisplay.js';
 
 	let { repos, period }: { repos: ComparisonRepo[]; period: '30d' | '90d' } = $props();
 
@@ -98,7 +99,7 @@
 				<tr>
 					<td>
 						<a href="/repo/{repo.id}" class="repo-link text-mono">
-							{repo.name}
+							{getDisplayName(repo)}
 						</a>
 					</td>
 					<td class="numeric">{repo.firstCommitDate ?? 'N/A'}</td>

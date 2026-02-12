@@ -4,6 +4,7 @@
 	import { theme } from '$lib/stores/theme';
 	import { dateRange, type DateRange } from '$lib/stores/dateRange';
 	import { getEChartsTheme, getEChartsColors } from '$lib/utils/echarts-themes';
+	import { getDisplayName } from '$lib/utils/repoDisplay.js';
 
 	let { repos }: { repos: RepoSummary[] } = $props();
 
@@ -51,7 +52,7 @@
 			},
 			xAxis: {
 				type: 'category',
-				data: sorted.map((r) => r.name),
+				data: sorted.map((r) => getDisplayName(r)),
 				axisLabel: {
 					color: colors.text,
 					fontSize: 11,

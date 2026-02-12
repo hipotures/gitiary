@@ -2,6 +2,7 @@ export interface RepoSummary {
 	id: number;
 	owner: string;
 	name: string;
+	displayName: string | null;
 	commits7d: number;
 	commits30d: number;
 	commits90d: number;
@@ -18,7 +19,7 @@ export interface DailyEntry {
 }
 
 export interface RepoDetail {
-	repo: { id: number; owner: string; name: string };
+	repo: { id: number; owner: string; name: string; displayName: string | null };
 	daily: DailyEntry[];
 	firstCommitDate: string | null;
 }
@@ -27,6 +28,7 @@ export interface ComparisonRepo {
 	id: number;
 	owner: string;
 	name: string;
+	displayName: string | null;
 	totalCommits: number;
 	activeDays: number;
 	regularity: number;

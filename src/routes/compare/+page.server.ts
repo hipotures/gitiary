@@ -26,6 +26,7 @@ export const load: PageServerLoad = () => {
 				id: item.repo.id,
 				owner: item.repo.owner,
 				name: item.repo.name,
+				displayName: item.repo.displayName,
 				totalCommits,
 				activeDays,
 				regularity: calculateRegularity(item.daily, days),
