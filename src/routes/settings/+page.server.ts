@@ -1,8 +1,9 @@
 import pkg from '../../../package.json';
-import { getAllRepos } from '$lib/server/db/queries.js';
+import { getAllRepos, getMetadata } from '$lib/server/db/queries.js';
 
 export function load() {
 	const repos = getAllRepos();
+	const lastGithubSync = getMetadata('lastGithubSync');
 
 	// Sort: active first (alphabetically), then inactive (alphabetically)
 	const sortedRepos = repos.sort((a, b) => {
@@ -16,7 +17,8 @@ export function load() {
 
 	return {
 		version: pkg.version,
-		repos: sortedRepos
+		repos: sortedRepos,
+		lastGithubSync
 	};
 }
 

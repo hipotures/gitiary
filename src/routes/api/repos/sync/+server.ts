@@ -1,6 +1,6 @@
 import { json, error } from '@sveltejs/kit';
 import { fetchAllUserRepos } from '$lib/server/github/client.js';
-import { upsertRepo } from '$lib/server/db/queries.js';
+import { upsertRepo, setMetadata } from '$lib/server/db/queries.js';
 import type { RequestHandler } from './$types.js';
 
 export const POST: RequestHandler = async () => {
@@ -21,6 +21,9 @@ export const POST: RequestHandler = async () => {
 				skippedCount++;
 			}
 		}
+
+		// Save last GitHub sync timestamp
+		setMetadata('lastGithubSync', new Date().toISOString());
 
 		return json({
 			success: true,

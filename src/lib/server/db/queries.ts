@@ -1,6 +1,6 @@
 import { eq, sql, and, gte } from 'drizzle-orm';
 import { getDb } from './connection.js';
-import { repo, daily } from './schema.js';
+import { repo, daily, metadata } from './schema.js';
 import type { RepoSummary, DailyEntry } from '$lib/domain/types.js';
 
 function daysAgo(n: number): string {
@@ -157,4 +157,38 @@ export function getActiveRepos(): Array<{ owner: string; name: string }> {
 		.from(repo)
 		.where(eq(repo.isActive, true))
 		.all();
+}
+
+// Get metadata value
+export function getMetadata(key: string): string | null {
+	const db = getDb();
+	const result = db
+		.select({ value: metadata.value })
+		.from(metadata)
+		.where(eq(metadata.key, key))
+		.get();
+	return result?.value ?? null;
+}
+
+// Set metadata value (upsert)
+export function setMetadata(key: string, value: string): void {
+	const db = getDb();
+	db.insert(metadata)
+		.values({ key, value })
+		.onConflictDoUpdate({
+			target: metadata.key,
+			set: { value }
+		})
+		.run();
+}
+
+// Delete repository and all associated data
+export function deleteRepo(repoId: number): void {
+	const db = getDb();
+
+	// Delete daily commit records first (foreign key constraint)
+	db.delete(daily).where(eq(daily.repoId, repoId)).run();
+
+	// Delete repo
+	db.delete(repo).where(eq(repo.id, repoId)).run();
 }

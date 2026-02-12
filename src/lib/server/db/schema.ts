@@ -20,3 +20,8 @@ export const daily = sqliteTable(
 	},
 	(table) => [primaryKey({ columns: [table.repoId, table.day] })]
 );
+
+export const metadata = sqliteTable('metadata', {
+	key: text('key').primaryKey(),
+	value: text('value').notNull()
+});

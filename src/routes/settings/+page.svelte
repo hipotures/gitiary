@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Moon, Sun, RefreshCw, CheckSquare, Square } from 'lucide-svelte';
+	import { Moon, Sun, RefreshCw, CheckSquare, Square, Trash2 } from 'lucide-svelte';
 	import { theme } from '$lib/stores/theme';
 
 	interface Repo {
@@ -13,6 +13,7 @@
 	interface PageData {
 		version: string;
 		repos: Repo[];
+		lastGithubSync: string | null;
 	}
 
 	let { data }: { data: PageData } = $props();
@@ -20,6 +21,9 @@
 	let repos = $state(data.repos);
 	let isSyncing = $state(false);
 	let syncMessage = $state('');
+	let syncingRepoId = $state<number | null>(null);
+	let deletingRepoId = $state<number | null>(null);
+	let deleteConfirmRepo = $state<{ id: number; name: string } | null>(null);
 
 	async function syncWithGitHub() {
 		isSyncing = true;
@@ -75,6 +79,64 @@
 			console.error('Failed to toggle repo:', error);
 		}
 	}
+
+	async function syncSingleRepo(repoId: number, backfillDays: number) {
+		syncingRepoId = repoId;
+
+		try {
+			const response = await fetch(`/api/repos/${repoId}/sync`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ backfillDays })
+			});
+
+			if (!response.ok) {
+				throw new Error('Sync failed');
+			}
+
+			// Update lastSyncAt in local state
+			repos = repos.map((r) =>
+				r.id === repoId ? { ...r, lastSyncAt: new Date().toISOString() } : r
+			);
+		} catch (error) {
+			console.error('Failed to sync repo:', error);
+		} finally {
+			syncingRepoId = null;
+		}
+	}
+
+	function showDeleteConfirm(repoId: number, repoName: string) {
+		deleteConfirmRepo = { id: repoId, name: repoName };
+	}
+
+	async function confirmDelete() {
+		if (!deleteConfirmRepo) return;
+
+		const repoId = deleteConfirmRepo.id;
+		deleteConfirmRepo = null;
+		deletingRepoId = repoId;
+
+		try {
+			const response = await fetch(`/api/repos/${repoId}`, {
+				method: 'DELETE'
+			});
+
+			if (!response.ok) {
+				throw new Error('Delete failed');
+			}
+
+			// Remove from local state
+			repos = repos.filter((r) => r.id !== repoId);
+		} catch (error) {
+			console.error('Failed to delete repo:', error);
+		} finally {
+			deletingRepoId = null;
+		}
+	}
+
+	function cancelDelete() {
+		deleteConfirmRepo = null;
+	}
 </script>
 
 <div class="settings-page">
@@ -124,6 +186,17 @@
 				<p class="setting-description">
 					Sync your repository list from GitHub. New repositories will be added as inactive.
 				</p>
+				{#if data.lastGithubSync}
+					<p class="last-sync-info">
+						Last synced: {new Date(data.lastGithubSync).toLocaleString('en-GB', {
+							year: 'numeric',
+							month: '2-digit',
+							day: '2-digit',
+							hour: '2-digit',
+							minute: '2-digit'
+						})}
+					</p>
+				{/if}
 				{#if syncMessage}
 					<p class="sync-message" class:error={syncMessage.includes('Failed')}>
 						{syncMessage}
@@ -170,12 +243,75 @@
 								</span>
 							{/if}
 						</div>
+
+						{#if repo.isActive}
+							<div class="repo-actions">
+								<button
+									class="action-btn"
+									onclick={(e) => {
+										e.preventDefault();
+										syncSingleRepo(repo.id, 0);
+									}}
+									disabled={syncingRepoId === repo.id}
+									title="Sync all commits"
+								>
+									<RefreshCw
+										size={14}
+										class={syncingRepoId === repo.id ? 'spinning' : ''}
+									/>
+									<span>All</span>
+								</button>
+								<button
+									class="action-btn"
+									onclick={(e) => {
+										e.preventDefault();
+										syncSingleRepo(repo.id, 30);
+									}}
+									disabled={syncingRepoId === repo.id}
+									title="Sync last 30 days"
+								>
+									<RefreshCw
+										size={14}
+										class={syncingRepoId === repo.id ? 'spinning' : ''}
+									/>
+									<span>30d</span>
+								</button>
+							</div>
+						{/if}
+
+						<button
+							class="delete-btn"
+							onclick={(e) => {
+								e.preventDefault();
+								showDeleteConfirm(repo.id, `${repo.owner}/${repo.name}`);
+							}}
+							disabled={deletingRepoId === repo.id}
+							title="Delete repository"
+						>
+							<Trash2 size={16} />
+						</button>
 					</label>
 				{/each}
 			</div>
 		</div>
 	</section>
 </div>
+
+{#if deleteConfirmRepo}
+	<div class="modal-overlay" onclick={cancelDelete}>
+		<div class="modal-content" onclick={(e) => e.stopPropagation()}>
+			<h3>Delete Repository</h3>
+			<p>
+				Are you sure you want to delete <strong>{deleteConfirmRepo.name}</strong>?
+			</p>
+			<p class="modal-warning">This will remove all commit data for this repository.</p>
+			<div class="modal-actions">
+				<button class="modal-btn cancel" onclick={cancelDelete}>Cancel</button>
+				<button class="modal-btn confirm" onclick={confirmDelete}>Delete</button>
+			</div>
+		</div>
+	</div>
+{/if}
 
 <style>
 	.settings-page {
@@ -400,5 +536,149 @@
 	.repo-sync {
 		font-size: 0.75rem;
 		color: var(--color-text-secondary);
+	}
+
+	.last-sync-info {
+		font-size: 0.75rem;
+		color: var(--color-text-secondary);
+		margin-top: var(--space-xs);
+		font-style: italic;
+	}
+
+	.repo-actions {
+		display: flex;
+		gap: var(--space-xs);
+		margin-left: auto;
+	}
+
+	.action-btn {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		padding: 4px 8px;
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+		color: var(--color-text);
+		cursor: pointer;
+		font-size: 0.75rem;
+		transition: all 0.15s ease;
+	}
+
+	.action-btn:hover:not(:disabled) {
+		background: var(--color-surface-hover);
+		border-color: var(--color-accent);
+	}
+
+	.action-btn:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
+	.action-btn :global(.spinning) {
+		animation: spin 1s linear infinite;
+	}
+
+	.delete-btn {
+		background: none;
+		border: none;
+		padding: var(--space-xs);
+		cursor: pointer;
+		color: var(--color-text-secondary);
+		transition: color 0.15s ease;
+		border-radius: var(--radius);
+	}
+
+	.delete-btn:hover:not(:disabled) {
+		color: var(--color-error);
+		background: var(--color-surface-hover);
+	}
+
+	.delete-btn:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+
+	.modal-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.6);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 1000;
+		backdrop-filter: blur(4px);
+	}
+
+	.modal-content {
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+		padding: var(--space-lg);
+		max-width: 480px;
+		width: 90%;
+		box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+	}
+
+	.modal-content h3 {
+		margin: 0 0 var(--space-md) 0;
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: var(--color-text);
+	}
+
+	.modal-content p {
+		margin: 0 0 var(--space-sm) 0;
+		color: var(--color-text);
+		line-height: 1.5;
+	}
+
+	.modal-content strong {
+		color: var(--color-accent);
+		font-weight: 600;
+	}
+
+	.modal-warning {
+		color: var(--color-text-secondary);
+		font-size: 0.875rem;
+		margin-bottom: var(--space-lg) !important;
+	}
+
+	.modal-actions {
+		display: flex;
+		gap: var(--space-sm);
+		justify-content: flex-end;
+	}
+
+	.modal-btn {
+		padding: var(--space-sm) var(--space-lg);
+		border: none;
+		border-radius: var(--radius);
+		font-size: 0.875rem;
+		font-weight: 500;
+		cursor: pointer;
+		transition: all 0.15s ease;
+	}
+
+	.modal-btn.cancel {
+		background: var(--color-surface-hover);
+		color: var(--color-text);
+		border: 1px solid var(--color-border);
+	}
+
+	.modal-btn.cancel:hover {
+		background: var(--color-bg);
+	}
+
+	.modal-btn.confirm {
+		background: var(--color-error);
+		color: white;
+	}
+
+	.modal-btn.confirm:hover {
+		opacity: 0.9;
 	}
 </style>
