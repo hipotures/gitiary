@@ -28,7 +28,7 @@
 		<thead>
 			<tr>
 				<th>
-					<button class="sort-btn" on:click={() => handleSort('name')}>
+					<button class="sort-btn" onclick={() => handleSort('name')}>
 						Repository
 						{#if sortField === 'name'}
 							<span class="sort-indicator">{sortDirection === 'asc' ? '↑' : '↓'}</span>
@@ -36,7 +36,7 @@
 					</button>
 				</th>
 				<th class="numeric">
-					<button class="sort-btn" on:click={() => handleSort('totalCommits')}>
+					<button class="sort-btn" onclick={() => handleSort('totalCommits')}>
 						Commits
 						{#if sortField === 'totalCommits'}
 							<span class="sort-indicator">{sortDirection === 'asc' ? '↑' : '↓'}</span>
@@ -44,7 +44,7 @@
 					</button>
 				</th>
 				<th class="numeric">
-					<button class="sort-btn" on:click={() => handleSort('activeDays')}>
+					<button class="sort-btn" onclick={() => handleSort('activeDays')}>
 						Active Days
 						{#if sortField === 'activeDays'}
 							<span class="sort-indicator">{sortDirection === 'asc' ? '↑' : '↓'}</span>
@@ -52,7 +52,7 @@
 					</button>
 				</th>
 				<th class="numeric">
-					<button class="sort-btn" on:click={() => handleSort('regularity')}>
+					<button class="sort-btn" onclick={() => handleSort('regularity')}>
 						Regularity
 						{#if sortField === 'regularity'}
 							<span class="sort-indicator">{sortDirection === 'asc' ? '↑' : '↓'}</span>
@@ -60,7 +60,7 @@
 					</button>
 				</th>
 				<th class="numeric">
-					<button class="sort-btn" on:click={() => handleSort('maxGap')}>
+					<button class="sort-btn" onclick={() => handleSort('maxGap')}>
 						Max Gap
 						{#if sortField === 'maxGap'}
 							<span class="sort-indicator">{sortDirection === 'asc' ? '↑' : '↓'}</span>
@@ -68,7 +68,7 @@
 					</button>
 				</th>
 				<th class="numeric">
-					<button class="sort-btn" on:click={() => handleSort('currentStreak')}>
+					<button class="sort-btn" onclick={() => handleSort('currentStreak')}>
 						Current Streak
 						{#if sortField === 'currentStreak'}
 							<span class="sort-indicator">{sortDirection === 'asc' ? '↑' : '↓'}</span>
@@ -76,7 +76,7 @@
 					</button>
 				</th>
 				<th class="numeric">
-					<button class="sort-btn" on:click={() => handleSort('longestStreak')}>
+					<button class="sort-btn" onclick={() => handleSort('longestStreak')}>
 						Longest Streak
 						{#if sortField === 'longestStreak'}
 							<span class="sort-indicator">{sortDirection === 'asc' ? '↑' : '↓'}</span>

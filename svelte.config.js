@@ -12,6 +12,23 @@ const config = {
 			precompress: false,
 			strict: true
 		})
+	},
+	onwarn: (warning, handler) => {
+		// Ignore specific warnings
+		const ignoredWarnings = [
+			'state_referenced_locally',
+			'a11y_label_has_associated_control',
+			'a11y_click_events_have_key_events',
+			'a11y_no_static_element_interactions',
+			'css_unused_selector'
+		];
+
+		if (ignoredWarnings.includes(warning.code)) {
+			return;
+		}
+
+		// Handle all other warnings normally
+		handler(warning);
 	}
 };
 
