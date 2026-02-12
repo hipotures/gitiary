@@ -15,7 +15,7 @@ export const load: PageServerLoad = ({ params }) => {
 		throw error(404, 'Repository not found');
 	}
 
-	const daily = getRepoDailyData(id, 360);
+	const daily = getRepoDailyData(id, null);
 
 	return {
 		repo: { id: repo.id, owner: repo.owner, name: repo.name },

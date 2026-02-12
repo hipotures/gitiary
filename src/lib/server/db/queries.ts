@@ -1,7 +1,13 @@
 import { eq, sql, and, gte } from 'drizzle-orm';
 import { getDb } from './connection.js';
 import { repo, daily, metadata } from './schema.js';
-import type { RepoSummary, DailyEntry } from '$lib/domain/types.js';
+import type {
+	RepoSummary,
+	DailyEntry,
+	HeatYearData,
+	HeatMonthSection,
+	HeatMonthRepoCommits
+} from '$lib/domain/types.js';
 
 function daysAgo(n: number): string {
 	const d = new Date();
@@ -68,16 +74,19 @@ export function getRepoById(id: number) {
 	return db.select().from(repo).where(eq(repo.id, id)).get();
 }
 
-export function getRepoDailyData(repoId: number, days: number = 90): DailyEntry[] {
+export function getRepoDailyData(repoId: number, days: number | null = 90): DailyEntry[] {
 	const db = getDb();
-	const since = daysAgo(days);
-
-	return db
+	const baseQuery = db
 		.select({ day: daily.day, commits: daily.commits })
 		.from(daily)
-		.where(and(eq(daily.repoId, repoId), gte(daily.day, since)))
-		.orderBy(daily.day)
-		.all();
+		.orderBy(daily.day);
+
+	if (days === null) {
+		return baseQuery.where(eq(daily.repoId, repoId)).all();
+	}
+
+	const since = daysAgo(days);
+	return baseQuery.where(and(eq(daily.repoId, repoId), gte(daily.day, since))).all();
 }
 
 export function getAllRepoIds(): Array<{ id: number }> {
@@ -111,6 +120,110 @@ export function getAllDailyData(days: number = 90) {
 			daily: dailyData,
 			firstCommitDate: firstCommitResult?.minDay ?? null
 		};
+	});
+}
+
+export function getHeatYearData(minYear: number = 2025): HeatYearData[] {
+	const db = getDb();
+	const minDay = `${minYear}-01-01`;
+	const monthExpr = sql<string>`substr(${daily.day}, 1, 7)`;
+
+	const dailyRows = db
+		.select({
+			day: daily.day,
+			commits: sql<number>`cast(coalesce(sum(${daily.commits}), 0) as integer)`
+		})
+		.from(daily)
+		.innerJoin(repo, eq(daily.repoId, repo.id))
+		.where(and(eq(repo.isActive, true), gte(daily.day, minDay)))
+		.groupBy(daily.day)
+		.orderBy(daily.day)
+		.all();
+
+	const monthlyRows = db
+		.select({
+			month: monthExpr,
+			repoId: repo.id,
+			owner: repo.owner,
+			name: repo.name,
+			displayName: repo.displayName,
+			commits: sql<number>`cast(coalesce(sum(${daily.commits}), 0) as integer)`
+		})
+		.from(daily)
+		.innerJoin(repo, eq(daily.repoId, repo.id))
+		.where(and(eq(repo.isActive, true), gte(daily.day, minDay)))
+		.groupBy(monthExpr, repo.id, repo.owner, repo.name, repo.displayName)
+		.all();
+
+	const byYear = new Map<
+		number,
+		{
+			daily: DailyEntry[];
+			months: Map<string, HeatMonthSection>;
+		}
+	>();
+
+	const ensureYear = (year: number) => {
+		const existing = byYear.get(year);
+		if (existing) return existing;
+		const created = { daily: [], months: new Map<string, HeatMonthSection>() };
+		byYear.set(year, created);
+		return created;
+	};
+
+	for (const row of dailyRows) {
+		if (row.commits <= 0) continue;
+		const year = Number(row.day.slice(0, 4));
+		if (year < minYear) continue;
+		const yearBucket = ensureYear(year);
+		yearBucket.daily.push({ day: row.day, commits: row.commits });
+	}
+
+	for (const row of monthlyRows) {
+		if (row.commits <= 0) continue;
+		const year = Number(row.month.slice(0, 4));
+		if (year < minYear) continue;
+
+		const yearBucket = ensureYear(year);
+		const monthBucket = yearBucket.months.get(row.month) ?? {
+			month: row.month,
+			totalCommits: 0,
+			repos: []
+		};
+
+		const repoCommits: HeatMonthRepoCommits = {
+			repoId: row.repoId,
+			owner: row.owner,
+			name: row.name,
+			displayName: row.displayName,
+			commits: row.commits
+		};
+
+		monthBucket.totalCommits += row.commits;
+		monthBucket.repos.push(repoCommits);
+		yearBucket.months.set(row.month, monthBucket);
+	}
+
+	const years = Array.from(byYear.keys()).sort((a, b) => b - a);
+	if (years.length === 0) {
+		years.push(minYear);
+	}
+
+	return years.map((year) => {
+		const entry = byYear.get(year);
+		if (!entry) {
+			return { year, daily: [], months: [] };
+		}
+
+		const months = Array.from(entry.months.values()).sort((a, b) => b.month.localeCompare(a.month));
+		for (const month of months) {
+			month.repos.sort(
+				(a, b) => b.commits - a.commits || a.owner.localeCompare(b.owner) || a.name.localeCompare(b.name)
+			);
+		}
+
+		entry.daily.sort((a, b) => a.day.localeCompare(b.day));
+		return { year, daily: entry.daily, months };
 	});
 }
 

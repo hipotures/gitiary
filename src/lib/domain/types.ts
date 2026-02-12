@@ -42,3 +42,28 @@ export interface ComparisonStats {
 	repos: ComparisonRepo[];
 	period: '7d' | '30d' | '90d' | '180d' | '360d' | 'all';
 }
+
+export interface HeatDailyEntry {
+	day: string;
+	commits: number;
+}
+
+export interface HeatMonthRepoCommits {
+	repoId: number;
+	owner: string;
+	name: string;
+	displayName: string | null;
+	commits: number;
+}
+
+export interface HeatMonthSection {
+	month: string; // YYYY-MM
+	totalCommits: number;
+	repos: HeatMonthRepoCommits[];
+}
+
+export interface HeatYearData {
+	year: number;
+	daily: HeatDailyEntry[];
+	months: HeatMonthSection[];
+}

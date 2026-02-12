@@ -31,6 +31,7 @@
 			<a href="/">Repos</a>
 			<a href="/compare">Compare</a>
 			<a href="/story">Story</a>
+			<a href="/heat">Heat</a>
 		</div>
 	</div>
 </nav>

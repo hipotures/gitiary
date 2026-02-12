@@ -18,14 +18,14 @@
 <section class="chart-section">
 	<h2>Commit Activity ({getRangeLabel($dateRange)})</h2>
 	<div class="chart-container">
-		<TimeSeriesChart daily={filteredDaily} />
+		<TimeSeriesChart daily={filteredDaily} range={$dateRange} />
 	</div>
 </section>
 
 <section class="chart-section">
 	<h2>Calendar Heatmap ({getRangeLabel($dateRange)})</h2>
 	<div class="chart-container">
-		<CalendarHeatmap daily={filteredDaily} />
+		<CalendarHeatmap daily={filteredDaily} range={$dateRange} />
 	</div>
 </section>
 
