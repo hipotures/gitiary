@@ -1,5 +1,4 @@
-import { readFileSync } from 'fs';
-import { resolve } from 'path';
+import { getActiveRepos } from '../db/queries.js';
 
 export interface RepoConfig {
 	owner: string;
@@ -10,20 +9,13 @@ export interface Config {
 	repos: RepoConfig[];
 }
 
-export function loadConfig(path: string = 'repos.json'): Config {
-	const fullPath = resolve(path);
-	const content = readFileSync(fullPath, 'utf-8');
-	const config = JSON.parse(content) as Config;
+export function loadConfig(): Config {
+	// Load active repos from database
+	const activeRepos = getActiveRepos();
 
-	if (!config.repos || !Array.isArray(config.repos)) {
-		throw new Error('Invalid config: "repos" must be an array');
+	if (activeRepos.length === 0) {
+		console.warn('No active repositories found in database');
 	}
 
-	for (const repo of config.repos) {
-		if (!repo.owner || !repo.name) {
-			throw new Error(`Invalid repo config: ${JSON.stringify(repo)}`);
-		}
-	}
-
-	return config;
+	return { repos: activeRepos };
 }

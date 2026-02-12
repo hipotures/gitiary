@@ -11,7 +11,7 @@ function daysAgo(n: number): string {
 
 export function getReposWithStats(): RepoSummary[] {
 	const db = getDb();
-	const repos = db.select().from(repo).all();
+	const repos = db.select().from(repo).where(eq(repo.isActive, true)).all();
 	const day7 = daysAgo(7);
 	const day30 = daysAgo(30);
 	const day90 = daysAgo(90);
@@ -78,7 +78,7 @@ export function getAllDailyData(days: number = 90) {
 	const db = getDb();
 	const since = daysAgo(days);
 
-	const repos = db.select().from(repo).all();
+	const repos = db.select().from(repo).where(eq(repo.isActive, true)).all();
 
 	return repos.map((r) => {
 		const dailyData = db
@@ -93,4 +93,68 @@ export function getAllDailyData(days: number = 90) {
 			daily: dailyData
 		};
 	});
+}
+
+// Get all repos (including inactive) for settings UI
+export function getAllRepos(): Array<{
+	id: number;
+	owner: string;
+	name: string;
+	isActive: boolean;
+	lastSyncAt: string | null;
+}> {
+	const db = getDb();
+	return db
+		.select({
+			id: repo.id,
+			owner: repo.owner,
+			name: repo.name,
+			isActive: repo.isActive,
+			lastSyncAt: repo.lastSyncAt
+		})
+		.from(repo)
+		.all();
+}
+
+// Update repo active status
+export function updateRepoActiveStatus(repoId: number, isActive: boolean): void {
+	const db = getDb();
+	db.update(repo).set({ isActive }).where(eq(repo.id, repoId)).run();
+}
+
+// Upsert repo from GitHub sync
+export function upsertRepo(owner: string, name: string): number {
+	const db = getDb();
+
+	const existing = db
+		.select()
+		.from(repo)
+		.where(and(eq(repo.owner, owner), eq(repo.name, name)))
+		.get();
+
+	if (existing) {
+		return existing.id;
+	}
+
+	const result = db
+		.insert(repo)
+		.values({
+			owner,
+			name,
+			isActive: false, // New repos from GitHub are inactive by default
+			createdAt: new Date().toISOString()
+		})
+		.run();
+
+	return Number(result.lastInsertRowid);
+}
+
+// Get active repos only (for CLI indexer)
+export function getActiveRepos(): Array<{ owner: string; name: string }> {
+	const db = getDb();
+	return db
+		.select({ owner: repo.owner, name: repo.name })
+		.from(repo)
+		.where(eq(repo.isActive, true))
+		.all();
 }

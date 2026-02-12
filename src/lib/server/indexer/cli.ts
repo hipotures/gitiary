@@ -7,12 +7,11 @@ async function main() {
 		options: {
 			repo: { type: 'string', short: 'r' },
 			verbose: { type: 'boolean', short: 'v', default: false },
-			config: { type: 'string', short: 'c', default: 'repos.json' },
 			'backfill-days': { type: 'string', default: '30' }
 		}
 	});
 
-	const config = loadConfig(values.config);
+	const config = loadConfig();
 	const verbose = values.verbose;
 	const backfillDays = parseInt(values['backfill-days'] || '30', 10);
 
@@ -27,12 +26,12 @@ async function main() {
 		}
 		reposToSync = config.repos.filter((r) => r.owner === owner && r.name === name);
 		if (reposToSync.length === 0) {
-			console.error(`Error: Repo ${values.repo} not found in config`);
+			console.error(`Error: Repo ${values.repo} not found or not active`);
 			process.exit(1);
 		}
 	}
 
-	console.log(`Syncing ${reposToSync.length} repositories...`);
+	console.log(`Syncing ${reposToSync.length} active repositories...`);
 
 	let successCount = 0;
 	let failCount = 0;

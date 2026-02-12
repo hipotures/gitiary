@@ -79,3 +79,75 @@ export async function fetchCommits(
 
 	return allNodes;
 }
+
+export interface RepoNode {
+	owner: { login: string };
+	name: string;
+	isPrivate: boolean;
+	defaultBranchRef: { name: string } | null;
+}
+
+interface ReposGraphQLResponse {
+	data: {
+		viewer: {
+			repositories: {
+				pageInfo: { hasNextPage: boolean; endCursor: string | null };
+				nodes: RepoNode[];
+			};
+		};
+	};
+}
+
+const REPOS_QUERY = `query($cursor: String) {
+  viewer {
+    repositories(first: 100, after: $cursor, orderBy: {field: NAME, direction: ASC}) {
+      pageInfo { hasNextPage endCursor }
+      nodes {
+        owner { login }
+        name
+        isPrivate
+        defaultBranchRef { name }
+      }
+    }
+  }
+}`;
+
+export async function fetchAllUserRepos(): Promise<RepoNode[]> {
+	const allRepos: RepoNode[] = [];
+	let cursor: string | null = null;
+	let hasNextPage = true;
+
+	while (hasNextPage) {
+		try {
+			const cursorFlag = cursor ? `-F cursor="${cursor}"` : '';
+			const cmd = `gh api graphql -F query='${REPOS_QUERY}' ${cursorFlag}`;
+
+			const output = execSync(cmd, {
+				encoding: 'utf-8',
+				maxBuffer: 10 * 1024 * 1024,
+				stdio: ['pipe', 'pipe', 'pipe']
+			});
+
+			const response: ReposGraphQLResponse = JSON.parse(output);
+
+			if (!response.data?.viewer?.repositories) {
+				throw new Error('Invalid response from GitHub API');
+			}
+
+			const repos = response.data.viewer.repositories;
+			allRepos.push(...repos.nodes);
+			hasNextPage = repos.pageInfo.hasNextPage;
+			cursor = repos.pageInfo.endCursor;
+		} catch (error) {
+			if (error instanceof Error) {
+				const execError = error as any;
+				if (execError.stderr) {
+					console.error('GitHub API error:', execError.stderr);
+				}
+			}
+			throw error;
+		}
+	}
+
+	return allRepos;
+}
