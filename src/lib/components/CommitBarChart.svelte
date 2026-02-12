@@ -1,14 +1,24 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import type { RepoSummary } from '$lib/domain/types.js';
+	import { theme } from '$lib/stores/theme';
+	import { getEChartsTheme, getEChartsColors } from '$lib/utils/echarts-themes';
 
 	let { repos }: { repos: RepoSummary[] } = $props();
 
 	let chartDom: HTMLDivElement;
+	let chart: any;
+	let unsubscribe: (() => void) | undefined;
 
-	onMount(() => {
+	const initChart = (currentTheme: 'light' | 'dark') => {
 		import('echarts').then((echarts) => {
-			const chart = echarts.init(chartDom, 'dark');
+			// Dispose existing chart if any
+			if (chart) {
+				chart.dispose();
+			}
+
+			const colors = getEChartsColors(currentTheme);
+			chart = echarts.init(chartDom, getEChartsTheme(currentTheme));
 
 			const sorted = [...repos].sort((a, b) => b.commits90d - a.commits90d);
 
@@ -29,17 +39,17 @@
 				type: 'category',
 				data: sorted.map((r) => r.name),
 				axisLabel: {
-					color: '#7d8590',
+					color: colors.text,
 					fontSize: 11,
 					rotate: repos.length > 5 ? 30 : 0
 				},
-				axisLine: { lineStyle: { color: '#30363d' } },
+				axisLine: { lineStyle: { color: colors.border } },
 				axisTick: { show: false }
 			},
 			yAxis: {
 				type: 'value',
 				axisLabel: { color: '#7d8590', fontSize: 11 },
-				splitLine: { lineStyle: { color: '#21262d' } }
+				splitLine: { lineStyle: { color: colors.split } }
 			},
 			series: [
 				{
@@ -47,7 +57,7 @@
 					type: 'bar',
 					stack: 'commits',
 					data: sorted.map((r) => r.commits7d),
-					itemStyle: { color: '#58a6ff' },
+					itemStyle: { color: colors.accent },
 					barMaxWidth: 40
 				},
 				{
@@ -55,7 +65,7 @@
 					type: 'bar',
 					stack: 'commits',
 					data: sorted.map((r) => r.commits30d - r.commits7d),
-					itemStyle: { color: '#388bfd66' },
+					itemStyle: { color: colors.accentAlpha66 },
 					barMaxWidth: 40
 				},
 				{
@@ -63,7 +73,7 @@
 					type: 'bar',
 					stack: 'commits',
 					data: sorted.map((r) => r.commits90d - r.commits30d),
-					itemStyle: { color: '#388bfd33' },
+					itemStyle: { color: colors.accentAlpha33 },
 					barMaxWidth: 40
 				}
 			]
@@ -72,6 +82,20 @@
 			const resizeObserver = new ResizeObserver(() => chart.resize());
 			resizeObserver.observe(chartDom);
 		});
+	};
+
+	onMount(() => {
+		initChart($theme);
+		unsubscribe = theme.subscribe((newTheme) => {
+			if (chart) {
+				initChart(newTheme);
+			}
+		});
+	});
+
+	onDestroy(() => {
+		if (unsubscribe) unsubscribe();
+		if (chart) chart.dispose();
 	});
 </script>
 

@@ -1,7 +1,16 @@
 <script>
 	import '../app.css';
+	import { onMount } from 'svelte';
+	import { Settings } from 'lucide-svelte';
+	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
+	import { theme } from '$lib/stores/theme';
 
 	let { children, data } = $props();
+
+	// Initialize theme on mount
+	onMount(() => {
+		document.documentElement.setAttribute('data-theme', $theme);
+	});
 </script>
 
 <nav class="nav">
@@ -13,6 +22,10 @@
 			{/if}
 		</div>
 		<div class="nav-links">
+			<ThemeToggle />
+			<a href="/settings" class="settings-link" aria-label="Settings">
+				<Settings size={18} />
+			</a>
 			<a href="/">Repos</a>
 			<a href="/compare">Compare</a>
 			<a href="/story">Story</a>
@@ -79,6 +92,21 @@
 
 	.nav-links a:hover {
 		color: var(--color-text);
+		text-decoration: none;
+	}
+
+	.settings-link {
+		display: flex;
+		align-items: center;
+		color: var(--color-text-secondary);
+		padding: var(--space-sm);
+		border-radius: var(--radius);
+		transition: all 0.2s ease;
+	}
+
+	.settings-link:hover {
+		color: var(--color-text);
+		background: var(--color-surface-hover);
 		text-decoration: none;
 	}
 

@@ -1,14 +1,24 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import type { DailyEntry } from '$lib/domain/types.js';
+	import { theme } from '$lib/stores/theme';
+	import { getEChartsTheme, getEChartsColors } from '$lib/utils/echarts-themes';
 
 	let { daily }: { daily: DailyEntry[] } = $props();
 
 	let chartDom: HTMLDivElement;
+	let chart: any;
+	let unsubscribe: (() => void) | undefined;
 
-	onMount(() => {
+	const initChart = (currentTheme: 'light' | 'dark') => {
 		import('echarts').then((echarts) => {
-			const chart = echarts.init(chartDom, 'dark');
+			// Dispose existing chart if any
+			if (chart) {
+				chart.dispose();
+			}
+
+			const colors = getEChartsColors(currentTheme);
+			chart = echarts.init(chartDom, getEChartsTheme(currentTheme));
 
 		// Calculate date range (90 days)
 		const today = new Date();
@@ -40,7 +50,7 @@
 				min: 0,
 				max: maxCommits,
 				inRange: {
-					color: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353']
+					color: colors.heatmap
 				}
 			},
 			calendar: {
@@ -49,7 +59,7 @@
 				splitLine: {
 					show: true,
 					lineStyle: {
-						color: '#21262d',
+						color: colors.split,
 						width: 2
 					}
 				},
@@ -57,16 +67,16 @@
 				monthLabel: {
 					nameMap: 'en',
 					fontSize: 11,
-					color: '#7d8590'
+					color: colors.text
 				},
 				dayLabel: {
 					nameMap: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 					fontSize: 10,
-					color: '#7d8590'
+					color: colors.text
 				},
 				itemStyle: {
 					borderWidth: 2,
-					borderColor: '#0d1117'
+					borderColor: colors.bg
 				}
 			},
 			series: [
@@ -81,6 +91,20 @@
 			const resizeObserver = new ResizeObserver(() => chart.resize());
 			resizeObserver.observe(chartDom);
 		});
+	};
+
+	onMount(() => {
+		initChart($theme);
+		unsubscribe = theme.subscribe((newTheme) => {
+			if (chart) {
+				initChart(newTheme);
+			}
+		});
+	});
+
+	onDestroy(() => {
+		if (unsubscribe) unsubscribe();
+		if (chart) chart.dispose();
 	});
 </script>
 
