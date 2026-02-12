@@ -1,0 +1,17 @@
+node_modules/
+.svelte-kit/
+build/
+.env
+
+# Database
+data/
+
+# Snapshot (generated)
+static/snapshot.json
+
+# Python scripts (local reference only)
+scripts/*.py
+
+# OS
+.DS_Store
+Thumbs.db
