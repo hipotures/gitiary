@@ -15,6 +15,8 @@ export function getReposWithStats(): RepoSummary[] {
 	const day7 = daysAgo(7);
 	const day30 = daysAgo(30);
 	const day90 = daysAgo(90);
+	const day180 = daysAgo(180);
+	const day360 = daysAgo(360);
 
 	return repos.map((r) => {
 		const countSince = (since: string) => {
@@ -26,6 +28,15 @@ export function getReposWithStats(): RepoSummary[] {
 			return result?.total ?? 0;
 		};
 
+		const countAll = () => {
+			const result = db
+				.select({ total: sql<number>`coalesce(sum(${daily.commits}), 0)` })
+				.from(daily)
+				.where(eq(daily.repoId, r.id))
+				.get();
+			return result?.total ?? 0;
+		};
+
 		return {
 			id: r.id,
 			owner: r.owner,
@@ -33,6 +44,9 @@ export function getReposWithStats(): RepoSummary[] {
 			commits7d: countSince(day7),
 			commits30d: countSince(day30),
 			commits90d: countSince(day90),
+			commits180d: countSince(day180),
+			commits360d: countSince(day360),
+			commitsAll: countAll(),
 			lastSyncAt: r.lastSyncAt
 		};
 	});

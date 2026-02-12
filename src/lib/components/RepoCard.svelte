@@ -2,6 +2,14 @@
 	import type { RepoSummary } from '$lib/domain/types.js';
 
 	let { repo }: { repo: RepoSummary } = $props();
+
+	// Calculate days since first commit for "All" label
+	const allDaysLabel = $derived(() => {
+		if (repo.commitsAll === 0) return 'All';
+		// This is approximate - actual calculation would need first commit date from DB
+		// For now just show "All"
+		return 'All';
+	});
 </script>
 
 <a href="/repo/{repo.id}" class="card repo-card">
@@ -21,6 +29,18 @@
 		<div class="stat">
 			<span class="stat-value">{repo.commits90d}</span>
 			<span class="stat-label text-secondary">90d</span>
+		</div>
+		<div class="stat">
+			<span class="stat-value">{repo.commits180d}</span>
+			<span class="stat-label text-secondary">180d</span>
+		</div>
+		<div class="stat">
+			<span class="stat-value">{repo.commits360d}</span>
+			<span class="stat-label text-secondary">360d</span>
+		</div>
+		<div class="stat">
+			<span class="stat-value">{repo.commitsAll}</span>
+			<span class="stat-label text-secondary">{allDaysLabel()}</span>
 		</div>
 	</div>
 </a>
@@ -50,8 +70,9 @@
 	}
 
 	.repo-stats {
-		display: flex;
-		gap: var(--space-xl);
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		gap: var(--space-sm);
 	}
 
 	.stat {
@@ -61,14 +82,14 @@
 	}
 
 	.stat-value {
-		font-size: 1.5rem;
+		font-size: 1.25rem;
 		font-weight: 700;
 		font-family: var(--font-mono);
 		line-height: 1;
 	}
 
 	.stat-label {
-		font-size: 0.75rem;
+		font-size: 0.7rem;
 		margin-top: var(--space-xs);
 	}
 </style>

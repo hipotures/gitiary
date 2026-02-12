@@ -5,6 +5,9 @@ export interface RepoSummary {
 	commits7d: number;
 	commits30d: number;
 	commits90d: number;
+	commits180d: number;
+	commits360d: number;
+	commitsAll: number;
 	lastSyncAt: string | null;
 }
 
