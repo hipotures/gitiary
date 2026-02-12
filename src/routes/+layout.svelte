@@ -1,12 +1,17 @@
 <script>
 	import '../app.css';
 
-	let { children } = $props();
+	let { children, data } = $props();
 </script>
 
 <nav class="nav">
 	<div class="container nav-inner">
-		<a href="/" class="nav-brand">git-diary</a>
+		<div class="nav-brand-section">
+			<a href="/" class="nav-brand">Git Diary</a>
+			{#if data?.owner}
+				<span class="nav-owner">{data.owner}</span>
+			{/if}
+		</div>
 		<div class="nav-links">
 			<a href="/">Repos</a>
 			<a href="/compare">Compare</a>
@@ -35,6 +40,12 @@
 		justify-content: space-between;
 	}
 
+	.nav-brand-section {
+		display: flex;
+		align-items: center;
+		gap: var(--space-md);
+	}
+
 	.nav-brand {
 		font-family: var(--font-mono);
 		font-size: 1.125rem;
@@ -45,6 +56,15 @@
 	.nav-brand:hover {
 		text-decoration: none;
 		color: var(--color-accent);
+	}
+
+	.nav-owner {
+		font-family: var(--font-mono);
+		font-size: 0.875rem;
+		color: var(--color-text-secondary);
+		padding: 2px var(--space-sm);
+		background: var(--color-surface-hover);
+		border-radius: var(--radius);
 	}
 
 	.nav-links {

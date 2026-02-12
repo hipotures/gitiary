@@ -3,18 +3,10 @@
 
 	let { repo }: { repo: RepoSummary } = $props();
 
-	// Calculate days since first commit for "All" label
-	const allDaysLabel = $derived(() => {
-		if (repo.commitsAll === 0) return 'All';
-		// This is approximate - actual calculation would need first commit date from DB
-		// For now just show "All"
-		return 'All';
-	});
 </script>
 
 <a href="/repo/{repo.id}" class="card repo-card">
 	<div class="repo-header">
-		<span class="repo-owner text-secondary text-mono">{repo.owner}/</span>
 		<span class="repo-name text-mono">{repo.name}</span>
 	</div>
 	<div class="repo-stats">
@@ -40,7 +32,7 @@
 		</div>
 		<div class="stat">
 			<span class="stat-value">{repo.commitsAll}</span>
-			<span class="stat-label text-secondary">{allDaysLabel()}</span>
+			<span class="stat-label text-secondary">All</span>
 		</div>
 	</div>
 </a>

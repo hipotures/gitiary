@@ -89,9 +89,8 @@
 			{#each sortedRepos as repo (repo.id)}
 				<tr>
 					<td>
-						<a href="/repo/{repo.id}" class="repo-link">
-							<span class="text-secondary">{repo.owner}/</span>
-							<span class="text-mono">{repo.name}</span>
+						<a href="/repo/{repo.id}" class="repo-link text-mono">
+							{repo.name}
 						</a>
 					</td>
 					<td class="numeric">{repo.totalCommits}</td>

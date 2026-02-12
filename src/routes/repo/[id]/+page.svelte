@@ -7,10 +7,7 @@
 </script>
 
 <div class="repo-header">
-	<h1>
-		<span class="text-secondary">{data.repo.owner}/</span>
-		<span class="text-mono">{data.repo.name}</span>
-	</h1>
+	<h1 class="text-mono">{data.repo.name}</h1>
 	<a href="/" class="back-link">← Back to repos</a>
 </div>
 
