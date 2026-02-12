@@ -25,6 +25,7 @@
 	let isSyncing = $state(false);
 	let syncMessage = $state('');
 	let syncingRepoId = $state<number | null>(null);
+	let syncingBackfillDays = $state<number | null>(null);
 	let deletingRepoId = $state<number | null>(null);
 	let deleteConfirmRepo = $state<{ id: number; name: string } | null>(null);
 	let editingRepo = $state<{ id: number; name: string; displayName: string | null } | null>(null);
@@ -91,6 +92,7 @@
 
 	async function syncSingleRepo(repoId: number, backfillDays: number) {
 		syncingRepoId = repoId;
+		syncingBackfillDays = backfillDays;
 
 		try {
 			const response = await fetch(`/api/repos/${repoId}/sync`, {
@@ -111,6 +113,7 @@
 			console.error('Failed to sync repo:', error);
 		} finally {
 			syncingRepoId = null;
+			syncingBackfillDays = null;
 		}
 	}
 
@@ -331,34 +334,40 @@
 						{#if repo.isActive}
 							<div class="repo-actions">
 								<button
-									class="action-btn"
+									class="action-btn sync-all"
 									onclick={(e) => {
 										e.preventDefault();
 										syncSingleRepo(repo.id, 0);
 									}}
 									disabled={syncingRepoId === repo.id}
 									title="Sync all commits"
+									aria-label="Sync all commits"
 								>
 									<RefreshCw
-										size={14}
-										class={syncingRepoId === repo.id ? 'spinning' : ''}
+										size={16}
+										strokeWidth={2.6}
+										class={syncingRepoId === repo.id && syncingBackfillDays === 0
+											? 'spinning'
+											: ''}
 									/>
-									<span>All</span>
 								</button>
 								<button
-									class="action-btn"
+									class="action-btn sync-30d"
 									onclick={(e) => {
 										e.preventDefault();
 										syncSingleRepo(repo.id, 30);
 									}}
 									disabled={syncingRepoId === repo.id}
 									title="Sync last 30 days"
+									aria-label="Sync last 30 days"
 								>
 									<RefreshCw
-										size={14}
-										class={syncingRepoId === repo.id ? 'spinning' : ''}
+										size={16}
+										strokeWidth={1.6}
+										class={syncingRepoId === repo.id && syncingBackfillDays === 30
+											? 'spinning'
+											: ''}
 									/>
-									<span>30d</span>
 								</button>
 							</div>
 						{/if}
@@ -695,32 +704,56 @@
 
 	.repo-actions {
 		display: flex;
-		gap: var(--space-xs);
+		gap: var(--space-md);
 		margin-left: auto;
 	}
 
 	.action-btn {
 		display: flex;
 		align-items: center;
-		gap: 4px;
-		padding: 4px 8px;
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius);
-		color: var(--color-text);
+		justify-content: center;
+		background: none;
+		border: 1px solid transparent;
+		width: 30px;
+		height: 30px;
+		padding: 0;
 		cursor: pointer;
-		font-size: 0.75rem;
-		transition: all 0.15s ease;
+		color: var(--color-text-secondary);
+		transition:
+			color 0.15s ease,
+			background 0.15s ease,
+			border-color 0.15s ease,
+			box-shadow 0.15s ease;
+		border-radius: var(--radius);
 	}
 
 	.action-btn:hover:not(:disabled) {
 		background: var(--color-surface-hover);
+		color: var(--color-accent);
 		border-color: var(--color-accent);
+		box-shadow: 0 0 0 1px var(--color-accent);
 	}
 
 	.action-btn:disabled {
 		opacity: 0.5;
 		cursor: not-allowed;
+	}
+
+	.action-btn.sync-30d {
+		color: var(--color-text-secondary);
+		opacity: 0.72;
+	}
+
+	.action-btn.sync-30d:hover:not(:disabled) {
+		opacity: 1;
+	}
+
+	.action-btn:focus-visible:not(:disabled) {
+		outline: none;
+		color: var(--color-accent);
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 1px var(--color-accent);
+		background: var(--color-surface-hover);
 	}
 
 	.action-btn :global(.spinning) {
@@ -729,22 +762,38 @@
 
 	.delete-btn {
 		background: none;
-		border: none;
-		padding: var(--space-xs);
+		border: 1px solid transparent;
+		width: 30px;
+		height: 30px;
+		padding: 0;
 		cursor: pointer;
 		color: var(--color-text-secondary);
-		transition: color 0.15s ease;
+		transition:
+			color 0.15s ease,
+			background 0.15s ease,
+			border-color 0.15s ease,
+			box-shadow 0.15s ease;
 		border-radius: var(--radius);
 	}
 
 	.delete-btn:hover:not(:disabled) {
-		color: var(--color-error);
+		color: var(--color-accent);
 		background: var(--color-surface-hover);
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 1px var(--color-accent);
 	}
 
 	.delete-btn:disabled {
 		opacity: 0.5;
 		cursor: not-allowed;
+	}
+
+	.delete-btn:focus-visible:not(:disabled) {
+		outline: none;
+		color: var(--color-accent);
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 1px var(--color-accent);
+		background: var(--color-surface-hover);
 	}
 
 	.modal-overlay {
@@ -854,17 +903,33 @@
 
 	.edit-btn {
 		background: none;
-		border: none;
-		padding: var(--space-xs);
+		border: 1px solid transparent;
+		width: 30px;
+		height: 30px;
+		padding: 0;
 		cursor: pointer;
 		color: var(--color-text-secondary);
-		transition: color 0.15s ease;
+		transition:
+			color 0.15s ease,
+			background 0.15s ease,
+			border-color 0.15s ease,
+			box-shadow 0.15s ease;
 		border-radius: var(--radius);
 	}
 
 	.edit-btn:hover {
 		color: var(--color-accent);
 		background: var(--color-surface-hover);
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 1px var(--color-accent);
+	}
+
+	.edit-btn:focus-visible {
+		outline: none;
+		color: var(--color-accent);
+		background: var(--color-surface-hover);
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 1px var(--color-accent);
 	}
 
 	.repo-identifier {
