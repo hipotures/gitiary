@@ -1,0 +1,15 @@
+{
+	"repos": [
+		{ "owner": "hipotures", "name": "mlarena" },
+		{ "owner": "hipotures", "name": "mdm" },
+		{ "owner": "hipotures", "name": "anyitem" },
+		{ "owner": "hipotures", "name": "37degrees" },
+		{ "owner": "hipotures", "name": "scriptoza" },
+		{ "owner": "hipotures", "name": "tklivetracker" },
+		{ "owner": "hipotures", "name": "todoit" },
+		{ "owner": "hipotures", "name": "vbc" },
+		{ "owner": "hipotures", "name": "quaternion-julia-fractal-explorer" },
+		{ "owner": "hipotures", "name": "git-diary" },
+		{ "owner": "hipotures", "name": "command-center" }
+	]
+}
