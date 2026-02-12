@@ -59,3 +59,24 @@ export function getAllRepoIds(): Array<{ id: number }> {
 	const db = getDb();
 	return db.select({ id: repo.id }).from(repo).all();
 }
+
+export function getAllDailyData(days: number = 90) {
+	const db = getDb();
+	const since = daysAgo(days);
+
+	const repos = db.select().from(repo).all();
+
+	return repos.map((r) => {
+		const dailyData = db
+			.select({ day: daily.day, commits: daily.commits })
+			.from(daily)
+			.where(and(eq(daily.repoId, r.id), gte(daily.day, since)))
+			.orderBy(daily.day)
+			.all();
+
+		return {
+			repo: { id: r.id, owner: r.owner, name: r.name },
+			daily: dailyData
+		};
+	});
+}
