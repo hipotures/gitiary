@@ -32,6 +32,7 @@
 			<a href="/compare">Compare</a>
 			<a href="/story">Story</a>
 			<a href="/heat">Heat</a>
+			<a href="/impact">Impact</a>
 		</div>
 	</div>
 </nav>

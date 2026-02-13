@@ -1,4 +1,4 @@
-import { sqliteTable, integer, text, primaryKey } from 'drizzle-orm/sqlite-core';
+import { sqliteTable, integer, text, primaryKey, index } from 'drizzle-orm/sqlite-core';
 
 export const repo = sqliteTable('repo', {
 	id: integer('id').primaryKey({ autoIncrement: true }),
@@ -17,9 +17,33 @@ export const daily = sqliteTable(
 			.notNull()
 			.references(() => repo.id),
 		day: text('day').notNull(),
-		commits: integer('commits').notNull()
+		commits: integer('commits').notNull(),
+		additions: integer('additions').notNull().default(0),
+		deletions: integer('deletions').notNull().default(0),
+		filesChanged: integer('files_changed').notNull().default(0)
 	},
 	(table) => [primaryKey({ columns: [table.repoId, table.day] })]
+);
+
+export const commitStats = sqliteTable(
+	'commit_stats',
+	{
+		repoId: integer('repo_id')
+			.notNull()
+			.references(() => repo.id),
+		sha: text('sha').notNull(),
+		committedAt: text('committed_at').notNull(),
+		day: text('day').notNull(),
+		message: text('message').notNull(),
+		additions: integer('additions').notNull().default(0),
+		deletions: integer('deletions').notNull().default(0),
+		filesChanged: integer('files_changed').notNull().default(0)
+	},
+	(table) => [
+		primaryKey({ columns: [table.repoId, table.sha] }),
+		index('commit_stats_day_idx').on(table.day),
+		index('commit_stats_repo_day_idx').on(table.repoId, table.day)
+	]
 );
 
 export const metadata = sqliteTable('metadata', {

@@ -17,23 +17,28 @@ export const POST: RequestHandler = async ({ params, request }) => {
 
 	try {
 		const body = await request.json();
-		const backfillDays = body.backfillDays || 30;
+		const mode = body.mode === 'full' ? 'full' : 'backfill';
+		const backfillDays =
+			typeof body.backfillDays === 'number' && Number.isFinite(body.backfillDays)
+				? Math.max(0, Math.floor(body.backfillDays))
+				: 30;
 
 		// Call syncRepo function
-		await syncRepo({ owner: repo.owner, name: repo.name }, false, backfillDays);
+		await syncRepo(
+			{ owner: repo.owner, name: repo.name },
+			{ mode, backfillDays, verbose: false }
+		);
 
 		return json({
 			success: true,
 			owner: repo.owner,
 			name: repo.name,
+			mode,
 			backfillDays
 		});
 	} catch (err) {
 		console.error('Sync failed:', err);
-		return error(500, {
-			message: 'Failed to sync repository',
-			details: err instanceof Error ? err.message : String(err)
-		});
+		return error(500, err instanceof Error ? err.message : 'Failed to sync repository');
 	}
 };
 

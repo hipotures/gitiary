@@ -7,6 +7,7 @@ Personal build diary visualizing commit activity across GitHub repositories.
 - **Repository overview** - Track commits across multiple repos with 7/30/90-day statistics
 - **Detailed views** - Daily time-series charts and GitHub-style calendar heatmaps
 - **Comparisons** - Cross-repo rankings with regularity, streaks, and gaps analysis
+- **Impact analytics** - Track lines added/deleted, files changed, top days, and largest commits
 - **Story views** - Narrative summaries highlighting exceptional activity
 - **Static export** - Generate fully static HTML site for hosting anywhere
 - **Incremental sync** - Efficient GitHub GraphQL indexer with configurable backfill (default: 30 days)
@@ -77,8 +78,14 @@ npm run index -- --verbose
 # Custom backfill period (e.g., 365 days for full year)
 npm run index -- --backfill-days 365
 
+# Full-history sync with commit-level metrics
+npm run index -- --full-history
+
 # Combine options
 npm run index -- --repo owner/name --backfill-days 90 --verbose
+
+# One-shot reindex for additions/deletions/files_changed
+npm run reindex:metrics
 ```
 
 ### Static Export
@@ -192,6 +199,7 @@ git-diary/
 │       ├── repo/[id]/        # Single repo detail
 │       ├── compare/          # Cross-repo comparison
 │       ├── story/            # Narrative summaries
+│       ├── impact/           # Line/file change analytics
 │       └── api/              # JSON endpoints
 ├── scripts/
 │   ├── seed.ts               # Fixture data generator

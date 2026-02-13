@@ -74,10 +74,7 @@ export const DELETE: RequestHandler = async ({ params }) => {
 		});
 	} catch (err) {
 		console.error('Delete failed:', err);
-		return error(500, {
-			message: 'Failed to delete repository',
-			details: err instanceof Error ? err.message : String(err)
-		});
+		return error(500, err instanceof Error ? err.message : 'Failed to delete repository');
 	}
 };
 

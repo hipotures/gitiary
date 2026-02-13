@@ -7,13 +7,15 @@ async function main() {
 		options: {
 			repo: { type: 'string', short: 'r' },
 			verbose: { type: 'boolean', short: 'v', default: false },
-			'backfill-days': { type: 'string', default: '30' }
+			'backfill-days': { type: 'string', default: '30' },
+			'full-history': { type: 'boolean', default: false }
 		}
 	});
 
 	const config = loadConfig();
 	const verbose = values.verbose;
 	const backfillDays = parseInt(values['backfill-days'] || '30', 10);
+	const fullHistory = values['full-history'];
 
 	let reposToSync = config.repos;
 
@@ -38,7 +40,11 @@ async function main() {
 
 	for (const repo of reposToSync) {
 		try {
-			await syncRepo(repo, verbose, backfillDays);
+			await syncRepo(repo, {
+				verbose,
+				backfillDays,
+				mode: fullHistory ? 'full' : 'backfill'
+			});
 			successCount++;
 		} catch (error) {
 			failCount++;

@@ -25,7 +25,7 @@
 	let isSyncing = $state(false);
 	let syncMessage = $state('');
 	let syncingRepoId = $state<number | null>(null);
-	let syncingBackfillDays = $state<number | null>(null);
+	let syncingMode = $state<'full' | 'backfill' | null>(null);
 	let deletingRepoId = $state<number | null>(null);
 	let deleteConfirmRepo = $state<{ id: number; name: string } | null>(null);
 	let editingRepo = $state<{ id: number; name: string; displayName: string | null } | null>(null);
@@ -90,15 +90,21 @@
 		}
 	}
 
-	async function syncSingleRepo(repoId: number, backfillDays: number) {
+	async function syncSingleRepo(
+		repoId: number,
+		options: { mode: 'full' | 'backfill'; backfillDays?: number }
+	) {
 		syncingRepoId = repoId;
-		syncingBackfillDays = backfillDays;
+		syncingMode = options.mode;
 
 		try {
 			const response = await fetch(`/api/repos/${repoId}/sync`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ backfillDays })
+				body: JSON.stringify({
+					mode: options.mode,
+					backfillDays: options.backfillDays
+				})
 			});
 
 			if (!response.ok) {
@@ -113,7 +119,7 @@
 			console.error('Failed to sync repo:', error);
 		} finally {
 			syncingRepoId = null;
-			syncingBackfillDays = null;
+			syncingMode = null;
 		}
 	}
 
@@ -337,7 +343,7 @@
 									class="action-btn sync-all"
 									onclick={(e) => {
 										e.preventDefault();
-										syncSingleRepo(repo.id, 0);
+										syncSingleRepo(repo.id, { mode: 'full' });
 									}}
 									disabled={syncingRepoId === repo.id}
 									title="Sync all commits"
@@ -346,16 +352,14 @@
 									<RefreshCw
 										size={16}
 										strokeWidth={2.6}
-										class={syncingRepoId === repo.id && syncingBackfillDays === 0
-											? 'spinning'
-											: ''}
+										class={syncingRepoId === repo.id && syncingMode === 'full' ? 'spinning' : ''}
 									/>
 								</button>
 								<button
 									class="action-btn sync-30d"
 									onclick={(e) => {
 										e.preventDefault();
-										syncSingleRepo(repo.id, 30);
+										syncSingleRepo(repo.id, { mode: 'backfill', backfillDays: 30 });
 									}}
 									disabled={syncingRepoId === repo.id}
 									title="Sync last 30 days"
@@ -364,7 +368,7 @@
 									<RefreshCw
 										size={16}
 										strokeWidth={1.6}
-										class={syncingRepoId === repo.id && syncingBackfillDays === 30
+										class={syncingRepoId === repo.id && syncingMode === 'backfill'
 											? 'spinning'
 											: ''}
 									/>

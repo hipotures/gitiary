@@ -1,11 +1,14 @@
 <script lang="ts">
-	import MetricCard from './MetricCard.svelte';
-	import type { StorySummary } from '$lib/domain/stats.js';
-	import { getDisplayName } from '$lib/utils/repoDisplay.js';
+import MetricCard from './MetricCard.svelte';
+import type { StorySummary } from '$lib/domain/stats.js';
+import { getDisplayName } from '$lib/utils/repoDisplay.js';
 
-	let { story, period }: { story: StorySummary; period: '30d' | '90d' } = $props();
+	let { story, period }: { story: StorySummary; period: '7d' | '30d' | '90d' | '180d' | '360d' | 'all' } = $props();
 
-	const periodLabel = period === '30d' ? 'Last 30 Days' : 'Last 90 Days';
+	const periodLabel = $derived.by(() => {
+		if (period === 'all') return 'All Time';
+		return `Last ${period.replace('d', '')} Days`;
+	});
 	const activityRate = $derived(
 		story.totalDays > 0 ? Math.round((story.activeDays / story.totalDays) * 100) : 0
 	);

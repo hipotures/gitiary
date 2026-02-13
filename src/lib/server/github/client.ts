@@ -3,6 +3,10 @@ import { execSync } from 'child_process';
 export interface CommitNode {
 	committedDate: string; // ISO 8601 UTC
 	oid: string;
+	messageHeadline: string;
+	additions: number;
+	deletions: number;
+	changedFilesIfAvailable: number | null;
 }
 
 interface GraphQLResponse {
@@ -27,7 +31,7 @@ const QUERY = `query($owner: String!, $name: String!, $since: GitTimestamp, $cur
         ... on Commit {
           history(since: $since, first: 100, after: $cursor) {
             pageInfo { hasNextPage endCursor }
-            nodes { committedDate oid }
+            nodes { committedDate oid messageHeadline additions deletions changedFilesIfAvailable }
           }
         }
       }
@@ -38,7 +42,7 @@ const QUERY = `query($owner: String!, $name: String!, $since: GitTimestamp, $cur
 export async function fetchCommits(
 	owner: string,
 	name: string,
-	since: string
+	since?: string | null
 ): Promise<CommitNode[]> {
 	const allNodes: CommitNode[] = [];
 	let cursor: string | null = null;
@@ -47,7 +51,8 @@ export async function fetchCommits(
 	while (hasNextPage) {
 		try {
 			const cursorFlag = cursor ? `-F cursor="${cursor}"` : '';
-			const cmd = `gh api graphql -F query='${QUERY}' -F owner="${owner}" -F name="${name}" -F since="${since}" ${cursorFlag}`;
+			const sinceFlag = since ? `-F since="${since}"` : '';
+			const cmd = `gh api graphql -F query='${QUERY}' -F owner="${owner}" -F name="${name}" ${sinceFlag} ${cursorFlag}`;
 
 			const output = execSync(cmd, {
 				encoding: 'utf-8',

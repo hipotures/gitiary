@@ -26,12 +26,14 @@ export const GET: RequestHandler = () => {
 				id: item.repo.id,
 				owner: item.repo.owner,
 				name: item.repo.name,
+				displayName: item.repo.displayName,
 				totalCommits,
 				activeDays,
 				regularity: calculateRegularity(item.daily, days),
 				maxGap: calculateMaxGap(item.daily),
 				currentStreak: calculateCurrentStreak(item.daily, today),
-				longestStreak: calculateLongestStreak(item.daily)
+				longestStreak: calculateLongestStreak(item.daily),
+				firstCommitDate: item.firstCommitDate
 			};
 		})
 	};

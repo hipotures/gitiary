@@ -33,10 +33,10 @@ export const POST: RequestHandler = async () => {
 		});
 	} catch (err) {
 		console.error('Sync failed:', err);
-		return error(500, {
-			message: 'Failed to sync repositories from GitHub',
-			details: err instanceof Error ? err.message : String(err)
-		});
+		return error(
+			500,
+			err instanceof Error ? err.message : 'Failed to sync repositories from GitHub'
+		);
 	}
 };
 

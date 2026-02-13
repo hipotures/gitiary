@@ -1,12 +1,13 @@
 import { eq, sql, and, gte } from 'drizzle-orm';
 import { getDb } from './connection.js';
-import { repo, daily, metadata } from './schema.js';
+import { repo, daily, metadata, commitStats } from './schema.js';
 import type {
 	RepoSummary,
 	DailyEntry,
 	HeatYearData,
 	HeatMonthSection,
-	HeatMonthRepoCommits
+	HeatMonthRepoCommits,
+	ImpactData
 } from '$lib/domain/types.js';
 
 function daysAgo(n: number): string {
@@ -121,6 +122,82 @@ export function getAllDailyData(days: number = 90) {
 			firstCommitDate: firstCommitResult?.minDay ?? null
 		};
 	});
+}
+
+export function getImpactData(): ImpactData {
+	const db = getDb();
+
+	const activeRepos = db
+		.select({
+			id: repo.id,
+			owner: repo.owner,
+			name: repo.name,
+			displayName: repo.displayName
+		})
+		.from(repo)
+		.where(eq(repo.isActive, true))
+		.all();
+
+	const aggregatedDaily = db
+		.select({
+			day: daily.day,
+			commits: sql<number>`cast(coalesce(sum(${daily.commits}), 0) as integer)`,
+			additions: sql<number>`cast(coalesce(sum(${daily.additions}), 0) as integer)`,
+			deletions: sql<number>`cast(coalesce(sum(${daily.deletions}), 0) as integer)`,
+			filesChanged: sql<number>`cast(coalesce(sum(${daily.filesChanged}), 0) as integer)`
+		})
+		.from(daily)
+		.innerJoin(repo, eq(daily.repoId, repo.id))
+		.where(eq(repo.isActive, true))
+		.groupBy(daily.day)
+		.orderBy(daily.day)
+		.all();
+
+	const repos = activeRepos.map((r) => {
+		const dailyData = db
+			.select({
+				day: daily.day,
+				commits: daily.commits,
+				additions: daily.additions,
+				deletions: daily.deletions,
+				filesChanged: daily.filesChanged
+			})
+			.from(daily)
+			.where(eq(daily.repoId, r.id))
+			.orderBy(daily.day)
+			.all();
+
+		const commits = db
+			.select({
+				sha: commitStats.sha,
+				day: commitStats.day,
+				committedAt: commitStats.committedAt,
+				message: commitStats.message,
+				additions: commitStats.additions,
+				deletions: commitStats.deletions,
+				filesChanged: commitStats.filesChanged
+			})
+			.from(commitStats)
+			.where(eq(commitStats.repoId, r.id))
+			.orderBy(commitStats.committedAt)
+			.all();
+
+		return {
+			repo: {
+				id: r.id,
+				owner: r.owner,
+				name: r.name,
+				displayName: r.displayName
+			},
+			daily: dailyData,
+			commits
+		};
+	});
+
+	return {
+		daily: aggregatedDaily,
+		repos
+	};
 }
 
 export function getHeatYearData(minYear: number = 2025): HeatYearData[] {
@@ -319,6 +396,9 @@ export function setMetadata(key: string, value: string): void {
 // Delete repository and all associated data
 export function deleteRepo(repoId: number): void {
 	const db = getDb();
+
+	// Delete commit-level stats first
+	db.delete(commitStats).where(eq(commitStats.repoId, repoId)).run();
 
 	// Delete daily commit records first (foreign key constraint)
 	db.delete(daily).where(eq(daily.repoId, repoId)).run();

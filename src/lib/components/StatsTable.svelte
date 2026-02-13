@@ -3,7 +3,7 @@
 	import type { ComparisonRepo } from '$lib/domain/types.js';
 	import { getDisplayName } from '$lib/utils/repoDisplay.js';
 
-	let { repos, period }: { repos: ComparisonRepo[]; period: '30d' | '90d' } = $props();
+	let { repos }: { repos: ComparisonRepo[] } = $props();
 
 	let sortField = $state<SortField>('totalCommits');
 	let sortDirection = $state<SortDirection>('desc');

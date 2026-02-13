@@ -1,6 +1,6 @@
 {
 	"name": "git-diary",
-	"version": "1.5.0",
+	"version": "1.6.0",
 	"private": true,
 	"type": "module",
 	"scripts": {
@@ -10,6 +10,7 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"seed": "tsx scripts/seed.ts",
 		"index": "tsx src/lib/server/indexer/cli.ts",
+		"reindex:metrics": "tsx src/lib/server/indexer/cli.ts --full-history --verbose",
 		"snapshot": "tsx scripts/generate-snapshot.ts",
 		"test": "vitest run",
 		"test:watch": "vitest",

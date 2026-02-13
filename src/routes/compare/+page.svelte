@@ -62,10 +62,10 @@
 	<MetricCard label="Top Streak" value={topStreak} suffix="days" />
 </div>
 
-<section class="table-section">
-	<h2>Statistics by Repository</h2>
-	<StatsTable repos={filteredStats.repos} period={filteredStats.period} />
-</section>
+	<section class="table-section">
+		<h2>Statistics by Repository</h2>
+		<StatsTable repos={filteredStats.repos} />
+	</section>
 
 <style>
 	.header {

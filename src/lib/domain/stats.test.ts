@@ -109,7 +109,7 @@ describe('generateStorySummary', () => {
 	it('should generate summary for single repo', () => {
 		const data = [
 			{
-				repo: { id: 1, owner: 'test', name: 'repo1' },
+				repo: { id: 1, owner: 'test', name: 'repo1', displayName: null },
 				daily: [
 					{ day: '2026-02-12', commits: 10 },
 					{ day: '2026-02-11', commits: 5 },
@@ -130,11 +130,11 @@ describe('generateStorySummary', () => {
 	it('should identify most active repo', () => {
 		const data = [
 			{
-				repo: { id: 1, owner: 'test', name: 'repo1' },
+				repo: { id: 1, owner: 'test', name: 'repo1', displayName: null },
 				daily: [{ day: '2026-02-12', commits: 5 }]
 			},
 			{
-				repo: { id: 2, owner: 'test', name: 'repo2' },
+				repo: { id: 2, owner: 'test', name: 'repo2', displayName: null },
 				daily: [{ day: '2026-02-12', commits: 20 }]
 			}
 		];
@@ -148,7 +148,7 @@ describe('generateStorySummary', () => {
 	it('should detect highlights (exceptional days)', () => {
 		const data = [
 			{
-				repo: { id: 1, owner: 'test', name: 'repo1' },
+				repo: { id: 1, owner: 'test', name: 'repo1', displayName: null },
 				daily: [
 					{ day: '2026-02-12', commits: 100 }, // outlier
 					{ day: '2026-02-11', commits: 5 },

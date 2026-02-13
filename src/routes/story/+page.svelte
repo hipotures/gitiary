@@ -16,7 +16,15 @@
 		return generateStorySummary(filteredData, days);
 	});
 
-	const period = $derived($dateRange === 'all' ? 'all' : `${$dateRange}d`);
+	const period = $derived(
+		($dateRange === 'all' ? 'all' : `${$dateRange}d`) as
+			| '7d'
+			| '30d'
+			| '90d'
+			| '180d'
+			| '360d'
+			| 'all'
+	);
 </script>
 
 <h1>Build Story</h1>
