@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import YearHeatmap from '$lib/components/YearHeatmap.svelte';
 	import HeatTimeline from '$lib/components/HeatTimeline.svelte';
 	import type { HeatYearData } from '$lib/domain/types.js';
@@ -7,14 +8,33 @@
 	let { data }: { data: PageData } = $props();
 
 	const years = $derived(data.yearData.map((entry) => entry.year));
+	const requestedYear = $derived.by(() => {
+		const raw = page.url.searchParams.get('year');
+		if (!raw) return null;
+		const parsed = Number(raw);
+		return Number.isInteger(parsed) ? parsed : null;
+	});
+	const isCaptureMode = $derived(page.url.searchParams.get('capture') === '1');
 	let selectedYear = $state<number>(2025);
 	let initializedYear = $state(false);
 
 	$effect(() => {
 		const availableYears = years;
+		const requested = requestedYear;
 		if (!initializedYear) {
-			selectedYear = availableYears[0] ?? data.minYear;
+			if (requested && availableYears.includes(requested)) {
+				selectedYear = requested;
+			} else if (isCaptureMode && availableYears.length > 0) {
+				selectedYear = availableYears[availableYears.length - 1] ?? data.minYear;
+			} else {
+				selectedYear = availableYears[0] ?? data.minYear;
+			}
 			initializedYear = true;
+			return;
+		}
+
+		if (requested && availableYears.includes(requested)) {
+			selectedYear = requested;
 			return;
 		}
 
@@ -39,18 +59,27 @@
 	}
 </script>
 
-<header class="heat-header">
-	<h1>Heat</h1>
-	<p class="subtitle">{totalCommits} contributions in {selectedYear}</p>
-</header>
-
 <section class="heat-layout">
 	<div class="main-column">
-		<div class="card heatmap-card">
-			<YearHeatmap year={selectedYear} daily={selectedYearData.daily} />
-		</div>
+		<section
+			class="heat-overview"
+			data-shot-section="heat-overview"
+			data-shot-title="Heat Overview"
+		>
+			<header class="heat-header">
+				<h1>Heat</h1>
+				<p class="subtitle">{totalCommits} contributions in {selectedYear}</p>
+			</header>
+			<div class="card heatmap-card">
+				<YearHeatmap year={selectedYear} daily={selectedYearData.daily} />
+			</div>
+		</section>
 
-		<section class="timeline-section">
+		<section
+			class="timeline-section"
+			data-shot-section="activity-timeline"
+			data-shot-title="Activity Timeline"
+		>
 			<div class="timeline-header">
 				<h2>Activity Timeline</h2>
 				<span class="text-secondary">{activeDays} active days</span>

@@ -1,5 +1,7 @@
 # AGENTS.md
 
+BEZWZGLEDNY ZAKAZ MODYFIKACJI pliku package.json bez wyrażnego polecenia. ZAKAZ!!!!!!!!!!!
+
 Instructions for agents working in the `git-diary` repository.
 
 ## Mandatory Rules

@@ -35,37 +35,39 @@
 	}
 </script>
 
-<div class="repos-header">
-	<h1>Repositories</h1>
-	<div class="sort-controls">
-		<button class="sort-btn" onclick={() => handleSort('name')}>
-			Name
-			{#if effectiveSortField === 'name'}
-				<span class="sort-indicator">{effectiveSortDirection === 'asc' ? '↑' : '↓'}</span>
-			{/if}
-		</button>
-		<button class="sort-btn" onclick={() => handleSort('firstCommitDate')}>
-			First Commit
-			{#if effectiveSortField === 'firstCommitDate'}
-				<span class="sort-indicator">{effectiveSortDirection === 'asc' ? '↑' : '↓'}</span>
-			{/if}
-		</button>
-		<button class="sort-btn" onclick={() => handleSort('totalCommits')}>
-			Total Commits
-			{#if effectiveSortField === 'totalCommits'}
-				<span class="sort-indicator">{effectiveSortDirection === 'asc' ? '↑' : '↓'}</span>
-			{/if}
-		</button>
+<section data-shot-section="repositories" data-shot-title="Repositories">
+	<div class="repos-header">
+		<h1>Repositories</h1>
+		<div class="sort-controls">
+			<button class="sort-btn" onclick={() => handleSort('name')}>
+				Name
+				{#if effectiveSortField === 'name'}
+					<span class="sort-indicator">{effectiveSortDirection === 'asc' ? '↑' : '↓'}</span>
+				{/if}
+			</button>
+			<button class="sort-btn" onclick={() => handleSort('firstCommitDate')}>
+				First Commit
+				{#if effectiveSortField === 'firstCommitDate'}
+					<span class="sort-indicator">{effectiveSortDirection === 'asc' ? '↑' : '↓'}</span>
+				{/if}
+			</button>
+			<button class="sort-btn" onclick={() => handleSort('totalCommits')}>
+				Total Commits
+				{#if effectiveSortField === 'totalCommits'}
+					<span class="sort-indicator">{effectiveSortDirection === 'asc' ? '↑' : '↓'}</span>
+				{/if}
+			</button>
+		</div>
 	</div>
-</div>
 
-<div class="grid grid-3">
-	{#each sortedRepos as repo (repo.id)}
-		<RepoCard {repo} />
-	{/each}
-</div>
+	<div class="grid grid-3">
+		{#each sortedRepos as repo (repo.id)}
+			<RepoCard {repo} />
+		{/each}
+	</div>
+</section>
 
-<section class="chart-section">
+<section class="chart-section" data-shot-section="commits-overview" data-shot-title="Commits Overview">
 	<h2>Commits Overview ({getRangeLabel($dateRange)})</h2>
 	<div class="chart-container">
 		<CommitBarChart repos={data.repos} />

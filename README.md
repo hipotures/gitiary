@@ -63,6 +63,45 @@ npm run dev
 
 Open http://localhost:5173
 
+### Automated Section Screenshots
+
+Generate screenshots for every marked stats section across all time ranges:
+
+```bash
+node --import tsx scripts/capture-sections.ts
+```
+
+Detailed guide: `docs/screenshots.md`
+
+Output structure:
+
+- `shots/{range}/{route}/{section}.png`
+- `shots/manifest.json`
+- Heat page is exported per year (for example `shots/90d/heat-year-2025/...` and `shots/90d/heat-year-2026/...`)
+
+Useful options:
+
+```bash
+# Capture both themes
+node --import tsx scripts/capture-sections.ts --theme both
+
+# Use custom output directory
+node --import tsx scripts/capture-sections.ts --out-dir /tmp/git-diary-shots
+
+# Reuse already running app
+node --import tsx scripts/capture-sections.ts --base-url http://127.0.0.1:4173
+
+# Extra outer padding around each section screenshot
+node --import tsx scripts/capture-sections.ts --section-padding 32
+```
+
+If Playwright browsers are missing:
+
+```bash
+npm install -D playwright
+npx playwright install chromium
+```
+
 ### Indexer CLI
 
 ```bash
@@ -203,7 +242,8 @@ git-diary/
 │       └── api/              # JSON endpoints
 ├── scripts/
 │   ├── seed.ts               # Fixture data generator
-│   └── generate-snapshot.ts  # Static data export
+│   ├── generate-snapshot.ts  # Static data export
+│   └── capture-sections.ts   # Automated section screenshot export
 ├── systemd/                  # Service + timer units
 └── repos.json                # Repository configuration
 ```

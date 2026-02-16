@@ -1,15 +1,17 @@
 <script lang="ts">
 	import { getDisplayName } from '$lib/utils/repoDisplay.js';
 	import type { HeatMonthSection } from '$lib/domain/types.js';
+	import { page } from '$app/state';
 
 	let { year, months }: { year: number; months: HeatMonthSection[] } = $props();
+	const isCaptureMode = $derived(page.url.searchParams.get('capture') === '1');
 
 	let visibleMonthCount = $state(3);
 
 	$effect(() => {
 		const _year = year;
 		void _year;
-		visibleMonthCount = 3;
+		visibleMonthCount = isCaptureMode ? months.length : 3;
 	});
 
 	const visibleMonths = $derived(months.slice(0, visibleMonthCount));

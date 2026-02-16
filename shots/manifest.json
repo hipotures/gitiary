@@ -1,0 +1,3232 @@
+{
+  "generatedAt": "2026-02-14T19:29:08.962Z",
+  "baseUrl": "http://127.0.0.1:4173",
+  "options": {
+    "themeMode": "dark",
+    "viewport": {
+      "width": 1600,
+      "height": 1200
+    },
+    "timeoutMs": 30000,
+    "sectionPadding": 16
+  },
+  "count": 402,
+  "entries": [
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/",
+      "sectionId": "repositories",
+      "title": "Repositories",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/home/repositories.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/",
+      "sectionId": "commits-overview",
+      "title": "Commits Overview",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/home/commits-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/compare",
+      "sectionId": "comparison-overview",
+      "title": "Repository Comparison",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/compare/comparison-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/compare",
+      "sectionId": "statistics-by-repository",
+      "title": "Statistics by Repository",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/compare/statistics-by-repository.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/story",
+      "sectionId": "build-story",
+      "title": "Build Story",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/story/build-story.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/heat?year=2025",
+      "sectionId": "heat-overview",
+      "title": "Heat Overview",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/heat-year-2025/heat-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/heat?year=2025",
+      "sectionId": "activity-timeline",
+      "title": "Activity Timeline",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/heat-year-2025/activity-timeline.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/heat?year=2026",
+      "sectionId": "heat-overview",
+      "title": "Heat Overview",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/heat-year-2026/heat-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/heat?year=2026",
+      "sectionId": "activity-timeline",
+      "title": "Activity Timeline",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/heat-year-2026/activity-timeline.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/impact",
+      "sectionId": "impact-overview",
+      "title": "Impact",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/impact/impact-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/impact",
+      "sectionId": "loc-and-files-activity",
+      "title": "LOC and Files Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/impact/loc-and-files-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/impact",
+      "sectionId": "repository-loc-summary",
+      "title": "Repository LOC Summary",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/impact/repository-loc-summary.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/impact",
+      "sectionId": "daily-commit-activity-with-changes",
+      "title": "Daily Commit Activity with Changes",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/impact/daily-commit-activity-with-changes.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/impact",
+      "sectionId": "top-impact-days",
+      "title": "Top Impact Days",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/impact/top-impact-days.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/impact",
+      "sectionId": "top-10-largest-commits",
+      "title": "Top 10 Largest Commits",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/impact/top-10-largest-commits.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/4",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-4/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/4",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-4/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/5",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-5/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/5",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-5/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/6",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-6/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/6",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-6/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/8",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-8/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/8",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-8/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/9",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-9/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/9",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-9/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/10",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-10/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/10",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-10/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/11",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-11/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/11",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-11/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/12",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-12/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/12",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-12/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/13",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-13/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/13",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-13/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/14",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-14/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/14",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-14/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/15",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-15/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/15",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-15/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/16",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-16/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/16",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-16/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/17",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-17/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/17",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-17/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/18",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-18/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/18",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-18/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/19",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-19/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/19",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-19/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/20",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-20/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/20",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-20/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/21",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-21/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/21",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-21/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/22",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-22/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/22",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-22/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/23",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-23/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/23",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-23/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/24",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-24/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/24",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-24/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/25",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-25/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/25",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-25/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/26",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-26/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/26",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-26/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/27",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-27/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/27",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-27/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/28",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-28/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/28",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-28/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/29",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-29/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/29",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-29/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/30",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-30/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "7d",
+      "route": "/repo/30",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/7d/repo-30/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/",
+      "sectionId": "repositories",
+      "title": "Repositories",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/home/repositories.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/",
+      "sectionId": "commits-overview",
+      "title": "Commits Overview",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/home/commits-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/compare",
+      "sectionId": "comparison-overview",
+      "title": "Repository Comparison",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/compare/comparison-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/compare",
+      "sectionId": "statistics-by-repository",
+      "title": "Statistics by Repository",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/compare/statistics-by-repository.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/story",
+      "sectionId": "build-story",
+      "title": "Build Story",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/story/build-story.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/heat?year=2025",
+      "sectionId": "heat-overview",
+      "title": "Heat Overview",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/heat-year-2025/heat-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/heat?year=2025",
+      "sectionId": "activity-timeline",
+      "title": "Activity Timeline",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/heat-year-2025/activity-timeline.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/heat?year=2026",
+      "sectionId": "heat-overview",
+      "title": "Heat Overview",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/heat-year-2026/heat-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/heat?year=2026",
+      "sectionId": "activity-timeline",
+      "title": "Activity Timeline",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/heat-year-2026/activity-timeline.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/impact",
+      "sectionId": "impact-overview",
+      "title": "Impact",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/impact/impact-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/impact",
+      "sectionId": "loc-and-files-activity",
+      "title": "LOC and Files Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/impact/loc-and-files-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/impact",
+      "sectionId": "repository-loc-summary",
+      "title": "Repository LOC Summary",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/impact/repository-loc-summary.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/impact",
+      "sectionId": "daily-commit-activity-with-changes",
+      "title": "Daily Commit Activity with Changes",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/impact/daily-commit-activity-with-changes.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/impact",
+      "sectionId": "top-impact-days",
+      "title": "Top Impact Days",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/impact/top-impact-days.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/impact",
+      "sectionId": "top-10-largest-commits",
+      "title": "Top 10 Largest Commits",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/impact/top-10-largest-commits.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/4",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-4/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/4",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-4/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/5",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-5/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/5",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-5/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/6",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-6/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/6",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-6/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/8",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-8/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/8",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-8/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/9",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-9/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/9",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-9/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/10",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-10/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/10",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-10/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/11",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-11/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/11",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-11/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/12",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-12/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/12",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-12/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/13",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-13/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/13",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-13/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/14",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-14/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/14",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-14/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/15",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-15/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/15",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-15/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/16",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-16/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/16",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-16/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/17",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-17/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/17",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-17/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/18",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-18/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/18",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-18/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/19",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-19/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/19",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-19/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/20",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-20/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/20",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-20/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/21",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-21/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/21",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-21/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/22",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-22/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/22",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-22/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/23",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-23/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/23",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-23/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/24",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-24/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/24",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-24/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/25",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-25/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/25",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-25/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/26",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-26/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/26",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-26/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/27",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-27/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/27",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-27/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/28",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-28/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/28",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-28/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/29",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-29/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/29",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-29/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/30",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-30/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "30d",
+      "route": "/repo/30",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/30d/repo-30/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/",
+      "sectionId": "repositories",
+      "title": "Repositories",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/home/repositories.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/",
+      "sectionId": "commits-overview",
+      "title": "Commits Overview",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/home/commits-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/compare",
+      "sectionId": "comparison-overview",
+      "title": "Repository Comparison",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/compare/comparison-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/compare",
+      "sectionId": "statistics-by-repository",
+      "title": "Statistics by Repository",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/compare/statistics-by-repository.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/story",
+      "sectionId": "build-story",
+      "title": "Build Story",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/story/build-story.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/heat?year=2025",
+      "sectionId": "heat-overview",
+      "title": "Heat Overview",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/heat-year-2025/heat-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/heat?year=2025",
+      "sectionId": "activity-timeline",
+      "title": "Activity Timeline",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/heat-year-2025/activity-timeline.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/heat?year=2026",
+      "sectionId": "heat-overview",
+      "title": "Heat Overview",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/heat-year-2026/heat-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/heat?year=2026",
+      "sectionId": "activity-timeline",
+      "title": "Activity Timeline",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/heat-year-2026/activity-timeline.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/impact",
+      "sectionId": "impact-overview",
+      "title": "Impact",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/impact/impact-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/impact",
+      "sectionId": "loc-and-files-activity",
+      "title": "LOC and Files Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/impact/loc-and-files-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/impact",
+      "sectionId": "repository-loc-summary",
+      "title": "Repository LOC Summary",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/impact/repository-loc-summary.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/impact",
+      "sectionId": "daily-commit-activity-with-changes",
+      "title": "Daily Commit Activity with Changes",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/impact/daily-commit-activity-with-changes.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/impact",
+      "sectionId": "top-impact-days",
+      "title": "Top Impact Days",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/impact/top-impact-days.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/impact",
+      "sectionId": "top-10-largest-commits",
+      "title": "Top 10 Largest Commits",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/impact/top-10-largest-commits.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/4",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-4/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/4",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-4/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/5",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-5/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/5",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-5/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/6",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-6/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/6",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-6/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/8",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-8/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/8",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-8/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/9",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-9/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/9",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-9/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/10",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-10/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/10",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-10/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/11",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-11/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/11",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-11/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/12",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-12/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/12",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-12/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/13",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-13/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/13",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-13/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/14",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-14/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/14",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-14/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/15",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-15/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/15",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-15/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/16",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-16/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/16",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-16/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/17",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-17/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/17",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-17/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/18",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-18/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/18",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-18/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/19",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-19/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/19",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-19/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/20",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-20/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/20",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-20/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/21",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-21/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/21",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-21/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/22",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-22/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/22",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-22/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/23",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-23/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/23",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-23/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/24",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-24/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/24",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-24/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/25",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-25/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/25",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-25/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/26",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-26/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/26",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-26/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/27",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-27/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/27",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-27/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/28",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-28/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/28",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-28/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/29",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-29/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/29",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-29/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/30",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-30/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "90d",
+      "route": "/repo/30",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/90d/repo-30/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/",
+      "sectionId": "repositories",
+      "title": "Repositories",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/home/repositories.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/",
+      "sectionId": "commits-overview",
+      "title": "Commits Overview",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/home/commits-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/compare",
+      "sectionId": "comparison-overview",
+      "title": "Repository Comparison",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/compare/comparison-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/compare",
+      "sectionId": "statistics-by-repository",
+      "title": "Statistics by Repository",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/compare/statistics-by-repository.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/story",
+      "sectionId": "build-story",
+      "title": "Build Story",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/story/build-story.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/heat?year=2025",
+      "sectionId": "heat-overview",
+      "title": "Heat Overview",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/heat-year-2025/heat-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/heat?year=2025",
+      "sectionId": "activity-timeline",
+      "title": "Activity Timeline",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/heat-year-2025/activity-timeline.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/heat?year=2026",
+      "sectionId": "heat-overview",
+      "title": "Heat Overview",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/heat-year-2026/heat-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/heat?year=2026",
+      "sectionId": "activity-timeline",
+      "title": "Activity Timeline",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/heat-year-2026/activity-timeline.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/impact",
+      "sectionId": "impact-overview",
+      "title": "Impact",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/impact/impact-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/impact",
+      "sectionId": "loc-and-files-activity",
+      "title": "LOC and Files Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/impact/loc-and-files-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/impact",
+      "sectionId": "repository-loc-summary",
+      "title": "Repository LOC Summary",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/impact/repository-loc-summary.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/impact",
+      "sectionId": "daily-commit-activity-with-changes",
+      "title": "Daily Commit Activity with Changes",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/impact/daily-commit-activity-with-changes.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/impact",
+      "sectionId": "top-impact-days",
+      "title": "Top Impact Days",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/impact/top-impact-days.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/impact",
+      "sectionId": "top-10-largest-commits",
+      "title": "Top 10 Largest Commits",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/impact/top-10-largest-commits.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/4",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-4/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/4",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-4/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/5",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-5/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/5",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-5/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/6",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-6/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/6",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-6/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/8",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-8/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/8",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-8/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/9",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-9/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/9",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-9/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/10",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-10/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/10",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-10/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/11",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-11/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/11",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-11/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/12",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-12/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/12",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-12/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/13",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-13/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/13",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-13/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/14",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-14/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/14",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-14/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/15",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-15/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/15",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-15/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/16",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-16/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/16",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-16/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/17",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-17/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/17",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-17/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/18",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-18/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/18",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-18/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/19",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-19/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/19",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-19/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/20",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-20/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/20",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-20/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/21",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-21/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/21",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-21/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/22",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-22/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/22",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-22/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/23",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-23/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/23",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-23/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/24",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-24/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/24",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-24/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/25",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-25/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/25",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-25/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/26",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-26/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/26",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-26/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/27",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-27/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/27",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-27/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/28",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-28/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/28",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-28/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/29",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-29/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/29",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-29/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/30",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-30/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "180d",
+      "route": "/repo/30",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/180d/repo-30/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/",
+      "sectionId": "repositories",
+      "title": "Repositories",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/home/repositories.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/",
+      "sectionId": "commits-overview",
+      "title": "Commits Overview",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/home/commits-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/compare",
+      "sectionId": "comparison-overview",
+      "title": "Repository Comparison",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/compare/comparison-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/compare",
+      "sectionId": "statistics-by-repository",
+      "title": "Statistics by Repository",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/compare/statistics-by-repository.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/story",
+      "sectionId": "build-story",
+      "title": "Build Story",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/story/build-story.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/heat?year=2025",
+      "sectionId": "heat-overview",
+      "title": "Heat Overview",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/heat-year-2025/heat-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/heat?year=2025",
+      "sectionId": "activity-timeline",
+      "title": "Activity Timeline",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/heat-year-2025/activity-timeline.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/heat?year=2026",
+      "sectionId": "heat-overview",
+      "title": "Heat Overview",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/heat-year-2026/heat-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/heat?year=2026",
+      "sectionId": "activity-timeline",
+      "title": "Activity Timeline",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/heat-year-2026/activity-timeline.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/impact",
+      "sectionId": "impact-overview",
+      "title": "Impact",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/impact/impact-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/impact",
+      "sectionId": "loc-and-files-activity",
+      "title": "LOC and Files Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/impact/loc-and-files-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/impact",
+      "sectionId": "repository-loc-summary",
+      "title": "Repository LOC Summary",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/impact/repository-loc-summary.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/impact",
+      "sectionId": "daily-commit-activity-with-changes",
+      "title": "Daily Commit Activity with Changes",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/impact/daily-commit-activity-with-changes.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/impact",
+      "sectionId": "top-impact-days",
+      "title": "Top Impact Days",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/impact/top-impact-days.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/impact",
+      "sectionId": "top-10-largest-commits",
+      "title": "Top 10 Largest Commits",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/impact/top-10-largest-commits.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/4",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-4/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/4",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-4/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/5",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-5/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/5",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-5/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/6",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-6/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/6",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-6/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/8",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-8/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/8",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-8/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/9",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-9/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/9",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-9/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/10",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-10/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/10",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-10/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/11",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-11/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/11",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-11/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/12",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-12/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/12",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-12/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/13",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-13/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/13",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-13/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/14",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-14/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/14",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-14/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/15",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-15/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/15",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-15/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/16",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-16/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/16",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-16/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/17",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-17/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/17",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-17/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/18",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-18/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/18",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-18/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/19",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-19/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/19",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-19/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/20",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-20/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/20",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-20/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/21",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-21/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/21",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-21/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/22",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-22/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/22",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-22/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/23",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-23/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/23",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-23/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/24",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-24/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/24",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-24/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/25",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-25/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/25",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-25/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/26",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-26/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/26",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-26/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/27",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-27/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/27",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-27/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/28",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-28/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/28",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-28/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/29",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-29/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/29",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-29/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/30",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-30/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "360d",
+      "route": "/repo/30",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/360d/repo-30/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/",
+      "sectionId": "repositories",
+      "title": "Repositories",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/home/repositories.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/",
+      "sectionId": "commits-overview",
+      "title": "Commits Overview",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/home/commits-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/compare",
+      "sectionId": "comparison-overview",
+      "title": "Repository Comparison",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/compare/comparison-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/compare",
+      "sectionId": "statistics-by-repository",
+      "title": "Statistics by Repository",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/compare/statistics-by-repository.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/story",
+      "sectionId": "build-story",
+      "title": "Build Story",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/story/build-story.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/heat?year=2025",
+      "sectionId": "heat-overview",
+      "title": "Heat Overview",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/heat-year-2025/heat-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/heat?year=2025",
+      "sectionId": "activity-timeline",
+      "title": "Activity Timeline",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/heat-year-2025/activity-timeline.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/heat?year=2026",
+      "sectionId": "heat-overview",
+      "title": "Heat Overview",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/heat-year-2026/heat-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/heat?year=2026",
+      "sectionId": "activity-timeline",
+      "title": "Activity Timeline",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/heat-year-2026/activity-timeline.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/impact",
+      "sectionId": "impact-overview",
+      "title": "Impact",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/impact/impact-overview.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/impact",
+      "sectionId": "loc-and-files-activity",
+      "title": "LOC and Files Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/impact/loc-and-files-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/impact",
+      "sectionId": "repository-loc-summary",
+      "title": "Repository LOC Summary",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/impact/repository-loc-summary.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/impact",
+      "sectionId": "daily-commit-activity-with-changes",
+      "title": "Daily Commit Activity with Changes",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/impact/daily-commit-activity-with-changes.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/impact",
+      "sectionId": "top-impact-days",
+      "title": "Top Impact Days",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/impact/top-impact-days.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/impact",
+      "sectionId": "top-10-largest-commits",
+      "title": "Top 10 Largest Commits",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/impact/top-10-largest-commits.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/4",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-4/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/4",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-4/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/5",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-5/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/5",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-5/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/6",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-6/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/6",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-6/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/8",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-8/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/8",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-8/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/9",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-9/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/9",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-9/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/10",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-10/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/10",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-10/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/11",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-11/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/11",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-11/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/12",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-12/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/12",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-12/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/13",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-13/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/13",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-13/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/14",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-14/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/14",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-14/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/15",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-15/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/15",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-15/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/16",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-16/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/16",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-16/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/17",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-17/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/17",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-17/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/18",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-18/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/18",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-18/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/19",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-19/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/19",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-19/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/20",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-20/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/20",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-20/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/21",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-21/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/21",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-21/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/22",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-22/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/22",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-22/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/23",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-23/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/23",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-23/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/24",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-24/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/24",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-24/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/25",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-25/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/25",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-25/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/26",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-26/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/26",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-26/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/27",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-27/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/27",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-27/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/28",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-28/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/28",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-28/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/29",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-29/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/29",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-29/repo-calendar-heatmap.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/30",
+      "sectionId": "repo-commit-activity",
+      "title": "Commit Activity",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-30/repo-commit-activity.png"
+    },
+    {
+      "theme": "dark",
+      "range": "all",
+      "route": "/repo/30",
+      "sectionId": "repo-calendar-heatmap",
+      "title": "Calendar Heatmap",
+      "filePath": "/home/xai/DEV/git-diary/shots/all/repo-30/repo-calendar-heatmap.png"
+    }
+  ]
+}

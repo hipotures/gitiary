@@ -110,31 +110,41 @@
 	}
 </script>
 
-<header class="header">
-	<h1>Impact ({getRangeLabel($dateRange)})</h1>
-</header>
+<section data-shot-section="impact-overview" data-shot-title="Impact">
+	<header class="header">
+		<h1>Impact ({getRangeLabel($dateRange)})</h1>
+	</header>
 
-<section class="metrics-grid">
-	<MetricCard label="Total Commits" value={impact.summary.totalCommits} />
-	<MetricCard label="First Commit" value={impact.summary.firstCommitDate ?? 'N/A'} />
-	<MetricCard label="Last Commit" value={impact.summary.lastCommitDate ?? 'N/A'} />
-	<MetricCard label="Active Days" value={`${impact.summary.activeDays} / ${impact.summary.totalDays}`} />
-	<MetricCard label="Lines Added" value={`+${formatInt(impact.summary.linesAdded)}`} />
-	<MetricCard label="Lines Deleted" value={`-${formatInt(impact.summary.linesDeleted)}`} />
-	<MetricCard label="Net Change" value={`${impact.summary.netChange >= 0 ? '+' : ''}${formatInt(impact.summary.netChange)}`} />
-	<MetricCard label="Files Changed" value={formatInt(impact.summary.filesChanged)} />
-	<MetricCard label="Avg Lines/Commit" value={formatFloat(impact.summary.avgLinesPerCommit)} />
-	<MetricCard label="Avg Files/Commit" value={formatFloat(impact.summary.avgFilesPerCommit)} />
+	<section class="metrics-grid">
+		<MetricCard label="Total Commits" value={impact.summary.totalCommits} />
+		<MetricCard label="First Commit" value={impact.summary.firstCommitDate ?? 'N/A'} />
+		<MetricCard label="Last Commit" value={impact.summary.lastCommitDate ?? 'N/A'} />
+		<MetricCard label="Active Days" value={`${impact.summary.activeDays} / ${impact.summary.totalDays}`} />
+		<MetricCard label="Lines Added" value={`+${formatInt(impact.summary.linesAdded)}`} />
+		<MetricCard label="Lines Deleted" value={`-${formatInt(impact.summary.linesDeleted)}`} />
+		<MetricCard label="Net Change" value={`${impact.summary.netChange >= 0 ? '+' : ''}${formatInt(impact.summary.netChange)}`} />
+		<MetricCard label="Files Changed" value={formatInt(impact.summary.filesChanged)} />
+		<MetricCard label="Avg Lines/Commit" value={formatFloat(impact.summary.avgLinesPerCommit)} />
+		<MetricCard label="Avg Files/Commit" value={formatFloat(impact.summary.avgFilesPerCommit)} />
+	</section>
 </section>
 
-<section class="section">
+<section
+	class="section"
+	data-shot-section="loc-and-files-activity"
+	data-shot-title="LOC and Files Activity"
+>
 	<h2>LOC and Files Activity ({getRangeLabel($dateRange)})</h2>
 	<div class="chart-container">
 		<ImpactNetFilesChart daily={impact.dailyRows} range={$dateRange} />
 	</div>
 </section>
 
-<section class="section">
+<section
+	class="section"
+	data-shot-section="repository-loc-summary"
+	data-shot-title="Repository LOC Summary"
+>
 	<div class="section-header">
 		<h2>Repository LOC Summary</h2>
 		<span class="text-secondary">Total Net LOC: {formatInt(impact.summary.netChange)}</span>
@@ -205,7 +215,11 @@
 	</div>
 </section>
 
-<section class="section">
+<section
+	class="section"
+	data-shot-section="daily-commit-activity-with-changes"
+	data-shot-title="Daily Commit Activity with Changes"
+>
 	<h2>Daily Commit Activity with Changes</h2>
 	<div class="table-container">
 		<table>
@@ -267,7 +281,12 @@
 	{/if}
 </section>
 
-<section class="section top-grid">
+<section
+	class="section top-grid"
+	data-shot-section="top-impact-days"
+	data-shot-title="Top Impact Days"
+>
+	<h2>Top Impact Days</h2>
 	<div class="card top-card">
 		<h3>Most Commits</h3>
 		<ol>
@@ -294,7 +313,11 @@
 	</div>
 </section>
 
-<section class="section">
+<section
+	class="section"
+	data-shot-section="top-10-largest-commits"
+	data-shot-title="Top 10 Largest Commits"
+>
 	<h2>Top 10 Largest Commits</h2>
 	<div class="table-container">
 		<table>
@@ -493,6 +516,11 @@
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 		gap: var(--space-md);
+	}
+
+	.top-grid > h2 {
+		grid-column: 1 / -1;
+		margin-bottom: 0;
 	}
 
 	.top-card h3 {

@@ -15,14 +15,22 @@
 	<a href="/" class="back-link">← Back to repos</a>
 </div>
 
-<section class="chart-section">
+<section
+	class="chart-section"
+	data-shot-section="repo-commit-activity"
+	data-shot-title="Commit Activity"
+>
 	<h2>Commit Activity ({getRangeLabel($dateRange)})</h2>
 	<div class="chart-container">
 		<TimeSeriesChart daily={filteredDaily} range={$dateRange} />
 	</div>
 </section>
 
-<section class="chart-section">
+<section
+	class="chart-section"
+	data-shot-section="repo-calendar-heatmap"
+	data-shot-title="Calendar Heatmap"
+>
 	<h2>Calendar Heatmap ({getRangeLabel($dateRange)})</h2>
 	<div class="chart-container">
 		<CalendarHeatmap daily={filteredDaily} range={$dateRange} />

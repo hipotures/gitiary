@@ -51,21 +51,27 @@
 	const topStreak = $derived(Math.max(...filteredStats.repos.map((r) => r.longestStreak), 0));
 </script>
 
-<div class="header">
-	<h1>Repository Comparison ({getRangeLabel($dateRange)})</h1>
-</div>
+<section data-shot-section="comparison-overview" data-shot-title="Repository Comparison">
+	<div class="header">
+		<h1>Repository Comparison ({getRangeLabel($dateRange)})</h1>
+	</div>
 
-<div class="metrics-grid">
-	<MetricCard label="Total Commits" value={totalCommits} />
-	<MetricCard label="Active Repos" value={activeRepos} />
-	<MetricCard label="Avg/Repo" value={avgCommitsPerRepo} />
-	<MetricCard label="Top Streak" value={topStreak} suffix="days" />
-</div>
+	<div class="metrics-grid">
+		<MetricCard label="Total Commits" value={totalCommits} />
+		<MetricCard label="Active Repos" value={activeRepos} />
+		<MetricCard label="Avg/Repo" value={avgCommitsPerRepo} />
+		<MetricCard label="Top Streak" value={topStreak} suffix="days" />
+	</div>
+</section>
 
-	<section class="table-section">
-		<h2>Statistics by Repository</h2>
-		<StatsTable repos={filteredStats.repos} />
-	</section>
+<section
+	class="table-section"
+	data-shot-section="statistics-by-repository"
+	data-shot-title="Statistics by Repository"
+>
+	<h2>Statistics by Repository</h2>
+	<StatsTable repos={filteredStats.repos} />
+</section>
 
 <style>
 	.header {

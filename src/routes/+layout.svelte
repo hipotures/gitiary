@@ -1,43 +1,53 @@
 <script>
 	import '../app.css';
 	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
+	import { page } from '$app/state';
 	import { Settings } from 'lucide-svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import DateRangeSelector from '$lib/components/DateRangeSelector.svelte';
 	import { theme } from '$lib/stores/theme';
 
 	let { children, data } = $props();
+	const isCaptureMode = $derived(page.url.searchParams.get('capture') === '1');
 
 	// Initialize theme on mount
 	onMount(() => {
 		document.documentElement.setAttribute('data-theme', $theme);
 	});
+
+	$effect(() => {
+		if (!browser) return;
+		document.body.classList.toggle('capture-mode', isCaptureMode);
+	});
 </script>
 
-<nav class="nav">
-	<div class="container nav-inner">
-		<div class="nav-brand-section">
-			<a href="/" class="nav-brand">Git Diary</a>
-			{#if data?.owner}
-				<span class="nav-owner">{data.owner}</span>
-			{/if}
+{#if !isCaptureMode}
+	<nav class="nav">
+		<div class="container nav-inner">
+			<div class="nav-brand-section">
+				<a href="/" class="nav-brand">Git Diary</a>
+				{#if data?.owner}
+					<span class="nav-owner">{data.owner}</span>
+				{/if}
+			</div>
+			<DateRangeSelector />
+			<div class="nav-links">
+				<ThemeToggle />
+				<a href="/settings" class="settings-link" aria-label="Settings">
+					<Settings size={18} />
+				</a>
+				<a href="/">Repos</a>
+				<a href="/compare">Compare</a>
+				<a href="/story">Story</a>
+				<a href="/heat">Heat</a>
+				<a href="/impact">Impact</a>
+			</div>
 		</div>
-		<DateRangeSelector />
-		<div class="nav-links">
-			<ThemeToggle />
-			<a href="/settings" class="settings-link" aria-label="Settings">
-				<Settings size={18} />
-			</a>
-			<a href="/">Repos</a>
-			<a href="/compare">Compare</a>
-			<a href="/story">Story</a>
-			<a href="/heat">Heat</a>
-			<a href="/impact">Impact</a>
-		</div>
-	</div>
-</nav>
+	</nav>
+{/if}
 
-<main class="container main">
+<main class="container main" class:capture-main={isCaptureMode}>
 	{@render children()}
 </main>
 
@@ -118,5 +128,9 @@
 	.main {
 		padding-top: var(--space-xl);
 		padding-bottom: var(--space-xl);
+	}
+
+	.capture-main {
+		padding-top: 0;
 	}
 </style>

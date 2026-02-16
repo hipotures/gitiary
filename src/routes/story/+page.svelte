@@ -27,10 +27,12 @@
 	);
 </script>
 
-<h1>Build Story</h1>
-<p class="subtitle">A narrative view of your development activity ({getRangeLabel($dateRange)})</p>
+<section data-shot-section="build-story" data-shot-title="Build Story">
+	<h1>Build Story</h1>
+	<p class="subtitle">A narrative view of your development activity ({getRangeLabel($dateRange)})</p>
 
-<StorySection {story} {period} />
+	<StorySection {story} {period} />
+</section>
 
 <style>
 	.subtitle {
