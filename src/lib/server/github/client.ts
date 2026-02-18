@@ -24,12 +24,17 @@ interface GraphQLResponse {
 	};
 }
 
-const QUERY = `query($owner: String!, $name: String!, $since: GitTimestamp, $cursor: String) {
+function buildCommitQuery(authorEmails?: string[]): string {
+	const authorFilter =
+		authorEmails && authorEmails.length > 0
+			? `, author: {emails: [${authorEmails.map((e) => `"${e}"`).join(', ')}]}`
+			: '';
+	return `query($owner: String!, $name: String!, $since: GitTimestamp, $cursor: String) {
   repository(owner: $owner, name: $name) {
     defaultBranchRef {
       target {
         ... on Commit {
-          history(since: $since, first: 100, after: $cursor) {
+          history(since: $since, first: 100, after: $cursor${authorFilter}) {
             pageInfo { hasNextPage endCursor }
             nodes { committedDate oid messageHeadline additions deletions changedFilesIfAvailable }
           }
@@ -38,21 +43,24 @@ const QUERY = `query($owner: String!, $name: String!, $since: GitTimestamp, $cur
     }
   }
 }`;
+}
 
 export async function fetchCommits(
 	owner: string,
 	name: string,
-	since?: string | null
+	since?: string | null,
+	authorEmails?: string[]
 ): Promise<CommitNode[]> {
 	const allNodes: CommitNode[] = [];
 	let cursor: string | null = null;
 	let hasNextPage = true;
+	const query = buildCommitQuery(authorEmails);
 
 	while (hasNextPage) {
 		try {
 			const cursorFlag = cursor ? `-F cursor="${cursor}"` : '';
 			const sinceFlag = since ? `-F since="${since}"` : '';
-			const cmd = `gh api graphql -F query='${QUERY}' -F owner="${owner}" -F name="${name}" ${sinceFlag} ${cursorFlag}`;
+			const cmd = `gh api graphql -F query='${query}' -F owner="${owner}" -F name="${name}" ${sinceFlag} ${cursorFlag}`;
 
 			const output = execSync(cmd, {
 				encoding: 'utf-8',
@@ -89,6 +97,7 @@ export interface RepoNode {
 	owner: { login: string };
 	name: string;
 	isPrivate: boolean;
+	isFork: boolean;
 	defaultBranchRef: { name: string } | null;
 }
 
@@ -111,6 +120,7 @@ const REPOS_QUERY = `query($cursor: String) {
         owner { login }
         name
         isPrivate
+        isFork
         defaultBranchRef { name }
       }
     }

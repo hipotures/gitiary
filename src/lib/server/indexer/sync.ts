@@ -3,6 +3,7 @@ import type { RepoConfig } from './config.js';
 import { getDb } from '../db/connection.js';
 import { repo, daily, commitStats } from '../db/schema.js';
 import { fetchCommits, type CommitNode } from '../github/client.js';
+import { getAuthorEmails } from '../db/queries.js';
 
 function daysAgo(n: number): string {
 	const d = new Date();
@@ -93,10 +94,33 @@ export async function syncRepo(repoConfig: RepoConfig, options: SyncRepoOptions 
 		}
 	}
 
+	// Determine author email filter for forks
+	let authorEmails: string[] | undefined;
+	if (repoRow.isFork) {
+		authorEmails = getAuthorEmails();
+		if (authorEmails.length === 0) {
+			console.warn(
+				`[${owner}/${name}] Fork repo but no author emails configured — syncing unfiltered`
+			);
+			authorEmails = undefined;
+		} else if (verbose) {
+			console.log(`[${owner}/${name}] Filtering by author emails: ${authorEmails.join(', ')}`);
+		}
+	}
+
+	// In full mode for forks, clear existing data first so stale commits are removed
+	if (mode === 'full' && repoRow.isFork && authorEmails) {
+		if (verbose) {
+			console.log(`[${owner}/${name}] Clearing existing data before full fork re-sync...`);
+		}
+		db.delete(commitStats).where(eq(commitStats.repoId, repoRow.id)).run();
+		db.delete(daily).where(eq(daily.repoId, repoRow.id)).run();
+	}
+
 	// Fetch commits from GitHub
 	let commits: CommitNode[];
 	try {
-		commits = await fetchCommits(owner, name, sinceDate);
+		commits = await fetchCommits(owner, name, sinceDate, authorEmails);
 	} catch (error) {
 		console.error(`[${owner}/${name}] Failed to fetch commits:`, error);
 		return;
@@ -113,8 +137,9 @@ export async function syncRepo(repoConfig: RepoConfig, options: SyncRepoOptions 
 		console.log(`[${owner}/${name}] Aggregated into ${dailyMap.size} days`);
 	}
 
-	// In full mode, replace stats for the repo to avoid stale rows.
-	if (mode === 'full') {
+	// In full mode for non-fork repos, replace stats to avoid stale rows.
+	// (Fork repos are cleared earlier when author email filtering is active.)
+	if (mode === 'full' && !repoRow.isFork) {
 		db.delete(commitStats).where(eq(commitStats.repoId, repoRow.id)).run();
 		db.delete(daily).where(eq(daily.repoId, repoRow.id)).run();
 	}

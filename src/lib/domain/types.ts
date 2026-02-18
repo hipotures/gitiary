@@ -3,6 +3,7 @@ export interface RepoSummary {
 	owner: string;
 	name: string;
 	displayName: string | null;
+	isFork: boolean;
 	commits7d: number;
 	commits30d: number;
 	commits90d: number;

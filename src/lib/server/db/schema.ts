@@ -6,6 +6,7 @@ export const repo = sqliteTable('repo', {
 	name: text('name').notNull(),
 	displayName: text('display_name'),
 	isActive: integer('is_active', { mode: 'boolean' }).notNull().default(true),
+	isFork: integer('is_fork', { mode: 'boolean' }).notNull().default(false),
 	lastSyncAt: text('last_sync_at'),
 	createdAt: text('created_at').notNull()
 });

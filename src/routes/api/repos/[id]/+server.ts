@@ -1,6 +1,7 @@
 import { json, error } from '@sveltejs/kit';
 import {
 	updateRepoActiveStatus,
+	updateRepoForkStatus,
 	getRepoById,
 	deleteRepo,
 	updateRepoDisplayName
@@ -21,11 +22,16 @@ export const PATCH: RequestHandler = async ({ params, request }) => {
 
 	try {
 		const body = await request.json();
-		const { isActive, displayName } = body;
+		const { isActive, displayName, isFork } = body;
 
 		// Handle isActive update
 		if (typeof isActive === 'boolean') {
 			updateRepoActiveStatus(repoId, isActive);
+		}
+
+		// Handle isFork update
+		if (typeof isFork === 'boolean') {
+			updateRepoForkStatus(repoId, isFork);
 		}
 
 		// Handle displayName update
@@ -43,6 +49,7 @@ export const PATCH: RequestHandler = async ({ params, request }) => {
 			success: true,
 			id: repoId,
 			isActive: repo.isActive,
+			isFork: typeof isFork === 'boolean' ? isFork : repo.isFork,
 			displayName: body.displayName
 		});
 	} catch (err) {

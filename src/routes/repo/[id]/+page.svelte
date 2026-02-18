@@ -11,7 +11,12 @@
 </script>
 
 <div class="repo-header">
-	<h1 class="text-mono">{getDisplayName(data.repo)}</h1>
+	<div class="repo-title-group">
+		<h1 class="text-mono">{getDisplayName(data.repo)}</h1>
+		{#if data.repo.isFork}
+			<span class="fork-badge">F</span>
+		{/if}
+	</div>
 	<a href="/" class="back-link">← Back to repos</a>
 </div>
 
@@ -43,6 +48,22 @@
 		align-items: center;
 		justify-content: space-between;
 		margin-bottom: var(--space-xl);
+	}
+
+	.repo-title-group {
+		display: flex;
+		align-items: center;
+		gap: var(--space-sm);
+	}
+
+	.fork-badge {
+		font-size: 0.65rem;
+		font-family: var(--font-mono);
+		padding: 1px 5px;
+		border: 1px solid var(--color-accent);
+		border-radius: 3px;
+		color: var(--color-accent);
+		opacity: 0.75;
 	}
 
 	.back-link {

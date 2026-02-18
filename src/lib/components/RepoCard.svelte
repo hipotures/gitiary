@@ -1,12 +1,16 @@
 <script lang="ts">
 	import type { RepoSummary } from '$lib/domain/types.js';
 	import { getDisplayName } from '$lib/utils/repoDisplay.js';
+	import { GitFork } from 'lucide-svelte';
 
 	let { repo }: { repo: RepoSummary } = $props();
 
 </script>
 
 <a href="/repo/{repo.id}" class="card repo-card">
+	{#if repo.isFork}
+		<span class="fork-badge"><GitFork size={12} /></span>
+	{/if}
 	<div class="repo-header">
 		<span class="repo-name text-mono">{getDisplayName(repo)}</span>
 	</div>
@@ -41,6 +45,7 @@
 <style>
 	.repo-card {
 		display: block;
+		position: relative;
 		text-decoration: none;
 		color: inherit;
 		transition: border-color 0.15s;
@@ -52,6 +57,16 @@
 
 	.repo-header {
 		margin-bottom: var(--space-md);
+	}
+
+	.fork-badge {
+		position: absolute;
+		top: var(--space-sm);
+		right: var(--space-sm);
+		display: flex;
+		align-items: center;
+		color: var(--color-accent);
+		opacity: 0.75;
 	}
 
 	.repo-owner {

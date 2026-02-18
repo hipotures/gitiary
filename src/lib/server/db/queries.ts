@@ -58,6 +58,7 @@ export function getReposWithStats(): RepoSummary[] {
 			owner: r.owner,
 			name: r.name,
 			displayName: r.displayName,
+			isFork: r.isFork,
 			commits7d: countSince(day7),
 			commits30d: countSince(day30),
 			commits90d: countSince(day90),
@@ -311,6 +312,7 @@ export function getAllRepos(): Array<{
 	name: string;
 	displayName: string | null;
 	isActive: boolean;
+	isFork: boolean;
 	lastSyncAt: string | null;
 }> {
 	const db = getDb();
@@ -321,6 +323,7 @@ export function getAllRepos(): Array<{
 			name: repo.name,
 			displayName: repo.displayName,
 			isActive: repo.isActive,
+			isFork: repo.isFork,
 			lastSyncAt: repo.lastSyncAt
 		})
 		.from(repo)
@@ -334,7 +337,7 @@ export function updateRepoActiveStatus(repoId: number, isActive: boolean): void 
 }
 
 // Upsert repo from GitHub sync
-export function upsertRepo(owner: string, name: string): number {
+export function upsertRepo(owner: string, name: string, ghIsFork = false): number {
 	const db = getDb();
 
 	const existing = db
@@ -344,6 +347,10 @@ export function upsertRepo(owner: string, name: string): number {
 		.get();
 
 	if (existing) {
+		// Trust GitHub when it says the repo IS a fork; never downgrade a manual override
+		if (ghIsFork && !existing.isFork) {
+			db.update(repo).set({ isFork: true }).where(eq(repo.id, existing.id)).run();
+		}
 		return existing.id;
 	}
 
@@ -353,11 +360,40 @@ export function upsertRepo(owner: string, name: string): number {
 			owner,
 			name,
 			isActive: false, // New repos from GitHub are inactive by default
+			isFork: ghIsFork,
 			createdAt: new Date().toISOString()
 		})
 		.run();
 
 	return Number(result.lastInsertRowid);
+}
+
+// Update fork status for a repo (manual override)
+export function updateRepoForkStatus(repoId: number, isFork: boolean): void {
+	const db = getDb();
+	db.update(repo).set({ isFork }).where(eq(repo.id, repoId)).run();
+}
+
+// Clear commit data for a repo (used before full re-sync of forks)
+export function clearRepoData(repoId: number): void {
+	const db = getDb();
+	db.delete(commitStats).where(eq(commitStats.repoId, repoId)).run();
+	db.delete(daily).where(eq(daily.repoId, repoId)).run();
+}
+
+// Get author emails from metadata (used to filter fork commits)
+export function getAuthorEmails(): string[] {
+	const value = getMetadata('authorEmails');
+	if (!value) return [];
+	try {
+		const parsed = JSON.parse(value);
+		if (Array.isArray(parsed)) {
+			return parsed.filter((e): e is string => typeof e === 'string' && e.trim().length > 0);
+		}
+	} catch {
+		// ignore parse errors
+	}
+	return [];
 }
 
 // Get active repos only (for CLI indexer)

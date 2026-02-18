@@ -15,6 +15,7 @@ function createTestDb() {
 			name TEXT NOT NULL,
 			display_name TEXT,
 			is_active INTEGER NOT NULL DEFAULT 1,
+			is_fork INTEGER NOT NULL DEFAULT 0,
 			last_sync_at TEXT,
 			created_at TEXT NOT NULL
 		);

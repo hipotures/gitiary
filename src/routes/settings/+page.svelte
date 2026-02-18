@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Moon, Sun, RefreshCw, CheckSquare, Square, Trash2, Pencil } from 'lucide-svelte';
+	import { Moon, Sun, RefreshCw, CheckSquare, Square, Trash2, Pencil, GitFork } from 'lucide-svelte';
 	import { theme } from '$lib/stores/theme';
 	import { repoSort } from '$lib/stores/repoSort';
 	import { impactDailyPageSize, type ImpactDailyPageSize } from '$lib/stores/impactPagination';
@@ -11,6 +11,7 @@
 		name: string;
 		displayName: string | null;
 		isActive: boolean;
+		isFork: boolean;
 		lastSyncAt: string | null;
 	}
 
@@ -18,6 +19,7 @@
 		version: string;
 		repos: Repo[];
 		lastGithubSync: string | null;
+		authorEmails: string[];
 	}
 
 	let { data }: { data: PageData } = $props();
@@ -31,6 +33,11 @@
 	let deleteConfirmRepo = $state<{ id: number; name: string } | null>(null);
 	let editingRepo = $state<{ id: number; name: string; displayName: string | null } | null>(null);
 	let editDisplayName = $state('');
+
+	// Author emails
+	let authorEmailsText = $state(data.authorEmails.join('\n'));
+	let isSavingEmails = $state(false);
+	let emailsSaveMessage = $state('');
 
 	// Sort preferences
 	let sortField = $state<RepoSortField>($repoSort.field);
@@ -197,6 +204,53 @@
 		editDisplayName = '';
 	}
 
+	async function saveAuthorEmails() {
+		isSavingEmails = true;
+		emailsSaveMessage = '';
+
+		try {
+			const emails = authorEmailsText
+				.split(/[\s,]+/)
+				.map((e) => e.trim())
+				.filter((e) => e.length > 0);
+
+			const response = await fetch('/api/settings', {
+				method: 'PATCH',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ authorEmails: emails })
+			});
+
+			if (!response.ok) {
+				throw new Error('Save failed');
+			}
+
+			emailsSaveMessage = 'Saved';
+		} catch (error) {
+			emailsSaveMessage = 'Failed to save';
+			console.error(error);
+		} finally {
+			isSavingEmails = false;
+		}
+	}
+
+	async function toggleFork(repoId: number, currentIsFork: boolean) {
+		try {
+			const response = await fetch(`/api/repos/${repoId}`, {
+				method: 'PATCH',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ isFork: !currentIsFork })
+			});
+
+			if (!response.ok) {
+				throw new Error('Update failed');
+			}
+
+			repos = repos.map((r) => (r.id === repoId ? { ...r, isFork: !currentIsFork } : r));
+		} catch (error) {
+			console.error('Failed to toggle fork status:', error);
+		}
+	}
+
 	function handleSortChange() {
 		repoSort.set({ field: sortField, direction: sortDirection });
 	}
@@ -292,6 +346,44 @@
 		</div>
 	</section>
 
+	<!-- Author Emails Section -->
+	<section class="settings-section">
+		<h2>Fork Filtering</h2>
+
+		<div class="setting-item setting-item-column">
+			<div class="setting-info">
+				<label for="author-emails">Author Emails</label>
+				<p class="setting-description">
+					Emails used to filter commits in fork repositories. One email per line.
+					When a repo is marked as fork, only commits by these authors will be synced.
+				</p>
+			</div>
+			<div class="emails-input-group">
+				<textarea
+					id="author-emails"
+					class="emails-textarea"
+					bind:value={authorEmailsText}
+					placeholder={"user@example.com\nuser@users.noreply.github.com"}
+					rows={4}
+				></textarea>
+				<div class="emails-actions">
+					<button
+						class="save-emails-btn"
+						onclick={saveAuthorEmails}
+						disabled={isSavingEmails}
+					>
+						{isSavingEmails ? 'Saving...' : 'Save'}
+					</button>
+					{#if emailsSaveMessage}
+						<span class="emails-save-msg" class:error={emailsSaveMessage.includes('Failed')}>
+							{emailsSaveMessage}
+						</span>
+					{/if}
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<!-- Repository Management Section -->
 	<section class="settings-section">
 		<h2>Repository Management</h2>
@@ -365,8 +457,21 @@
 							{/if}
 						</div>
 
-						{#if repo.isActive}
-							<div class="repo-actions">
+						<div class="repo-actions">
+							<button
+								type="button"
+								class="action-btn fork-btn"
+								class:fork-active={repo.isFork}
+								onclick={(e) => {
+									e.preventDefault();
+									toggleFork(repo.id, repo.isFork);
+								}}
+								title={repo.isFork ? 'Marked as fork — click to unmark' : 'Mark as fork'}
+								aria-label="Toggle fork status"
+							>
+								<GitFork size={16} />
+							</button>
+							{#if repo.isActive}
 								<button
 									class="action-btn sync-all"
 									onclick={(e) => {
@@ -401,8 +506,8 @@
 											: ''}
 									/>
 								</button>
-							</div>
-						{/if}
+							{/if}
+						</div>
 
 						<button
 							class="edit-btn"
@@ -1010,5 +1115,101 @@
 	.text-input::placeholder {
 		color: var(--color-text-secondary);
 		opacity: 0.6;
+	}
+
+	.setting-item-column {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--space-md);
+	}
+
+	.emails-input-group {
+		width: 100%;
+	}
+
+	.emails-textarea {
+		width: 100%;
+		padding: var(--space-sm) var(--space-md);
+		background: var(--color-bg);
+		border: 2px solid var(--color-border);
+		border-radius: var(--radius);
+		color: var(--color-text);
+		font-size: 0.875rem;
+		font-family: var(--font-mono);
+		resize: vertical;
+		transition: border-color 0.2s ease;
+		box-sizing: border-box;
+	}
+
+	.emails-textarea:focus {
+		outline: none;
+		border-color: var(--color-accent);
+	}
+
+	.emails-textarea::placeholder {
+		color: var(--color-text-secondary);
+		opacity: 0.6;
+	}
+
+	.emails-actions {
+		display: flex;
+		align-items: center;
+		gap: var(--space-md);
+		margin-top: var(--space-sm);
+	}
+
+	.save-emails-btn {
+		padding: var(--space-xs) var(--space-md);
+		background: var(--color-accent);
+		color: white;
+		border: none;
+		border-radius: var(--radius);
+		cursor: pointer;
+		font-size: 0.875rem;
+		font-weight: 500;
+		transition: opacity 0.2s ease;
+	}
+
+	.save-emails-btn:hover:not(:disabled) {
+		opacity: 0.9;
+	}
+
+	.save-emails-btn:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	.emails-save-msg {
+		font-size: 0.875rem;
+		color: var(--color-success);
+	}
+
+	.emails-save-msg.error {
+		color: var(--color-error);
+	}
+
+	.action-btn.fork-btn {
+		opacity: 0.25;
+		color: var(--color-text-secondary);
+		border-color: transparent;
+	}
+
+	.action-btn.fork-btn:hover:not(:disabled) {
+		opacity: 1;
+		color: var(--color-accent);
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 1px var(--color-accent);
+		background: var(--color-surface-hover);
+	}
+
+	.action-btn.fork-btn.fork-active {
+		opacity: 1;
+		color: var(--color-accent);
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 1px var(--color-accent);
+	}
+
+	.action-btn.fork-btn.fork-active:hover:not(:disabled) {
+		opacity: 0.75;
 	}
 </style>
