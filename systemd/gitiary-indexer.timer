@@ -1,0 +1,11 @@
+[Unit]
+Description=Run gitiary indexer every 6 hours
+Requires=gitiary-indexer.service
+
+[Timer]
+OnCalendar=*-*-* 00/6:00:00
+Persistent=true
+RandomizedDelaySec=300
+
+[Install]
+WantedBy=timers.target

@@ -102,7 +102,7 @@ node --import tsx scripts/capture-sections.ts --theme both
 Use custom output directory:
 
 ```bash
-node --import tsx scripts/capture-sections.ts --out-dir /tmp/git-diary-shots
+node --import tsx scripts/capture-sections.ts --out-dir /tmp/gitiary-shots
 ```
 
 Use existing running server:

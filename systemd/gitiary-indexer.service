@@ -1,0 +1,15 @@
+[Unit]
+Description=gitiary GitHub commit indexer
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/xai/DEV/git-diary
+ExecStart=/usr/bin/npm run index
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=gitiary-indexer
+
+[Install]
+WantedBy=multi-user.target

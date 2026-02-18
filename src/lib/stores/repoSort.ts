@@ -7,7 +7,7 @@ export interface RepoSortPreference {
 	direction: SortDirection;
 }
 
-const STORAGE_KEY = 'git-diary-repo-sort';
+const STORAGE_KEY = 'gitiary-repo-sort';
 const DEFAULT_PREFERENCE: RepoSortPreference = {
 	field: 'name',
 	direction: 'asc'

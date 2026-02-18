@@ -26,7 +26,7 @@
 	<nav class="nav">
 		<div class="container nav-inner">
 			<div class="nav-brand-section">
-				<a href="/" class="nav-brand">Git Diary</a>
+				<a href="/" class="nav-brand">Gitiary</a>
 				{#if data?.owner}
 					<span class="nav-owner">{data.owner}</span>
 				{/if}

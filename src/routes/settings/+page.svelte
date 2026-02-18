@@ -218,7 +218,7 @@
 		<div class="setting-item">
 			<div class="setting-info">
 				<label for="theme-select">Theme</label>
-				<p class="setting-description">Choose how Git Diary looks to you.</p>
+				<p class="setting-description">Choose how gitiary looks to you.</p>
 			</div>
 
 			<div class="theme-options">

@@ -7,7 +7,7 @@ export type DateRange = 7 | 30 | 90 | 180 | 360 | 'all';
 const getInitialRange = (): DateRange => {
 	if (!browser) return 90;
 
-	const stored = localStorage.getItem('git-diary-date-range');
+	const stored = localStorage.getItem('gitiary-date-range');
 	if (stored === 'all') return 'all';
 	const parsed = parseInt(stored || '', 10);
 	if ([7, 30, 90, 180, 360].includes(parsed)) return parsed as DateRange;
@@ -22,7 +22,7 @@ function createDateRangeStore() {
 		subscribe,
 		set: (range: DateRange) => {
 			if (browser) {
-				localStorage.setItem('git-diary-date-range', String(range));
+				localStorage.setItem('gitiary-date-range', String(range));
 			}
 			set(range);
 		}

@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 
 export type ImpactDailyPageSize = 10 | 30 | 50 | 100;
 
-const STORAGE_KEY = 'git-diary-impact-daily-page-size';
+const STORAGE_KEY = 'gitiary-impact-daily-page-size';
 const DEFAULT_PAGE_SIZE: ImpactDailyPageSize = 30;
 
 function parsePageSize(raw: string | null): ImpactDailyPageSize | null {

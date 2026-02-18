@@ -1,4 +1,4 @@
-# git-diary
+# gitiary
 
 Personal dashboard for visualizing GitHub commit activity across multiple repositories.
 
@@ -29,8 +29,8 @@ Personal dashboard for visualizing GitHub commit activity across multiple reposi
 
 ```bash
 # Clone repository
-git clone git@github.com:hipotures/git-diary.git
-cd git-diary
+git clone git@github.com:hipotures/gitiary.git
+cd gitiary
 
 # Install dependencies
 npm install
@@ -235,19 +235,19 @@ Notes:
 Run indexer every 6 hours:
 
 ```bash
-sudo cp systemd/git-diary-indexer.service /etc/systemd/system/
-sudo cp systemd/git-diary-indexer.timer /etc/systemd/system/
-sudo systemctl enable --now git-diary-indexer.timer
-systemctl status git-diary-indexer.timer
-sudo journalctl -u git-diary-indexer -f
+sudo cp systemd/gitiary-indexer.service /etc/systemd/system/
+sudo cp systemd/gitiary-indexer.timer /etc/systemd/system/
+sudo systemctl enable --now gitiary-indexer.timer
+systemctl status gitiary-indexer.timer
+sudo journalctl -u gitiary-indexer -f
 ```
 
-If needed, adjust `WorkingDirectory` in `systemd/git-diary-indexer.service` before enabling.
+If needed, adjust `WorkingDirectory` in `systemd/gitiary-indexer.service` before enabling.
 
 ## Project Structure
 
 ```text
-git-diary/
+gitiary/
 ├── src/
 │   ├── lib/
 │   │   ├── server/

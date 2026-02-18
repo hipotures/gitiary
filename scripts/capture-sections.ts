@@ -409,8 +409,8 @@ async function main(): Promise<void> {
 
 				await context.addInitScript(
 					(params: { range: string; theme: Theme }) => {
-						localStorage.setItem('git-diary-date-range', params.range);
-						localStorage.setItem('git-diary-theme', params.theme);
+						localStorage.setItem('gitiary-date-range', params.range);
+						localStorage.setItem('gitiary-theme', params.theme);
 						document.documentElement.setAttribute('data-theme', params.theme);
 					},
 					{ range: range.storageValue, theme }

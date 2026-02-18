@@ -1,6 +1,6 @@
 {
-	"name": "git-diary",
-	"version": "1.6.2",
+	"name": "gitiary",
+	"version": "2.0.0",
 	"private": true,
 	"type": "module",
 	"scripts": {

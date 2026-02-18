@@ -7,7 +7,7 @@ export type Theme = 'light' | 'dark';
 const getInitialTheme = (): Theme => {
 	if (!browser) return 'dark';
 
-	const stored = localStorage.getItem('git-diary-theme');
+	const stored = localStorage.getItem('gitiary-theme');
 	if (stored === 'light' || stored === 'dark') return stored;
 
 	// Fallback to system preference
@@ -27,7 +27,7 @@ function createThemeStore() {
 			update((current) => {
 				const next = current === 'dark' ? 'light' : 'dark';
 				if (browser) {
-					localStorage.setItem('git-diary-theme', next);
+					localStorage.setItem('gitiary-theme', next);
 					document.documentElement.setAttribute('data-theme', next);
 				}
 				return next;
@@ -35,7 +35,7 @@ function createThemeStore() {
 		},
 		set: (theme: Theme) => {
 			if (browser) {
-				localStorage.setItem('git-diary-theme', theme);
+				localStorage.setItem('gitiary-theme', theme);
 				document.documentElement.setAttribute('data-theme', theme);
 			}
 			set(theme);
