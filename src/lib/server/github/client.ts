@@ -98,6 +98,7 @@ export interface RepoNode {
 	name: string;
 	isPrivate: boolean;
 	isFork: boolean;
+	pushedAt: string | null;
 	defaultBranchRef: { name: string } | null;
 }
 
@@ -121,6 +122,7 @@ const REPOS_QUERY = `query($cursor: String) {
         name
         isPrivate
         isFork
+        pushedAt
         defaultBranchRef { name }
       }
     }

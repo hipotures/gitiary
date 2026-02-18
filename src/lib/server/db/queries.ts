@@ -314,6 +314,7 @@ export function getAllRepos(): Array<{
 	isActive: boolean;
 	isFork: boolean;
 	lastSyncAt: string | null;
+	lastPushedAt: string | null;
 }> {
 	const db = getDb();
 	return db
@@ -324,7 +325,8 @@ export function getAllRepos(): Array<{
 			displayName: repo.displayName,
 			isActive: repo.isActive,
 			isFork: repo.isFork,
-			lastSyncAt: repo.lastSyncAt
+			lastSyncAt: repo.lastSyncAt,
+			lastPushedAt: repo.lastPushedAt
 		})
 		.from(repo)
 		.all();
@@ -337,7 +339,12 @@ export function updateRepoActiveStatus(repoId: number, isActive: boolean): void 
 }
 
 // Upsert repo from GitHub sync
-export function upsertRepo(owner: string, name: string, ghIsFork = false): number {
+export function upsertRepo(
+	owner: string,
+	name: string,
+	ghIsFork = false,
+	pushedAt?: string | null
+): number {
 	const db = getDb();
 
 	const existing = db
@@ -348,8 +355,15 @@ export function upsertRepo(owner: string, name: string, ghIsFork = false): numbe
 
 	if (existing) {
 		// Trust GitHub when it says the repo IS a fork; never downgrade a manual override
+		const updates: Record<string, unknown> = {};
 		if (ghIsFork && !existing.isFork) {
-			db.update(repo).set({ isFork: true }).where(eq(repo.id, existing.id)).run();
+			updates.isFork = true;
+		}
+		if (pushedAt !== undefined) {
+			updates.lastPushedAt = pushedAt;
+		}
+		if (Object.keys(updates).length > 0) {
+			db.update(repo).set(updates).where(eq(repo.id, existing.id)).run();
 		}
 		return existing.id;
 	}
@@ -361,6 +375,7 @@ export function upsertRepo(owner: string, name: string, ghIsFork = false): numbe
 			name,
 			isActive: false, // New repos from GitHub are inactive by default
 			isFork: ghIsFork,
+			lastPushedAt: pushedAt ?? null,
 			createdAt: new Date().toISOString()
 		})
 		.run();

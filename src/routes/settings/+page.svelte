@@ -13,6 +13,7 @@
 		isActive: boolean;
 		isFork: boolean;
 		lastSyncAt: string | null;
+		lastPushedAt: string | null;
 	}
 
 	interface PageData {
@@ -43,6 +44,17 @@
 	let sortField = $state<RepoSortField>($repoSort.field);
 	let sortDirection = $state<SortDirection>($repoSort.direction);
 	let dailyPageSize = $state<ImpactDailyPageSize>($impactDailyPageSize);
+
+	function hasNewCommits(r: Repo): boolean {
+		if (!r.lastPushedAt) return false;
+		if (!r.lastSyncAt) return true;
+		return r.lastPushedAt > r.lastSyncAt;
+	}
+
+	function pushedWithin30Days(pushedAt: string): boolean {
+		const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+		return pushedAt > thirtyDaysAgo;
+	}
 
 	async function syncWithGitHub() {
 		isSyncing = true;
@@ -474,6 +486,7 @@
 							{#if repo.isActive}
 								<button
 									class="action-btn sync-all"
+									class:needs-sync={hasNewCommits(repo) && repo.lastPushedAt !== null && !pushedWithin30Days(repo.lastPushedAt)}
 									onclick={(e) => {
 										e.preventDefault();
 										syncSingleRepo(repo.id, { mode: 'full' });
@@ -490,6 +503,7 @@
 								</button>
 								<button
 									class="action-btn sync-30d"
+									class:needs-sync={hasNewCommits(repo) && repo.lastPushedAt !== null && pushedWithin30Days(repo.lastPushedAt)}
 									onclick={(e) => {
 										e.preventDefault();
 										syncSingleRepo(repo.id, { mode: 'backfill', backfillDays: 30 });
@@ -1211,5 +1225,15 @@
 
 	.action-btn.fork-btn.fork-active:hover:not(:disabled) {
 		opacity: 0.75;
+	}
+
+	@keyframes pulse-opacity {
+		0%, 100% { opacity: 1; }
+		50% { opacity: 0.3; }
+	}
+
+	.action-btn.needs-sync {
+		animation: pulse-opacity 1.8s ease-in-out infinite;
+		color: var(--color-accent);
 	}
 </style>
