@@ -68,6 +68,7 @@ export function getReposWithStats(): RepoSummary[] {
 			name: r.name,
 			displayName: r.displayName,
 			isFork: r.isFork,
+			hasExtraBranches: r.branchCount > 1,
 			commits7d: countSince(day7),
 			commits30d: countSince(day30),
 			commits90d: countSince(day90),
@@ -367,7 +368,8 @@ export function upsertRepo(
 	owner: string,
 	name: string,
 	ghIsFork = false,
-	pushedAt?: string | null
+	pushedAt?: string | null,
+	branchCount?: number
 ): number {
 	const db = getDb();
 
@@ -386,6 +388,9 @@ export function upsertRepo(
 		if (pushedAt !== undefined) {
 			updates.lastPushedAt = pushedAt;
 		}
+		if (branchCount !== undefined) {
+			updates.branchCount = branchCount;
+		}
 		if (Object.keys(updates).length > 0) {
 			db.update(repo).set(updates).where(eq(repo.id, existing.id)).run();
 		}
@@ -399,6 +404,7 @@ export function upsertRepo(
 			name,
 			isActive: false, // New repos from GitHub are inactive by default
 			isFork: ghIsFork,
+			branchCount: branchCount ?? 0,
 			lastPushedAt: pushedAt ?? null,
 			createdAt: new Date().toISOString()
 		})
@@ -433,6 +439,11 @@ export function getAuthorEmails(): string[] {
 		// ignore parse errors
 	}
 	return [];
+}
+
+// Get default branch name from metadata (falls back to 'main')
+export function getDefaultBranch(): string {
+	return getMetadata('defaultBranch') ?? 'main';
 }
 
 // Get active repos only (for CLI indexer)

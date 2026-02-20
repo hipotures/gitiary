@@ -100,6 +100,7 @@ export interface RepoNode {
 	isFork: boolean;
 	pushedAt: string | null;
 	defaultBranchRef: { name: string } | null;
+	refs: { totalCount: number } | null;
 }
 
 interface ReposGraphQLResponse {
@@ -124,6 +125,7 @@ const REPOS_QUERY = `query($cursor: String) {
         isFork
         pushedAt
         defaultBranchRef { name }
+        refs(refPrefix: "refs/heads/") { totalCount }
       }
     }
   }

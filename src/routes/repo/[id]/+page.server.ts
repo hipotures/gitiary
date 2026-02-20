@@ -18,7 +18,7 @@ export const load: PageServerLoad = ({ params }) => {
 	const daily = getRepoDailyData(id, null);
 
 	return {
-		repo: { id: repo.id, owner: repo.owner, name: repo.name, displayName: repo.displayName, isFork: repo.isFork },
+		repo: { id: repo.id, owner: repo.owner, name: repo.name, displayName: repo.displayName, isFork: repo.isFork, hasExtraBranches: repo.branchCount > 1 },
 		daily
 	};
 };

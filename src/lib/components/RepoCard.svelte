@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { RepoSummary } from '$lib/domain/types.js';
 	import { getDisplayName } from '$lib/utils/repoDisplay.js';
-	import { GitFork } from 'lucide-svelte';
+	import { GitFork, GitBranch } from 'lucide-svelte';
 
 	let { repo }: { repo: RepoSummary } = $props();
 
@@ -10,6 +10,9 @@
 <a href="/repo/{repo.id}" class="card repo-card">
 	{#if repo.isFork}
 		<span class="fork-badge"><GitFork size={12} /></span>
+	{/if}
+	{#if repo.hasExtraBranches}
+		<span class="branch-badge"><GitBranch size={12} /></span>
 	{/if}
 	<div class="repo-header">
 		<span class="repo-name text-mono">{getDisplayName(repo)}</span>
@@ -67,6 +70,21 @@
 		align-items: center;
 		color: var(--color-accent);
 		opacity: 0.75;
+	}
+
+	.branch-badge {
+		position: absolute;
+		top: var(--space-sm);
+		right: var(--space-sm);
+		display: flex;
+		align-items: center;
+		color: var(--color-accent);
+		opacity: 0.75;
+	}
+
+	/* when fork badge is also present, shift branch badge left */
+	:has(.fork-badge) .branch-badge {
+		right: calc(var(--space-sm) + 20px);
 	}
 
 	.repo-owner {

@@ -4,6 +4,7 @@ export interface RepoSummary {
 	name: string;
 	displayName: string | null;
 	isFork: boolean;
+	hasExtraBranches: boolean;
 	commits7d: number;
 	commits30d: number;
 	commits90d: number;

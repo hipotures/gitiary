@@ -21,6 +21,7 @@
 		repos: Repo[];
 		lastGithubSync: string | null;
 		authorEmails: string[];
+		defaultBranch: string;
 	}
 
 	let { data }: { data: PageData } = $props();
@@ -39,6 +40,11 @@
 	let authorEmailsText = $state(data.authorEmails.join('\n'));
 	let isSavingEmails = $state(false);
 	let emailsSaveMessage = $state('');
+
+	// Default branch
+	let defaultBranchValue = $state(data.defaultBranch);
+	let isSavingDefaultBranch = $state(false);
+	let defaultBranchSaveMessage = $state('');
 
 	// Sort preferences
 	let sortField = $state<RepoSortField>($repoSort.field);
@@ -245,6 +251,30 @@
 		}
 	}
 
+	async function saveDefaultBranch() {
+		isSavingDefaultBranch = true;
+		defaultBranchSaveMessage = '';
+
+		try {
+			const response = await fetch('/api/settings', {
+				method: 'PATCH',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ defaultBranch: defaultBranchValue })
+			});
+
+			if (!response.ok) {
+				throw new Error('Save failed');
+			}
+
+			defaultBranchSaveMessage = 'Saved';
+		} catch (error) {
+			defaultBranchSaveMessage = 'Failed to save';
+			console.error(error);
+		} finally {
+			isSavingDefaultBranch = false;
+		}
+	}
+
 	async function toggleFork(repoId: number, currentIsFork: boolean) {
 		try {
 			const response = await fetch(`/api/repos/${repoId}`, {
@@ -390,6 +420,44 @@
 					{#if emailsSaveMessage}
 						<span class="emails-save-msg" class:error={emailsSaveMessage.includes('Failed')}>
 							{emailsSaveMessage}
+						</span>
+					{/if}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Branch Tracking Section -->
+	<section class="settings-section">
+		<h2>Branch Tracking</h2>
+
+		<div class="setting-item">
+			<div class="setting-info">
+				<label for="default-branch">Default Branch Name</label>
+				<p class="setting-description">
+					Name of the default branch in your repositories (e.g. <code>main</code> or <code>master</code>).
+					Repositories with more branches than just this default will show a branch indicator badge.
+				</p>
+			</div>
+			<div class="branch-input-group">
+				<input
+					id="default-branch"
+					type="text"
+					class="text-input branch-input"
+					bind:value={defaultBranchValue}
+					placeholder="main"
+				/>
+				<div class="emails-actions">
+					<button
+						class="save-emails-btn"
+						onclick={saveDefaultBranch}
+						disabled={isSavingDefaultBranch}
+					>
+						{isSavingDefaultBranch ? 'Saving...' : 'Save'}
+					</button>
+					{#if defaultBranchSaveMessage}
+						<span class="emails-save-msg" class:error={defaultBranchSaveMessage.includes('Failed')}>
+							{defaultBranchSaveMessage}
 						</span>
 					{/if}
 				</div>
@@ -1236,5 +1304,16 @@
 	.action-btn.needs-sync {
 		animation: pulse-opacity 1.8s ease-in-out infinite;
 		color: var(--color-accent);
+	}
+
+	.branch-input-group {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-sm);
+		min-width: 200px;
+	}
+
+	.branch-input {
+		width: 100%;
 	}
 </style>

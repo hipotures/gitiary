@@ -18,6 +18,10 @@ export const PATCH: RequestHandler = async ({ request }) => {
 			setMetadata('authorEmails', JSON.stringify(cleaned));
 		}
 
+		if ('defaultBranch' in body && typeof body.defaultBranch === 'string') {
+			setMetadata('defaultBranch', body.defaultBranch.trim() || 'main');
+		}
+
 		return json({ success: true });
 	} catch (err) {
 		console.error('Failed to update settings:', err);

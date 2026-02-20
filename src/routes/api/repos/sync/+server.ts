@@ -14,7 +14,7 @@ export const POST: RequestHandler = async () => {
 		let skippedCount = 0;
 
 		for (const ghRepo of githubRepos) {
-			const repoId = upsertRepo(ghRepo.owner.login, ghRepo.name, ghRepo.isFork, ghRepo.pushedAt ?? null);
+			const repoId = upsertRepo(ghRepo.owner.login, ghRepo.name, ghRepo.isFork, ghRepo.pushedAt ?? null, ghRepo.refs?.totalCount ?? 0);
 			if (repoId) {
 				addedCount++;
 			} else {
