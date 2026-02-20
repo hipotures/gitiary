@@ -97,6 +97,7 @@
 
 	.nav-links {
 		display: flex;
+		align-items: center;
 		gap: var(--space-lg);
 	}
 
