@@ -44,6 +44,7 @@ export interface ComparisonRepo {
 	currentStreak: number;
 	longestStreak: number;
 	firstCommitDate: string | null;
+	lastCommitDate: string | null;
 }
 
 export interface ComparisonStats {

@@ -36,7 +36,8 @@
 					maxGap: calculateMaxGap(filteredDaily),
 					currentStreak: calculateCurrentStreak(filteredDaily, today),
 					longestStreak: calculateLongestStreak(filteredDaily),
-					firstCommitDate: item.firstCommitDate
+					firstCommitDate: item.firstCommitDate,
+					lastCommitDate: item.lastCommitDate
 				};
 			})
 		};

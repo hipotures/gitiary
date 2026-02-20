@@ -33,7 +33,8 @@ export const load: PageServerLoad = () => {
 				maxGap: calculateMaxGap(item.daily),
 				currentStreak: calculateCurrentStreak(item.daily, today),
 				longestStreak: calculateLongestStreak(item.daily),
-				firstCommitDate: item.firstCommitDate
+				firstCommitDate: item.firstCommitDate,
+				lastCommitDate: item.lastCommitDate
 			};
 		})
 	};

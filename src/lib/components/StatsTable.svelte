@@ -45,6 +45,14 @@
 					</button>
 				</th>
 				<th class="numeric">
+					<button class="sort-btn" onclick={() => handleSort('lastCommitDate')}>
+						Last Commit
+						{#if sortField === 'lastCommitDate'}
+							<span class="sort-indicator">{sortDirection === 'asc' ? '↑' : '↓'}</span>
+						{/if}
+					</button>
+				</th>
+				<th class="numeric">
 					<button class="sort-btn" onclick={() => handleSort('totalCommits')}>
 						Commits
 						{#if sortField === 'totalCommits'}
@@ -103,6 +111,7 @@
 						</a>
 					</td>
 					<td class="numeric">{repo.firstCommitDate ?? 'N/A'}</td>
+					<td class="numeric">{repo.lastCommitDate ?? 'N/A'}</td>
 					<td class="numeric">{repo.totalCommits}</td>
 					<td class="numeric">{repo.activeDays}</td>
 					<td class="numeric">{formatPercent(repo.regularity)}</td>

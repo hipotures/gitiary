@@ -3,6 +3,7 @@ import type { ComparisonRepo } from './types.js';
 export type SortField =
 	| 'name'
 	| 'firstCommitDate'
+	| 'lastCommitDate'
 	| 'totalCommits'
 	| 'activeDays'
 	| 'regularity'
@@ -26,9 +27,9 @@ export function sortRepos(
 		if (field === 'name') {
 			aVal = `${a.owner}/${a.name}`.toLowerCase();
 			bVal = `${b.owner}/${b.name}`.toLowerCase();
-		} else if (field === 'firstCommitDate') {
-			aVal = a.firstCommitDate;
-			bVal = b.firstCommitDate;
+		} else if (field === 'firstCommitDate' || field === 'lastCommitDate') {
+			aVal = a[field];
+			bVal = b[field];
 
 			// Handle nulls - always sort to the end
 			if (aVal === null && bVal === null) return 0;

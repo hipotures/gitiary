@@ -120,9 +120,12 @@ export function getAllDailyData(days: number = 90) {
 			.orderBy(daily.day)
 			.all();
 
-		// Get first commit date from entire history, not just filtered period
-		const firstCommitResult = db
-			.select({ minDay: sql<string>`MIN(${daily.day})` })
+		// Get first/last commit date from entire history, not just filtered period
+		const firstLastResult = db
+			.select({
+				minDay: sql<string>`MIN(${daily.day})`,
+				maxDay: sql<string>`MAX(${daily.day})`
+			})
 			.from(daily)
 			.where(and(eq(daily.repoId, r.id), sql`${daily.commits} > 0`))
 			.get();
@@ -130,7 +133,8 @@ export function getAllDailyData(days: number = 90) {
 		return {
 			repo: { id: r.id, owner: r.owner, name: r.name, displayName: r.displayName },
 			daily: dailyData,
-			firstCommitDate: firstCommitResult?.minDay ?? null
+			firstCommitDate: firstLastResult?.minDay ?? null,
+			lastCommitDate: firstLastResult?.maxDay ?? null
 		};
 	});
 }
