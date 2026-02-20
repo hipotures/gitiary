@@ -2,9 +2,27 @@
 	import type { RepoSummary } from '$lib/domain/types.js';
 	import { getDisplayName } from '$lib/utils/repoDisplay.js';
 	import { GitFork, GitBranch } from 'lucide-svelte';
+	import { dateRange, type DateRange } from '$lib/stores/dateRange.js';
 
 	let { repo }: { repo: RepoSummary } = $props();
 
+	type Stat = { value: number; label: string };
+
+	const allStats: Stat[] = [
+		{ value: repo.commits7d,   label: '7d'  },
+		{ value: repo.commits30d,  label: '30d' },
+		{ value: repo.commits90d,  label: '90d' },
+		{ value: repo.commits180d, label: '180d' },
+		{ value: repo.commits360d, label: '360d' },
+		{ value: repo.commitsAll,  label: 'All' },
+	];
+
+	const rangeOrder: DateRange[] = [7, 30, 90, 180, 360, 'all'];
+
+	function visibleStats(range: DateRange): Stat[] {
+		const idx = rangeOrder.indexOf(range);
+		return allStats.slice(0, idx + 1);
+	}
 </script>
 
 <a href="/repo/{repo.id}" class="card repo-card">
@@ -17,31 +35,13 @@
 	<div class="repo-header">
 		<span class="repo-name text-mono">{getDisplayName(repo)}</span>
 	</div>
-	<div class="repo-stats">
-		<div class="stat">
-			<span class="stat-value">{repo.commits7d}</span>
-			<span class="stat-label text-secondary">7d</span>
-		</div>
-		<div class="stat">
-			<span class="stat-value">{repo.commits30d}</span>
-			<span class="stat-label text-secondary">30d</span>
-		</div>
-		<div class="stat">
-			<span class="stat-value">{repo.commits90d}</span>
-			<span class="stat-label text-secondary">90d</span>
-		</div>
-		<div class="stat">
-			<span class="stat-value">{repo.commits180d}</span>
-			<span class="stat-label text-secondary">180d</span>
-		</div>
-		<div class="stat">
-			<span class="stat-value">{repo.commits360d}</span>
-			<span class="stat-label text-secondary">360d</span>
-		</div>
-		<div class="stat">
-			<span class="stat-value">{repo.commitsAll}</span>
-			<span class="stat-label text-secondary">All</span>
-		</div>
+	<div class="repo-stats" style="grid-template-columns: repeat({visibleStats($dateRange).length}, 1fr)">
+		{#each visibleStats($dateRange) as stat}
+			<div class="stat">
+				<span class="stat-value">{stat.value}</span>
+				<span class="stat-label text-secondary">{stat.label}</span>
+			</div>
+		{/each}
 	</div>
 </a>
 
@@ -97,7 +97,6 @@
 
 	.repo-stats {
 		display: grid;
-		grid-template-columns: repeat(6, 1fr);
 		gap: var(--space-sm);
 	}
 
