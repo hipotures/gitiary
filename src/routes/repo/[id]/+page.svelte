@@ -3,6 +3,7 @@
 	import CalendarHeatmap from '$lib/components/CalendarHeatmap.svelte';
 	import { dateRange, filterDailyData, getRangeLabel } from '$lib/stores/dateRange';
 	import { getDisplayName } from '$lib/utils/repoDisplay.js';
+	import { GitFork } from 'lucide-svelte';
 	import type { PageData } from './$types.js';
 
 	let { data }: { data: PageData } = $props();
@@ -14,7 +15,7 @@
 	<div class="repo-title-group">
 		<h1 class="text-mono">{getDisplayName(data.repo)}</h1>
 		{#if data.repo.isFork}
-			<span class="fork-badge">F</span>
+			<span class="fork-badge"><GitFork size={12} /></span>
 		{/if}
 	</div>
 	<a href="/" class="back-link">← Back to repos</a>
@@ -56,14 +57,22 @@
 		gap: var(--space-sm);
 	}
 
+	.repo-title-group h1 {
+		margin: 0;
+	}
+
 	.fork-badge {
-		font-size: 0.65rem;
-		font-family: var(--font-mono);
-		padding: 1px 5px;
+		display: inline-flex;
+		align-items: center;
+		padding: 2px 5px;
 		border: 1px solid var(--color-accent);
 		border-radius: 3px;
 		color: var(--color-accent);
 		opacity: 0.75;
+	}
+
+	.fork-badge :global(svg) {
+		display: block;
 	}
 
 	.back-link {
