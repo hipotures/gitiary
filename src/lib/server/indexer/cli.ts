@@ -14,7 +14,12 @@ async function main() {
 
 	const config = loadConfig();
 	const verbose = values.verbose;
-	const backfillDays = parseInt(values['backfill-days'] || '30', 10);
+	const parsedBackfillDays = Number.parseInt(values['backfill-days'] || '30', 10);
+	if (!Number.isFinite(parsedBackfillDays) || parsedBackfillDays < 0) {
+		console.error('Error: --backfill-days must be a non-negative integer');
+		process.exit(1);
+	}
+	const backfillDays = Math.floor(parsedBackfillDays);
 	const fullHistory = values['full-history'];
 
 	let reposToSync = config.repos;
@@ -40,12 +45,17 @@ async function main() {
 
 	for (const repo of reposToSync) {
 		try {
-			await syncRepo(repo, {
+			const result = await syncRepo(repo, {
 				verbose,
 				backfillDays,
 				mode: fullHistory ? 'full' : 'backfill'
 			});
 			successCount++;
+			if (verbose) {
+				console.log(
+					`[OK] ${result.owner}/${result.name}: ${result.fetchedCommits} commits, ${result.upsertedDailyRows} days`
+				);
+			}
 		} catch (error) {
 			failCount++;
 			console.error(`[ERROR] Failed to sync ${repo.owner}/${repo.name}:`, error);

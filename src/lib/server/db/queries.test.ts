@@ -16,7 +16,9 @@ function createTestDb() {
 			display_name TEXT,
 			is_active INTEGER NOT NULL DEFAULT 1,
 			is_fork INTEGER NOT NULL DEFAULT 0,
+			branch_count INTEGER NOT NULL DEFAULT 0,
 			last_sync_at TEXT,
+			last_pushed_at TEXT,
 			created_at TEXT NOT NULL
 		);
 

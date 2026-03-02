@@ -153,7 +153,9 @@ Syncs a single repository using indexer logic.
   "owner": "alice",
   "name": "repo-a",
   "mode": "backfill",
-  "backfillDays": 30
+  "backfillDays": 30,
+  "fetchedCommits": 128,
+  "upsertedDailyRows": 42
 }
 ```
 

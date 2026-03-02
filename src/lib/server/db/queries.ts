@@ -484,14 +484,16 @@ export function setMetadata(key: string, value: string): void {
 export function deleteRepo(repoId: number): void {
 	const db = getDb();
 
-	// Delete commit-level stats first
-	db.delete(commitStats).where(eq(commitStats.repoId, repoId)).run();
+	db.transaction((tx) => {
+		// Delete commit-level stats first
+		tx.delete(commitStats).where(eq(commitStats.repoId, repoId)).run();
 
-	// Delete daily commit records first (foreign key constraint)
-	db.delete(daily).where(eq(daily.repoId, repoId)).run();
+		// Delete daily commit records first (foreign key constraint)
+		tx.delete(daily).where(eq(daily.repoId, repoId)).run();
 
-	// Delete repo
-	db.delete(repo).where(eq(repo.id, repoId)).run();
+		// Delete repo
+		tx.delete(repo).where(eq(repo.id, repoId)).run();
+	});
 }
 
 // Update repository display name

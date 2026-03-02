@@ -26,6 +26,15 @@ export interface SyncRepoOptions {
 	mode?: SyncMode;
 }
 
+export interface SyncRepoResult {
+	repoId: number;
+	owner: string;
+	name: string;
+	mode: SyncMode;
+	fetchedCommits: number;
+	upsertedDailyRows: number;
+}
+
 function aggregateByDay(commits: CommitNode[]): Map<string, DailyAggregate> {
 	const map = new Map<string, DailyAggregate>();
 	for (const commit of commits) {
@@ -108,22 +117,13 @@ export async function syncRepo(repoConfig: RepoConfig, options: SyncRepoOptions 
 		}
 	}
 
-	// In full mode for forks, clear existing data first so stale commits are removed
-	if (mode === 'full' && repoRow.isFork && authorEmails) {
-		if (verbose) {
-			console.log(`[${owner}/${name}] Clearing existing data before full fork re-sync...`);
-		}
-		db.delete(commitStats).where(eq(commitStats.repoId, repoRow.id)).run();
-		db.delete(daily).where(eq(daily.repoId, repoRow.id)).run();
-	}
-
 	// Fetch commits from GitHub
 	let commits: CommitNode[];
 	try {
 		commits = await fetchCommits(owner, name, sinceDate, authorEmails);
 	} catch (error) {
 		console.error(`[${owner}/${name}] Failed to fetch commits:`, error);
-		return;
+		throw new Error(`[${owner}/${name}] Failed to fetch commits`, { cause: error });
 	}
 
 	if (verbose) {
@@ -137,70 +137,81 @@ export async function syncRepo(repoConfig: RepoConfig, options: SyncRepoOptions 
 		console.log(`[${owner}/${name}] Aggregated into ${dailyMap.size} days`);
 	}
 
-	// In full mode for non-fork repos, replace stats to avoid stale rows.
-	// (Fork repos are cleared earlier when author email filtering is active.)
-	if (mode === 'full' && !repoRow.isFork) {
-		db.delete(commitStats).where(eq(commitStats.repoId, repoRow.id)).run();
-		db.delete(daily).where(eq(daily.repoId, repoRow.id)).run();
-	}
+	const syncedAt = new Date().toISOString();
+	try {
+		db.transaction((tx) => {
+			// Full history mode replaces existing metrics atomically.
+			if (mode === 'full') {
+				tx.delete(commitStats).where(eq(commitStats.repoId, repoRow.id)).run();
+				tx.delete(daily).where(eq(daily.repoId, repoRow.id)).run();
+			}
 
-	// Upsert into commit_stats table
-	for (const commit of commits) {
-		db.insert(commitStats)
-			.values({
-				repoId: repoRow.id,
-				sha: commit.oid,
-				committedAt: commit.committedDate,
-				day: commit.committedDate.slice(0, 10),
-				message: commit.messageHeadline,
-				additions: commit.additions,
-				deletions: commit.deletions,
-				filesChanged: commit.changedFilesIfAvailable ?? 0
-			})
-			.onConflictDoUpdate({
-				target: [commitStats.repoId, commitStats.sha],
-				set: {
-					committedAt: commit.committedDate,
-					day: commit.committedDate.slice(0, 10),
-					message: commit.messageHeadline,
-					additions: commit.additions,
-					deletions: commit.deletions,
-					filesChanged: commit.changedFilesIfAvailable ?? 0
-				}
-			})
-			.run();
-	}
+			// Upsert into commit_stats table
+			for (const commit of commits) {
+				tx.insert(commitStats)
+					.values({
+						repoId: repoRow.id,
+						sha: commit.oid,
+						committedAt: commit.committedDate,
+						day: commit.committedDate.slice(0, 10),
+						message: commit.messageHeadline,
+						additions: commit.additions,
+						deletions: commit.deletions,
+						filesChanged: commit.changedFilesIfAvailable ?? 0
+					})
+					.onConflictDoUpdate({
+						target: [commitStats.repoId, commitStats.sha],
+						set: {
+							committedAt: commit.committedDate,
+							day: commit.committedDate.slice(0, 10),
+							message: commit.messageHeadline,
+							additions: commit.additions,
+							deletions: commit.deletions,
+							filesChanged: commit.changedFilesIfAvailable ?? 0
+						}
+					})
+					.run();
+			}
 
-	// Upsert into daily table
-	for (const [day, values] of dailyMap) {
-		db.insert(daily)
-			.values({
-				repoId: repoRow.id,
-				day,
-				commits: values.commits,
-				additions: values.additions,
-				deletions: values.deletions,
-				filesChanged: values.filesChanged
-			})
-			.onConflictDoUpdate({
-				target: [daily.repoId, daily.day],
-				set: {
-					commits: values.commits,
-					additions: values.additions,
-					deletions: values.deletions,
-					filesChanged: values.filesChanged
-				}
-			})
-			.run();
-	}
+			// Upsert into daily table
+			for (const [day, values] of dailyMap) {
+				tx.insert(daily)
+					.values({
+						repoId: repoRow.id,
+						day,
+						commits: values.commits,
+						additions: values.additions,
+						deletions: values.deletions,
+						filesChanged: values.filesChanged
+					})
+					.onConflictDoUpdate({
+						target: [daily.repoId, daily.day],
+						set: {
+							commits: values.commits,
+							additions: values.additions,
+							deletions: values.deletions,
+							filesChanged: values.filesChanged
+						}
+					})
+					.run();
+			}
 
-	// Update last_sync_at
-	db.update(repo)
-		.set({ lastSyncAt: new Date().toISOString() })
-		.where(eq(repo.id, repoRow.id))
-		.run();
+			tx.update(repo).set({ lastSyncAt: syncedAt }).where(eq(repo.id, repoRow.id)).run();
+		});
+	} catch (error) {
+		throw new Error(`[${owner}/${name}] Failed to persist sync data`, { cause: error });
+	}
 
 	if (verbose) {
 		console.log(`[${owner}/${name}] ✓ Sync complete`);
 	}
+
+	return {
+		repoId: repoRow.id,
+		owner,
+		name,
+		mode,
+		fetchedCommits: commits.length,
+		upsertedDailyRows: dailyMap.size
+	} satisfies SyncRepoResult;
 }

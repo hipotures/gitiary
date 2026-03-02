@@ -29,6 +29,20 @@
       "when": 1771100000000,
       "tag": "0003_fork_flag",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1771110000000,
+      "tag": "0004_last_pushed_at",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1771120000000,
+      "tag": "0005_branch_count",
+      "breakpoints": true
     }
   ]
 }

@@ -45,12 +45,17 @@ export const PATCH: RequestHandler = async ({ params, request }) => {
 			updateRepoDisplayName(repoId, finalValue);
 		}
 
+		const updated = getRepoById(repoId);
+		if (!updated) {
+			return error(500, 'Repository disappeared after update');
+		}
+
 		return json({
 			success: true,
 			id: repoId,
-			isActive: repo.isActive,
-			isFork: typeof isFork === 'boolean' ? isFork : repo.isFork,
-			displayName: body.displayName
+			isActive: updated.isActive,
+			isFork: updated.isFork,
+			displayName: updated.displayName
 		});
 	} catch (err) {
 		console.error('Failed to update repo:', err);
