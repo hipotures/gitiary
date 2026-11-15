@@ -1,32 +1,32 @@
-# Shared design system (pilot)
+# Shared design system
 
 Gitiary takes its shared visual foundation from the Intelitex design system: plain CSS with tokens, dark and light
 themes and opt-in `ds-` primitives. There is no framework, no JavaScript and no build step. This document covers
-where it comes from, how it is wired in, what uses it so far and how the pilot was verified.
+where it comes from, how it is wired in, what uses it and how it is verified.
 
 ## Source and version pin
 
-- **Location:** `vendor/design-system/`, added with `git subtree` as a single squashed commit. It is not an npm
-  dependency, and `package.json` is unchanged.
-- **Version:** 0.1.0, tag `design-system-v0.1.0`.
-- **Pin:** split commit `1a474ec2586b5ae7badfce1a26bd4874a8520185`, recorded as `git-subtree-split` in the subtree
-  merge. It is the split of Intelitex commit `f0d0afa` (branch `feat/design-system-foundation`, folder
-  `web/design-system`).
-- **Temporary source:** the tag exists only in a local Intelitex clone. It has not been pushed and there is no
-  separate repository yet; both are pending a decision. Until then, recreate the tag from Intelitex. The split is
-  deterministic, so the same commit always gives the same hash:
+- **Location:** `vendor/design-system/`, a `git subtree` with squashed updates. It is not an npm dependency, and
+  `package.json` is unchanged.
+- **Version:** **v0.2.0**, tag `design-system-v0.2.0` on `https://github.com/hipotures/intelitex.git`.
+- **Pin:** split commit `40b876a321281e7397deb25e0262f6e90f2fb1b9`, recorded as `git-subtree-split` in the subtree
+  merge. It is the split of Intelitex commit `25e364a` (folder `web/design-system`). The vendored tree equals the
+  tag's tree.
+- **History:**
 
-  ```sh
-  # in Intelitex
-  git subtree split --prefix=web/design-system f0d0afa   # prints 1a474ec…
-  git tag design-system-v0.1.0 1a474ec2586b5ae7badfce1a26bd4874a8520185
-  ```
+  | Version | Split | Intelitex commit |
+  | --- | --- | --- |
+  | v0.1.0 | `1a474ec` | `f0d0afa` |
+  | v0.2.0 | `40b876a` | `25e364a` |
 
-**Updating:** never edit `vendor/design-system/` here; changes go to Intelitex first. Then tag the new split there
-and pull it:
+  Tags are immutable: a fix is a new version.
+
+**Updating.** Never edit `vendor/design-system/` here. Change the package in Intelitex, release a new tag there (see
+its README, "Distribution"), then pull it:
 
 ```sh
-git subtree pull --prefix=vendor/design-system <path-or-url-of-intelitex> design-system-vX.Y.Z --squash
+git subtree pull --prefix=vendor/design-system https://github.com/hipotures/intelitex.git design-system-vX.Y.Z --squash
+git rev-parse HEAD:vendor/design-system   # must equal: git rev-parse 'design-system-vX.Y.Z^{tree}'
 ```
 
 Read `vendor/design-system/CHANGELOG.md` for breaking changes, then re-run the checks below.
@@ -35,145 +35,148 @@ Read `vendor/design-system/CHANGELOG.md` for breaking changes, then re-run the c
 
 - **`src/design-system.css`** is imported in `src/routes/+layout.svelte` before `app.css`. It does three things:
   - imports `vendor/design-system/ds.css`; Vite inlines its `@import`s into the app bundle;
-  - sets the brand accent through the documented hooks (`--ds-accent-dark`, `--ds-accent-light` and their `-soft`
-    variants), so the primitives use Gitiary's blue (`#58a6ff` dark, `#0969da` light);
-  - works around the collisions and missing capabilities listed below.
+  - sets the documented hooks:
+    - the brand accent (`--ds-accent-dark`, `--ds-accent-light` and their `-soft` variants): `#58a6ff` dark,
+      `#0969da` light;
+    - `--ds-control-font-size: var(--ds-text-base)`, because Gitiary's body text is 16px and controls are 14px;
+  - fixes the one collision that remains (see below).
 - **Themes:** Gitiary already sets `<html data-theme="dark|light">` (`src/app.html`, `src/lib/stores/theme.ts`),
-  which is exactly the design system's theme contract. No extra theme code is needed.
+  which is exactly the design system's theme contract.
 - **Tokens:** Gitiary's own tokens (`--color-*`, `--space-*`, `--radius`, `--font-*`) do not overlap with the design
   system's (`--bg`, `--panel`, `--line`, `--text*`, `--accent*`, status colors and `--ds-*`). Unmigrated code keeps
   using the Gitiary tokens.
+- **`src/lib/actions/modal.ts`** (`use:modal={onDismiss}`) opens a `<dialog class="ds-dialog">` with `showModal()`
+  while it is mounted:
+  - `onDismiss` runs on Esc, the back gesture or a click outside (`closedby="any"`, with a pointer-position fallback
+    where `closedby` is missing, i.e. Safari);
+  - when the caller unmounts the dialog itself, the action returns focus to the control that opened it.
 
-## Components on the design system
+## Components on the design system (all on Settings unless noted)
 
-| Where | Element | Primitive |
-| --- | --- | --- |
-| Settings | the five section cards | `.ds-panel` with `.ds-panel-head`, `.ds-panel-title`, `.ds-panel-body`; each `<section>` is labelled by its title |
-| Settings, Appearance | Dark / Light theme choice | `.ds-segmented`: `role="group"` labelled "Theme", `<button type="button" aria-pressed>` bound to the `theme` store |
-| Settings, Fork Filtering | Save | `.ds-btn .ds-btn-primary .ds-btn-compact` |
-| Settings, Branch Tracking | Default branch input | `.ds-field` (the label stays in the description column, linked with `for`) |
-| Settings, Branch Tracking | Save | `.ds-btn .ds-btn-primary .ds-btn-compact` |
-| Settings, Repository Management | Sync with GitHub | `.ds-btn .ds-btn-primary` |
-| Settings, delete dialog | Cancel / Delete | `.ds-btn` (secondary) and `.ds-btn .ds-btn-danger` |
-| Settings, display-name dialog | Cancel / Save | `.ds-btn` (secondary) and `.ds-btn .ds-btn-primary` |
-| Repository page header | fork and extra-branch indicators | `.ds-badge` with `data-tone="accent"` for Fork, neutral for Extra branches |
+| Element | Primitive |
+| --- | --- |
+| Five section cards | `.ds-panel` with head, title and body; each `<section>` is labelled by its title |
+| Theme choice (Dark / Light) | `.ds-segmented`, `role="group"`, `aria-pressed` bound to the `theme` store |
+| Save ×2, Sync with GitHub | `.ds-btn .ds-btn-primary` (`-compact` for Save); the icon sits next to the label through the package's icon layout |
+| Default branch input | `.ds-field` |
+| Sort field, sort direction, Impact page size | `.ds-select` (the sort field now has a real label; the direction select has `aria-label`) |
+| Author emails | `.ds-textarea` (Gitiary keeps the monospace font) |
+| Version chip | `.ds-badge` (neutral) |
+| Repository rows | Row layout stays Gitiary's, colored with the shared tokens; actions are `.ds-icon-btn` (32px) with `aria-label`s |
+| Fork marker in a row | `.ds-icon-btn` with `aria-pressed`; the pressed look (accent outline, soft accent fill) is Gitiary's |
+| Include toggle in a row | `aria-pressed` and an `aria-label`, plus `.ds-focus-ring` (before, it had no visible focus) |
+| Delete and display-name dialogs | Native `<dialog class="ds-dialog">` with `.ds-dialog-title`, `.ds-dialog-actions`; the edit field is a `.ds-field`; Cancel `.ds-btn`, Save `.ds-btn-primary`, Delete `.ds-btn-danger` |
+| Repository page header | `.ds-badge` "Fork" (accent tone) and "Extra branches" |
 
-Event handlers, stores, API calls and routing are unchanged. Everything else in the app still uses Gitiary's own
-styles, for example:
+Logic, stores, API calls and routing are unchanged. Not yet on the design system:
 
-- the nav and the theme toggle;
-- the selects and textarea on Settings;
-- the repository rows and their icon actions;
-- the repository cards on the home page;
-- the charts, tables and the other pages.
+- the nav, the theme toggle and the date-range select;
+- the home cards and their sort controls;
+- the tables and impact pagination;
+- the charts and the other pages.
 
 ## Intentional visual differences
 
-Before and after images are in `docs/design-system/before/` and `docs/design-system/after/`, with the same file
-names.
+Images, with the same file names in `before/` and `after/`:
 
-- **Settings cards:**
-  - the design-system panel has a header strip with a divider and a smaller bold title (14px instead of 16px);
-  - the body padding is tighter (14/15px instead of 24px);
-  - the radius is 12px instead of 6px.
-- **Theme choice:** a compact segmented control replaces two bordered buttons. The selected option is a filled
-  segment instead of an accent border.
+- `docs/design-system/before/`, `after/`: the v0.1.0 pilot;
+- `docs/design-system/v0.2.0/before/`, `after/`: completing Settings.
+
+**v0.1.0 pilot:**
+
+- **Cards:**
+  - header strip with a divider and a smaller bold title;
+  - tighter body padding;
+  - 12px radius.
+- **Theme choice:** a compact segmented control.
 - **Buttons:**
-  - 9px radius, bold labels;
-  - the primary hover is a slight lift plus brightening; Gitiary's was a fade;
-  - disabled buttons drop to 45% opacity (was 60%);
-  - the danger button is a tinted outline instead of solid red;
-  - the secondary button uses the design-system panel color.
-- **Default branch field:** the design-system field look (8px radius, 1px line, inset panel color) replaces the
-  2px-border input.
-- **Repository badges:** labelled pills ("Fork", "Extra branches") with an icon replace the icon-only squares.
-  Screen readers now get a text label; before, the icons were hidden from them and had no label.
-- **Settings on narrow screens:** each row now wraps, so its controls sit below the description. `.ds-panel`
-  clips overflow; without the wrap, the sort selects would have been cut off instead of spilling out of the card as
-  they did before.
+  - 9px radius and bold labels;
+  - the primary button lifts on hover;
+  - disabled is at 45% opacity;
+  - danger is a tinted outline.
+- **Default branch field:** the design-system field look.
+- **Repository badges:** labelled pills.
+- **Narrow screens:** rows wrap so that nothing is clipped by the panel.
 
-## Collisions found
+**v0.2.0:**
 
-- **`app.css` gives every `h2` a bottom margin.** The design system's resets have zero specificity, so that rule
-  beat the panel title's `margin:0`. Fixed in `src/design-system.css` with `.ds-panel-title { margin: 0 }`.
-- **`color-scheme` is now set on the root element** (`dark` or `light`, following `data-theme`). Native popups, form
-  control internals and scrollbars follow the theme. Before, they were always light. It is the only global effect
-  of `ds.css`. All 24 screenshots of unrelated screens are pixel-identical to before.
-- **Gitiary's global reset** (`* { margin:0; padding:0 }`) and its `.badge` and `.card` classes do not collide; the
-  primitives set their own padding at class weight.
+- **Selects and textarea:** 1px line and 8px radius on the inset panel color. They were 2px borders on the page
+  background.
+- **Version chip:** a pill badge instead of a square chip.
+- **Repository row actions:** bordered 32px icon buttons with a hover border, instead of bare icons that grew an
+  accent outline on hover. Delete hovers red.
+- **Fork marker:** off markers are dimmed through the text color instead of 25% opacity.
+- **Include toggle:** checked boxes use the accent.
+- **Narrow screens:** row actions wrap below the repository name instead of being cut off.
+- **Dialogs:**
+  - native modal with the design-system card (12px radius, bold 16px title);
+  - the backdrop is a plain dimmer without blur;
+  - the edit field has the design-system field label (12px, dimmed, semibold).
+- **New dialog behavior:**
+  - Esc and the back gesture close the dialog;
+  - the page behind is inert;
+  - focus starts in the dialog and returns to the opener.
 
-## Missing in the design system (worked around in `src/design-system.css`)
+  Click-outside still closes, as before.
+- **Side effects of dropping the local workarounds:**
+  - the repository-page badges' icon gap is 7px (package default) instead of 6px;
+  - Branch Tracking and Repository Management move by sub-pixel amounts because the selects above them changed
+    height.
 
-- **Control font size.** Buttons and fields inherit the page font size, and Gitiary's body is 16px. A zero-specificity
-  rule sets them to `--ds-text-base` (14px). A token or hook such as `--ds-control-font-size` would remove this.
-- **Icon plus label layout.** Buttons, segmented options and badges do not lay out an icon next to text.
-  `:has(> svg)` adds `inline-flex` and a gap. A documented icon slot would remove this.
-- **Panel overflow.** `.ds-panel` clips overflow, which is a problem for responsive rows inside it. There is no
-  `overflow: visible` variant.
-- **Not available yet:** a select, textarea or checkbox list styled as one control family outside `.ds-field`, a
-  modal or dialog primitive, and a neutral or warning badge tone (only accent, success and danger).
+## Collisions and workarounds
+
+- **h2 margin:** `app.css` gives every `h2` a bottom margin. The design system's resets have zero specificity, so
+  that rule beats the panel title's `margin: 0`. `src/design-system.css` restores it; this is the only rule left
+  there.
+- **`color-scheme`:** it is set on the root element (`dark` or `light`, following `data-theme`). Native popups,
+  form control internals and scrollbars follow the theme. It is the only global effect of `ds.css`.
+- **Removed in v0.2.0:** the font-size override and the icon-layout rule. The package now provides
+  `--ds-control-font-size` and the icon layout.
 
 ## Verification
 
 **Static checks and tests:**
 
 ```sh
-npm run check   # 0 errors; 22 warnings, the same set as before the pilot
+npm run check   # 0 errors; 12 warnings (22 before; the overlay <div>s with click handlers are gone)
 npm run test    # 3 files, 22 tests
-npm run build   # client and server bundles compile; prerender then fails, exactly as on main (see below)
 ```
 
-`npm run build` fails during prerendering on `main` too. `src/routes/+layout.svelte` reads `url.searchParams`
-(capture mode) on prerendered pages. The pilot does not change this.
-
-**Browser checks.** These need a running `vite dev` and seeded data (`npm run seed`). Playwright, pngjs and pixelmatch
-come from another install, so Gitiary's dependencies stay unchanged:
+**Browser checks.** These need a running `vite dev` with seeded data (`npm run seed`). Playwright, pngjs and
+pixelmatch come from another install, so Gitiary's dependencies stay unchanged:
 
 ```sh
 export DS_TOOLS_NODE_MODULES=/path/to/node_modules GITIARY_URL=http://127.0.0.1:5299
 node scripts/design-system-pilot.mjs capture <dir>          # 7 pages and 7 crops × dark/light × desktop/mobile
 node scripts/design-system-pilot.mjs compare <before> <after>
-node scripts/design-system-pilot.mjs verify                 # 43 checks
+node scripts/design-system-pilot.mjs verify                 # 81 checks
 ```
 
 `verify` covers:
 
-- **Theme switching:**
-  - from the segmented control and from the nav toggle;
-  - `aria-pressed` follows the store, and `localStorage` and `color-scheme` update;
-  - panel tokens and the accent change per theme.
-- **Keyboard:**
-  - every migrated control is reachable by Tab and shows the 2px accent focus ring in both themes;
-  - Space activates a theme option.
-- **Field binding:** `bind:value` reaches the save request.
-- **Disabled state while saving:** 45% opacity, `not-allowed` cursor, and hover does not restyle it.
-- **Dialogs:** both dialog flows.
-- **Badges:** text labels and tones.
-- **Layout:** no migrated control overflows its panel at 1280px or 390px.
+- **Theme switching** from both controls.
+- **Keyboard:** Tab reaches every migrated control, including the selects, the textarea, row toggles and row actions,
+  and each shows the 2px accent ring in both themes.
+- **Control sizes and fonts.**
+- **Row state:** `aria-pressed` and accessible names.
+- **Field binding** and the disabled state while saving.
+- **Dialogs:**
+  - named native modal, the page behind inert, initial focus;
+  - Esc, click outside and Cancel close without a request;
+  - focus returns to the opener;
+  - Save and Delete send their requests.
+- **Badges.**
+- **Layout:** nothing in a migrated panel overflows it at 1280px or 390px.
 
-Every request that would write is intercepted, so the database is never changed.
+Every request that would write is intercepted, so the database is never changed. Screenshots outside the migrated
+scope are pixel-identical between versions.
 
 ## Before a wider rollout
 
-1. **Decide the distribution home:** push the `design-system-v*` tags to Intelitex, or create a separate private
-   repository. The pin then becomes fetchable from any machine.
-2. **Add the missing capabilities to the design system,** in Intelitex, with its own tests:
-   - a control font size;
-   - icon slots;
-   - an `overflow: visible` panel variant;
-   - neutral and warning badge tones;
-   - a dialog primitive;
-   - styled selects and textareas outside `.ds-field`.
-
-   Then drop the matching workarounds here.
-3. **Migrate the remaining Settings controls,** so the page is consistent:
-   - the selects, textarea and display-name input;
-   - the repository rows and their icon actions;
-   - the version chip.
-4. **Decide the palette:** map or retire the `--color-*` tokens, so the rest of the app moves to the shared palette
-   instead of mixing it with GitHub's grays.
-5. **Then the other screens:**
-   - nav and theme toggle (`.ds-icon-btn`), date-range select;
+1. **Palette decision:** map or retire the `--color-*` tokens, so the rest of the app moves to the shared palette.
+2. **Other screens:**
+   - nav and theme toggle (`.ds-icon-btn`), date-range select (`.ds-select`);
    - home cards and sort controls (`.ds-segmented`);
-   - the tables (`.ds-table`) and impact pagination.
-6. **Fix the existing narrow-screen overflow of the nav,** which predates the pilot.
+   - tables (`.ds-table`) and impact pagination.
+3. **Pressed icon button:** a pressed state for `.ds-icon-btn` (Gitiary's fork marker) could move into the package
+   if a second application needs it.
