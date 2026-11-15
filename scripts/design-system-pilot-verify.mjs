@@ -29,8 +29,8 @@ const focusedInfo = async (page) => {
 		const el = document.activeElement;
 		const cs = getComputedStyle(el);
 		return {
-			text: (el.textContent || el.id || el.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' '),
-			ds: Boolean(el.closest('.ds-btn, .ds-segmented, .ds-field')),
+			text: (el.getAttribute('aria-label') || el.id || el.textContent || '').trim().replace(/\s+/g, ' '),
+			ds: Boolean(el.closest('.ds-btn, .ds-segmented, .ds-field, .ds-select, .ds-textarea, .ds-icon-btn, .ds-focus-ring')),
 			outline: `${cs.outlineStyle} ${cs.outlineWidth} ${cs.outlineColor}`,
 			visible: el.matches(':focus-visible')
 		};
@@ -75,13 +75,15 @@ export async function verify(require, base) {
 		for (const theme of ['dark', 'light']) {
 			const { context, page } = await open(browser, `${base}/settings`, { theme });
 			const seen = [];
-			for (let i = 0; i < 40; i++) {
+			for (let i = 0; i < 60; i++) {
 				await page.keyboard.press('Tab');
 				const info = await focusedInfo(page);
 				if (info.ds) seen.push(info);
 			}
 			const names = seen.map((s) => s.text);
-			for (const want of ['Dark', 'Light', 'Save', 'default-branch', 'Sync with GitHub'])
+			for (const want of ['Dark', 'Light', 'sort-field-select', 'Sort direction', 'daily-page-size-select', 'author-emails', 'Save',
+				'default-branch', 'Sync with GitHub', 'Include exampleuser001/project-alpha', 'Toggle fork status', 'Sync all commits',
+				'Edit display name', 'Delete repository'])
 				check(`${theme}: "${want}" reachable by Tab`, names.some((n) => n.includes(want)), names.join(' | '));
 			const bad = seen.filter((s) => !s.visible || !s.outline.startsWith(`solid 2px ${accent[theme]}`));
 			check(`${theme}: every migrated control shows the accent focus ring`, bad.length === 0, bad.map((b) => `${b.text}: ${b.outline}`).join('; '));
@@ -131,7 +133,28 @@ export async function verify(require, base) {
 			await context.close();
 		}
 
-		// ---- Modals ----
+		// ---- Settings controls: sizes, fonts and toggles ----
+		for (const theme of ['dark', 'light']) {
+			const { context, page } = await open(browser, `${base}/settings`, { theme });
+			await settle(page);
+			const sizes = await page.evaluate(() =>
+				['#sort-field-select', '#daily-page-size-select', '#author-emails', '#default-branch', '.sync-button'].map(
+					(s) => getComputedStyle(document.querySelector(s)).fontSize
+				)
+			);
+			check(`${theme}: controls use the 14px control size`, sizes.every((x) => x === '14px'), sizes.join(' '));
+			check(`${theme}: author emails keep the monospace font`, /mono/i.test(await page.locator('#author-emails').evaluate((el) => getComputedStyle(el).fontFamily)));
+			check(`${theme}: version is a badge`, (await page.locator('.settings-header .ds-badge').textContent())?.startsWith('v'));
+			const first = page.locator('.repo-item').first();
+			check(`${theme}: include toggle exposes its state`, (await first.locator('.checkbox-button').getAttribute('aria-pressed')) === 'true');
+			check(`${theme}: fork toggle exposes its state`, (await first.locator('.fork-btn').getAttribute('aria-pressed')) === 'true' && (await page.locator('.repo-item').nth(1).locator('.fork-btn').getAttribute('aria-pressed')) === 'false');
+			check(`${theme}: pressed fork toggle uses the accent`, (await first.locator('.fork-btn').evaluate((el) => getComputedStyle(el).color)) === accent[theme]);
+			const unnamed = await page.evaluate(() => [...document.querySelectorAll('.repo-item button')].filter((b) => !b.getAttribute('aria-label')).length);
+			check(`${theme}: every row button has an accessible name`, unnamed === 0, String(unnamed));
+			await context.close();
+		}
+
+		// ---- Dialogs: native modal, Esc, click outside, focus return, actions ----
 		{
 			const { context, page } = await open(browser, `${base}/settings`);
 			let patched = null;
@@ -140,15 +163,38 @@ export async function verify(require, base) {
 				patched = { method: route.request().method(), body: route.request().postData() };
 				await route.fulfill({ status: 200, contentType: 'application/json', body: '{}' });
 			});
-			await page.locator('.repo-item').first().locator('[title="Edit display name"]').click();
+			const edit = page.locator('.repo-item').first().locator('[aria-label="Edit display name"]');
+			const del = page.locator('.repo-item').first().locator('[aria-label="Delete repository"]');
+			const dialogOpen = () => page.evaluate(() => Boolean(document.querySelector('dialog:modal')));
+			const active = () => page.evaluate(() => document.activeElement?.getAttribute('aria-label') || document.activeElement?.id);
+
+			await edit.focus();
+			await page.keyboard.press('Enter');
+			const editDialog = page.getByRole('dialog', { name: 'Edit Display Name' });
+			check('edit dialog is a named native modal', (await editDialog.count()) === 1 && (await dialogOpen()));
+			check('edit dialog focuses the field', (await active()) === 'displayName');
+			check('page behind the modal is inert', await page.evaluate(() => { const b = document.querySelector('.sync-button'); b.focus(); return document.activeElement !== b; }));
+			await page.keyboard.press('Escape');
+			await page.waitForFunction(() => !document.querySelector('dialog'));
+			check('Esc closes the edit dialog and returns focus', (await active()) === 'Edit display name' && patched === null);
+
+			await edit.click();
 			await page.locator('#displayName').fill('Alpha');
-			await page.locator('.modal-actions .ds-btn-primary').click();
-			check('edit modal Save sends the bound value', patched?.method === 'PATCH' && patched.body.includes('Alpha'), JSON.stringify(patched));
+			await page.locator('.ds-dialog-actions .ds-btn-primary').click();
+			await page.waitForFunction(() => !document.querySelector('dialog'));
+			check('edit dialog Save sends the bound value', patched?.method === 'PATCH' && patched.body.includes('Alpha'), JSON.stringify(patched));
+
 			patched = null;
-			await page.locator('.repo-item').first().locator('[title="Delete repository"]').click();
-			await page.locator('.modal-actions .ds-btn', { hasText: 'Cancel' }).click();
-			check('delete modal Cancel closes without a request', (await page.locator('.modal-content').count()) === 0 && patched === null);
-			await page.locator('.repo-item').first().locator('[title="Delete repository"]').click();
+			await del.click();
+			check('delete dialog focuses Cancel first', (await active()) === null || (await page.evaluate(() => document.activeElement.textContent.trim())) === 'Cancel');
+			await page.mouse.click(5, 5);
+			await page.waitForFunction(() => !document.querySelector('dialog'));
+			check('click outside dismisses without a request', patched === null);
+			await del.click();
+			await page.locator('.ds-dialog-actions .ds-btn', { hasText: 'Cancel' }).click();
+			await page.waitForFunction(() => !document.querySelector('dialog'));
+			check('Cancel closes without a request and returns focus', patched === null && (await active()) === 'Delete repository');
+			await del.click();
 			const danger = await page.locator('.ds-btn-danger').evaluate((el) => getComputedStyle(el).color);
 			check('delete uses the danger button', danger !== 'rgb(255, 255, 255)', danger);
 			await page.locator('.ds-btn-danger').click();
@@ -173,7 +219,7 @@ export async function verify(require, base) {
 				const out = [];
 				for (const panel of document.querySelectorAll('.ds-panel')) {
 					const p = panel.getBoundingClientRect();
-					for (const el of panel.querySelectorAll('.ds-panel-head, .setting-item, select, input, textarea, .ds-btn, .ds-segmented')) {
+					for (const el of panel.querySelectorAll('.ds-panel-head, .setting-item, select, input, textarea, .ds-btn, .ds-segmented, .ds-icon-btn, .ds-badge')) {
 						const r = el.getBoundingClientRect();
 						if (r.width && (r.right > p.right + 0.5 || r.left < p.left - 0.5)) out.push(`${el.className || el.tagName} ${Math.round(r.right)} > ${Math.round(p.right)}`);
 					}

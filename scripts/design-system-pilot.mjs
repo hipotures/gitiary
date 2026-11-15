@@ -36,8 +36,8 @@ const crops = [
 	['settings-sync', '/settings', '.settings-page > section:nth-of-type(5) .setting-item'],
 	['repo-header', '/repo/1', '.repo-header'],
 	['nav', '/settings', 'nav'],
-	['modal-edit', '/settings', '.modal-content', '.repo-item:first-of-type [title="Edit display name"]'],
-	['modal-delete', '/settings', '.modal-content', '.repo-item:first-of-type [title="Delete repository"]']
+	['modal-edit', '/settings', '.modal-content, dialog[open]', '.repo-item:first-of-type [title="Edit display name"]'],
+	['modal-delete', '/settings', '.modal-content, dialog[open]', '.repo-item:first-of-type [title="Delete repository"]']
 ];
 
 async function openPage(browser, viewport, theme, path) {

@@ -4,6 +4,7 @@
 	import { repoSort } from '$lib/stores/repoSort';
 	import { impactDailyPageSize, type ImpactDailyPageSize } from '$lib/stores/impactPagination';
 	import type { RepoSortField, SortDirection } from '$lib/domain/repoSort';
+	import { modal } from '$lib/actions/modal';
 
 	interface Repo {
 		id: number;
@@ -305,7 +306,7 @@
 <div class="settings-page">
 	<div class="settings-header">
 		<h1>Settings</h1>
-		<span class="version">v{data.version}</span>
+		<span class="ds-badge">v{data.version}</span>
 	</div>
 
 	<section class="ds-panel settings-section" aria-labelledby="appearance-title">
@@ -340,21 +341,31 @@
 
 		<div class="setting-item">
 			<div class="setting-info">
-				<label>Default Sort Order</label>
+				<label for="sort-field-select">Default Sort Order</label>
 				<p class="setting-description">
 					Choose how repositories are sorted on the main page by default.
 				</p>
 			</div>
 
 			<div class="sort-options">
-				<select bind:value={sortField} onchange={handleSortChange}>
+				<select
+					id="sort-field-select"
+					class="ds-select"
+					bind:value={sortField}
+					onchange={handleSortChange}
+				>
 					<option value="name">Alphabetical (Name)</option>
 					<option value="firstCommitDate">First Commit Date</option>
 					<option value="totalCommits">Total Commits</option>
 					<option value="lastCommitDate">Last Active</option>
 				</select>
 
-				<select bind:value={sortDirection} onchange={handleSortChange}>
+				<select
+					class="ds-select"
+					aria-label="Sort direction"
+					bind:value={sortDirection}
+					onchange={handleSortChange}
+				>
 					<option value="asc">Ascending</option>
 					<option value="desc">Descending</option>
 				</select>
@@ -372,6 +383,7 @@
 			<div class="sort-options">
 				<select
 					id="daily-page-size-select"
+					class="ds-select"
 					bind:value={dailyPageSize}
 					onchange={handleDailyPageSizeChange}
 				>
@@ -401,7 +413,7 @@
 			<div class="emails-input-group">
 				<textarea
 					id="author-emails"
-					class="emails-textarea"
+					class="ds-textarea emails-textarea"
 					bind:value={authorEmailsText}
 					placeholder={"user@example.com\nuser@users.noreply.github.com"}
 					rows={4}
@@ -518,7 +530,9 @@
 					<label class="repo-item" class:inactive={!repo.isActive}>
 						<button
 							type="button"
-							class="checkbox-button"
+							class="checkbox-button ds-focus-ring"
+							aria-pressed={repo.isActive}
+							aria-label="Include {repo.owner}/{repo.name}"
 							onclick={() => toggleRepoActive(repo.id, repo.isActive)}
 						>
 							{#if repo.isActive}
@@ -550,8 +564,8 @@
 						<div class="repo-actions">
 							<button
 								type="button"
-								class="action-btn fork-btn"
-								class:fork-active={repo.isFork}
+								class="ds-icon-btn action-btn fork-btn"
+								aria-pressed={repo.isFork}
 								onclick={(e) => {
 									e.preventDefault();
 									toggleFork(repo.id, repo.isFork);
@@ -563,7 +577,7 @@
 							</button>
 							{#if repo.isActive}
 								<button
-									class="action-btn sync-all"
+									class="ds-icon-btn action-btn sync-all"
 									class:needs-sync={hasNewCommits(repo) && repo.lastPushedAt !== null && !pushedWithin30Days(repo.lastPushedAt)}
 									onclick={(e) => {
 										e.preventDefault();
@@ -580,7 +594,7 @@
 									/>
 								</button>
 								<button
-									class="action-btn sync-30d"
+									class="ds-icon-btn action-btn sync-30d"
 									class:needs-sync={hasNewCommits(repo) && repo.lastPushedAt !== null && pushedWithin30Days(repo.lastPushedAt)}
 									onclick={(e) => {
 										e.preventDefault();
@@ -602,7 +616,9 @@
 						</div>
 
 						<button
-							class="edit-btn"
+							type="button"
+							class="ds-icon-btn action-btn"
+							aria-label="Edit display name"
 							onclick={(e) => {
 								e.preventDefault();
 								showEditDisplayName(repo.id, `${repo.owner}/${repo.name}`, repo.displayName);
@@ -613,7 +629,9 @@
 						</button>
 
 						<button
-							class="delete-btn"
+							type="button"
+							class="ds-icon-btn action-btn delete-btn"
+							aria-label="Delete repository"
 							onclick={(e) => {
 								e.preventDefault();
 								showDeleteConfirm(repo.id, `${repo.owner}/${repo.name}`);
@@ -632,47 +650,52 @@
 </div>
 
 {#if deleteConfirmRepo}
-	<div class="modal-overlay" onclick={cancelDelete}>
-		<div class="modal-content" onclick={(e) => e.stopPropagation()}>
-			<h3>Delete Repository</h3>
-			<p>
-				Are you sure you want to delete <strong>{deleteConfirmRepo.name}</strong>?
-			</p>
-			<p class="modal-warning">This will remove all commit data for this repository.</p>
-			<div class="modal-actions">
-				<button type="button" class="ds-btn" onclick={cancelDelete}>Cancel</button>
-				<button type="button" class="ds-btn ds-btn-danger" onclick={confirmDelete}>Delete</button>
-			</div>
+	<dialog
+		class="ds-dialog"
+		aria-labelledby="delete-dialog-title"
+		closedby="any"
+		use:modal={cancelDelete}
+	>
+		<h2 class="ds-dialog-title" id="delete-dialog-title">Delete Repository</h2>
+		<p>
+			Are you sure you want to delete <strong>{deleteConfirmRepo.name}</strong>?
+		</p>
+		<p class="modal-warning">This will remove all commit data for this repository.</p>
+		<div class="ds-dialog-actions">
+			<button type="button" class="ds-btn" onclick={cancelDelete}>Cancel</button>
+			<button type="button" class="ds-btn ds-btn-danger" onclick={confirmDelete}>Delete</button>
 		</div>
-	</div>
+	</dialog>
 {/if}
 
 {#if editingRepo}
-	<div class="modal-overlay" onclick={cancelEditDisplayName}>
-		<div class="modal-content" onclick={(e) => e.stopPropagation()}>
-			<h3>Edit Display Name</h3>
-			<p class="repo-identifier">Repository: <strong>{editingRepo.name}</strong></p>
-			<p class="modal-description">
-				Set a custom display name for this repository. Leave empty to use the original name.
-			</p>
+	<dialog
+		class="ds-dialog"
+		aria-labelledby="edit-dialog-title"
+		closedby="any"
+		use:modal={cancelEditDisplayName}
+	>
+		<h2 class="ds-dialog-title" id="edit-dialog-title">Edit Display Name</h2>
+		<p class="repo-identifier">Repository: <strong>{editingRepo.name}</strong></p>
+		<p class="modal-description">
+			Set a custom display name for this repository. Leave empty to use the original name.
+		</p>
 
-			<div class="form-group">
-				<label for="displayName">Display Name</label>
-				<input
-					id="displayName"
-					type="text"
-					bind:value={editDisplayName}
-					placeholder="Custom display name"
-					class="text-input"
-				/>
-			</div>
-
-			<div class="modal-actions">
-				<button type="button" class="ds-btn" onclick={cancelEditDisplayName}>Cancel</button>
-				<button type="button" class="ds-btn ds-btn-primary" onclick={saveDisplayName}>Save</button>
-			</div>
+		<div class="ds-field display-name-field">
+			<label for="displayName">Display Name</label>
+			<input
+				id="displayName"
+				type="text"
+				bind:value={editDisplayName}
+				placeholder="Custom display name"
+			/>
 		</div>
-	</div>
+
+		<div class="ds-dialog-actions">
+			<button type="button" class="ds-btn" onclick={cancelEditDisplayName}>Cancel</button>
+			<button type="button" class="ds-btn ds-btn-primary" onclick={saveDisplayName}>Save</button>
+		</div>
+	</dialog>
 {/if}
 
 <style>
@@ -689,16 +712,6 @@
 
 	.settings-header h1 {
 		margin: 0;
-	}
-
-	.version {
-		font-size: 0.875rem;
-		color: var(--color-text-secondary);
-		font-weight: 500;
-		padding: var(--space-xs) var(--space-sm);
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius);
 	}
 
 	.settings-section {
@@ -731,26 +744,6 @@
 	.sort-options {
 		display: flex;
 		gap: var(--space-sm);
-	}
-
-	.sort-options select {
-		padding: var(--space-sm) var(--space-md);
-		background: var(--color-bg);
-		border: 2px solid var(--color-border);
-		border-radius: var(--radius);
-		color: var(--color-text);
-		cursor: pointer;
-		font-size: 0.875rem;
-		transition: border-color 0.2s ease;
-	}
-
-	.sort-options select:hover {
-		border-color: var(--color-text-secondary);
-	}
-
-	.sort-options select:focus {
-		outline: none;
-		border-color: var(--color-accent);
 	}
 
 	.sync-message {
@@ -803,50 +796,8 @@
 		color: var(--color-text-secondary);
 	}
 
-	.repos-scroll {
-		max-height: 400px;
-		overflow-y: auto;
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius);
-	}
-
-	.repo-item {
-		display: flex;
-		align-items: center;
-		gap: var(--space-md);
-		padding: var(--space-md);
-		border-bottom: 1px solid var(--color-border);
-		cursor: pointer;
-		transition: background 0.15s ease;
-	}
-
-	.repo-item:last-child {
-		border-bottom: none;
-	}
-
-	.repo-item:hover {
-		background: var(--color-surface-hover);
-	}
-
 	.repo-item.inactive {
 		opacity: 0.6;
-	}
-
-	.checkbox-button {
-		background: none;
-		border: none;
-		padding: 0;
-		cursor: pointer;
-		color: var(--color-text-secondary);
-		transition: color 0.15s ease;
-	}
-
-	.checkbox-button:hover {
-		color: var(--color-text);
-	}
-
-	.checkbox-icon.active {
-		color: var(--color-accent);
 	}
 
 	.repo-info {
@@ -879,146 +830,14 @@
 		margin-left: auto;
 	}
 
-	.action-btn {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background: none;
-		border: 1px solid transparent;
-		width: 30px;
-		height: 30px;
-		padding: 0;
-		cursor: pointer;
-		color: var(--color-text-secondary);
-		transition:
-			color 0.15s ease,
-			background 0.15s ease,
-			border-color 0.15s ease,
-			box-shadow 0.15s ease;
-		border-radius: var(--radius);
-	}
-
-	.action-btn:hover:not(:disabled) {
-		background: var(--color-surface-hover);
-		color: var(--color-accent);
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 1px var(--color-accent);
-	}
-
-	.action-btn:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	.action-btn.sync-30d {
-		color: var(--color-text-secondary);
-		opacity: 0.72;
-	}
-
-	.action-btn.sync-30d:hover:not(:disabled) {
-		opacity: 1;
-	}
-
-	.action-btn:focus-visible:not(:disabled) {
-		outline: none;
-		color: var(--color-accent);
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 1px var(--color-accent);
-		background: var(--color-surface-hover);
-	}
-
 	.action-btn :global(.spinning) {
 		animation: spin 1s linear infinite;
-	}
-
-	.delete-btn {
-		background: none;
-		border: 1px solid transparent;
-		width: 30px;
-		height: 30px;
-		padding: 0;
-		cursor: pointer;
-		color: var(--color-text-secondary);
-		transition:
-			color 0.15s ease,
-			background 0.15s ease,
-			border-color 0.15s ease,
-			box-shadow 0.15s ease;
-		border-radius: var(--radius);
-	}
-
-	.delete-btn:hover:not(:disabled) {
-		color: var(--color-accent);
-		background: var(--color-surface-hover);
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 1px var(--color-accent);
-	}
-
-	.delete-btn:disabled {
-		opacity: 0.5;
-		cursor: not-allowed;
-	}
-
-	.delete-btn:focus-visible:not(:disabled) {
-		outline: none;
-		color: var(--color-accent);
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 1px var(--color-accent);
-		background: var(--color-surface-hover);
-	}
-
-	.modal-overlay {
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: rgba(0, 0, 0, 0.6);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		z-index: 1000;
-		backdrop-filter: blur(4px);
-	}
-
-	.modal-content {
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius);
-		padding: var(--space-lg);
-		max-width: 480px;
-		width: 90%;
-		box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-	}
-
-	.modal-content h3 {
-		margin: 0 0 var(--space-md) 0;
-		font-size: 1.25rem;
-		font-weight: 600;
-		color: var(--color-text);
-	}
-
-	.modal-content p {
-		margin: 0 0 var(--space-sm) 0;
-		color: var(--color-text);
-		line-height: 1.5;
-	}
-
-	.modal-content strong {
-		color: var(--color-accent);
-		font-weight: 600;
 	}
 
 	.modal-warning {
 		color: var(--color-text-secondary);
 		font-size: 0.875rem;
 		margin-bottom: var(--space-lg) !important;
-	}
-
-	.modal-actions {
-		display: flex;
-		gap: var(--space-sm);
-		justify-content: flex-end;
 	}
 
 	.repo-names-inline {
@@ -1032,37 +851,6 @@
 		font-size: 0.75rem;
 		color: var(--color-text-secondary);
 		font-style: italic;
-	}
-
-	.edit-btn {
-		background: none;
-		border: 1px solid transparent;
-		width: 30px;
-		height: 30px;
-		padding: 0;
-		cursor: pointer;
-		color: var(--color-text-secondary);
-		transition:
-			color 0.15s ease,
-			background 0.15s ease,
-			border-color 0.15s ease,
-			box-shadow 0.15s ease;
-		border-radius: var(--radius);
-	}
-
-	.edit-btn:hover {
-		color: var(--color-accent);
-		background: var(--color-surface-hover);
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 1px var(--color-accent);
-	}
-
-	.edit-btn:focus-visible {
-		outline: none;
-		color: var(--color-accent);
-		background: var(--color-surface-hover);
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 1px var(--color-accent);
 	}
 
 	.repo-identifier {
@@ -1081,38 +869,6 @@
 		margin-bottom: var(--space-lg) !important;
 	}
 
-	.form-group {
-		margin-bottom: var(--space-lg);
-	}
-
-	.form-group label {
-		display: block;
-		font-weight: 500;
-		margin-bottom: var(--space-sm);
-		font-size: 0.875rem;
-	}
-
-	.text-input {
-		width: 100%;
-		padding: var(--space-sm) var(--space-md);
-		background: var(--color-bg);
-		border: 2px solid var(--color-border);
-		border-radius: var(--radius);
-		color: var(--color-text);
-		font-size: 0.875rem;
-		transition: border-color 0.2s ease;
-	}
-
-	.text-input:focus {
-		outline: none;
-		border-color: var(--color-accent);
-	}
-
-	.text-input::placeholder {
-		color: var(--color-text-secondary);
-		opacity: 0.6;
-	}
-
 	.setting-item-column {
 		flex-direction: column;
 		align-items: flex-start;
@@ -1121,30 +877,6 @@
 
 	.emails-input-group {
 		width: 100%;
-	}
-
-	.emails-textarea {
-		width: 100%;
-		padding: var(--space-sm) var(--space-md);
-		background: var(--color-bg);
-		border: 2px solid var(--color-border);
-		border-radius: var(--radius);
-		color: var(--color-text);
-		font-size: 0.875rem;
-		font-family: var(--font-mono);
-		resize: vertical;
-		transition: border-color 0.2s ease;
-		box-sizing: border-box;
-	}
-
-	.emails-textarea:focus {
-		outline: none;
-		border-color: var(--color-accent);
-	}
-
-	.emails-textarea::placeholder {
-		color: var(--color-text-secondary);
-		opacity: 0.6;
 	}
 
 	.emails-actions {
@@ -1163,46 +895,16 @@
 		color: var(--color-danger);
 	}
 
-	.action-btn.fork-btn {
-		opacity: 0.25;
-		color: var(--color-text-secondary);
-		border-color: transparent;
-	}
-
-	.action-btn.fork-btn:hover:not(:disabled) {
-		opacity: 1;
-		color: var(--color-accent);
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 1px var(--color-accent);
-		background: var(--color-surface-hover);
-	}
-
-	.action-btn.fork-btn.fork-active {
-		opacity: 1;
-		color: var(--color-accent);
-		border-color: var(--color-accent);
-		box-shadow: 0 0 0 1px var(--color-accent);
-	}
-
-	.action-btn.fork-btn.fork-active:hover:not(:disabled) {
-		opacity: 0.75;
-	}
-
 	@keyframes pulse-opacity {
 		0%, 100% { opacity: 1; }
 		50% { opacity: 0.3; }
-	}
-
-	.action-btn.needs-sync {
-		animation: pulse-opacity 1.8s ease-in-out infinite;
-		color: var(--color-accent);
 	}
 
 	.branch-field {
 		margin-bottom: 0;
 	}
 
-	/* .ds-panel clips overflow, so on narrow screens the controls wrap below their description instead. */
+	/* On narrow screens the controls wrap below their description, so nothing sticks out of the (clipping) panel. */
 	@media (max-width: 640px) {
 		.setting-item,
 		.sort-options {
@@ -1212,6 +914,15 @@
 		.setting-info {
 			flex-basis: 100%;
 		}
+
+		/* Repository rows: name on the first line, actions below it. */
+		.repo-item {
+			flex-wrap: wrap;
+		}
+
+		.repo-info {
+			flex-basis: calc(100% - 40px);
+		}
 	}
 
 	.branch-input-group {
@@ -1220,4 +931,97 @@
 		gap: var(--space-sm);
 		min-width: 200px;
 	}
+
+	/* Repository rows: application layout on the shared tokens. */
+	.repos-scroll {
+		max-height: 400px;
+		overflow-y: auto;
+		border: 1px solid var(--line);
+		border-radius: var(--ds-radius-md);
+	}
+
+	.repo-item {
+		display: flex;
+		align-items: center;
+		gap: var(--space-md);
+		padding: var(--space-md);
+		border-bottom: 1px solid var(--line);
+		cursor: pointer;
+		transition: background var(--ds-duration-fast) var(--ds-ease);
+	}
+
+	.repo-item:last-child {
+		border-bottom: none;
+	}
+
+	.repo-item:hover {
+		background: var(--panel-2);
+	}
+
+	.checkbox-button {
+		display: grid;
+		place-items: center;
+		background: none;
+		border: none;
+		border-radius: var(--ds-radius-xs);
+		padding: 0;
+		cursor: pointer;
+		color: var(--text-dim);
+		transition: color var(--ds-duration-fast) var(--ds-ease);
+	}
+
+	.checkbox-button:hover,
+	.checkbox-button[aria-pressed='true'] {
+		color: var(--accent);
+	}
+
+	/* Icon actions use the shared icon button at the row's compact size. */
+	.repo-actions .ds-icon-btn,
+	.repo-item > .ds-icon-btn {
+		width: 32px;
+		height: 32px;
+		flex: none;
+	}
+
+	.delete-btn:hover:not(:disabled) {
+		color: var(--red);
+		border-color: color-mix(in srgb, var(--red) 55%, var(--line));
+	}
+
+	/* Fork marker: a toggle; the pressed state is Gitiary's own. */
+	.fork-btn[aria-pressed='false'] {
+		color: var(--text-dim);
+	}
+
+	.fork-btn[aria-pressed='true'] {
+		color: var(--accent);
+		border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
+		background: var(--accent-soft);
+	}
+
+	.action-btn :global(.spinning) {
+		animation: spin 1s linear infinite;
+	}
+
+	.action-btn.needs-sync {
+		animation: pulse-opacity 1.8s ease-in-out infinite;
+		color: var(--accent);
+	}
+
+	.emails-textarea {
+		font-family: var(--font-mono);
+	}
+
+	.ds-dialog p {
+		margin-bottom: var(--space-sm);
+	}
+
+	.ds-dialog strong {
+		color: var(--accent);
+	}
+
+	.display-name-field {
+		margin: var(--space-md) 0 0;
+	}
+
 </style>
