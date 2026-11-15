@@ -128,6 +128,15 @@
 		text-decoration: none;
 	}
 
+	/* Narrow screens: the bar wraps instead of pushing the page wider than the viewport. */
+	@media (max-width: 720px) {
+		.nav-inner,
+		.nav-links {
+			flex-wrap: wrap;
+			gap: var(--space-sm) var(--space-md);
+		}
+	}
+
 	.main {
 		padding-top: var(--space-xl);
 		padding-bottom: var(--space-xl);
