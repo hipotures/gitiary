@@ -15,10 +15,10 @@
 	<div class="repo-title-group">
 		<h1 class="text-mono">{getDisplayName(data.repo)}</h1>
 		{#if data.repo.isFork}
-			<span class="fork-badge"><GitFork size={12} /></span>
+			<span class="ds-badge" data-tone="accent"><GitFork size={12} />Fork</span>
 		{/if}
 		{#if data.repo.hasExtraBranches}
-			<span class="branch-badge"><GitBranch size={12} /></span>
+			<span class="ds-badge"><GitBranch size={12} />Extra branches</span>
 		{/if}
 	</div>
 	<a href="/" class="back-link">← Back to repos</a>
@@ -64,19 +64,6 @@
 		margin: 0;
 		font-size: 1.75rem;
 	}
-
-	.fork-badge,
-	.branch-badge {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		padding: 3px;
-		border: 1px solid var(--color-accent);
-		border-radius: 3px;
-		color: var(--color-accent);
-		opacity: 0.75;
-	}
-
 
 	.back-link {
 		font-size: 0.875rem;

@@ -1,0 +1,31 @@
+/* Shared design system (vendor/design-system, a git subtree; see docs/design-system.md).
+   Imported before app.css. ds.css only defines custom properties and color-scheme on :root and styles elements
+   that opt in through ds- classes, so it does not restyle the rest of Gitiary. */
+@import '../vendor/design-system/ds.css';
+
+/* Brand accent through the documented hooks: the primitives use Gitiary's blue instead of the default one. */
+:root {
+	--ds-accent-dark: #58a6ff;
+	--ds-accent-soft-dark: rgba(88, 166, 255, 0.15);
+	--ds-accent-light: #0969da;
+	--ds-accent-soft-light: rgba(9, 105, 218, 0.12);
+}
+
+/* Collision: app.css gives every h2 a bottom margin. The design system's own reset has zero specificity, so it
+   loses to that element rule; restore the panel title's layout here. */
+.ds-panel-title {
+	margin: 0;
+}
+
+/* Missing capability: controls inherit the page font size, and Gitiary's body is 16px. Zero specificity, placed
+   after ds.css, so it replaces only the inherited size; .ds-btn-compact still sets its own. */
+:where(.ds-btn, .ds-field input, .ds-field select, .ds-field textarea) {
+	font-size: var(--ds-text-base);
+}
+
+/* Missing capability: the primitives do not lay out an icon next to a label. Gitiary's lucide icons need it. */
+:is(.ds-btn, .ds-segmented button, .ds-badge):has(> svg) {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--ds-space-3);
+}

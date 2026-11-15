@@ -308,40 +308,35 @@
 		<span class="version">v{data.version}</span>
 	</div>
 
-	<section class="settings-section">
-		<h2>Appearance</h2>
+	<section class="ds-panel settings-section" aria-labelledby="appearance-title">
+		<div class="ds-panel-head"><h2 class="ds-panel-title" id="appearance-title">Appearance</h2></div>
+		<div class="ds-panel-body">
 
 		<div class="setting-item">
 			<div class="setting-info">
-				<label for="theme-select">Theme</label>
+				<span class="setting-label" id="theme-label">Theme</span>
 				<p class="setting-description">Choose how gitiary looks to you.</p>
 			</div>
 
-			<div class="theme-options">
-				<button
-					class="theme-option"
-					class:active={$theme === 'dark'}
-					onclick={() => theme.set('dark')}
-				>
-					<Moon size={20} />
+			<div class="ds-segmented" role="group" aria-labelledby="theme-label">
+				<button type="button" aria-pressed={$theme === 'dark'} onclick={() => theme.set('dark')}>
+					<Moon size={16} />
 					<span>Dark</span>
 				</button>
 
-				<button
-					class="theme-option"
-					class:active={$theme === 'light'}
-					onclick={() => theme.set('light')}
-				>
-					<Sun size={20} />
+				<button type="button" aria-pressed={$theme === 'light'} onclick={() => theme.set('light')}>
+					<Sun size={16} />
 					<span>Light</span>
 				</button>
 			</div>
 		</div>
+		</div>
 	</section>
 
 	<!-- Repository Display Section -->
-	<section class="settings-section">
-		<h2>Repository Display</h2>
+	<section class="ds-panel settings-section" aria-labelledby="repository-display-title">
+		<div class="ds-panel-head"><h2 class="ds-panel-title" id="repository-display-title">Repository Display</h2></div>
+		<div class="ds-panel-body">
 
 		<div class="setting-item">
 			<div class="setting-info">
@@ -387,11 +382,13 @@
 				</select>
 			</div>
 		</div>
+		</div>
 	</section>
 
 	<!-- Author Emails Section -->
-	<section class="settings-section">
-		<h2>Fork Filtering</h2>
+	<section class="ds-panel settings-section" aria-labelledby="fork-filtering-title">
+		<div class="ds-panel-head"><h2 class="ds-panel-title" id="fork-filtering-title">Fork Filtering</h2></div>
+		<div class="ds-panel-body">
 
 		<div class="setting-item setting-item-column">
 			<div class="setting-info">
@@ -411,7 +408,8 @@
 				></textarea>
 				<div class="emails-actions">
 					<button
-						class="save-emails-btn"
+						type="button"
+						class="ds-btn ds-btn-primary ds-btn-compact"
 						onclick={saveAuthorEmails}
 						disabled={isSavingEmails}
 					>
@@ -425,11 +423,13 @@
 				</div>
 			</div>
 		</div>
+		</div>
 	</section>
 
 	<!-- Branch Tracking Section -->
-	<section class="settings-section">
-		<h2>Branch Tracking</h2>
+	<section class="ds-panel settings-section" aria-labelledby="branch-tracking-title">
+		<div class="ds-panel-head"><h2 class="ds-panel-title" id="branch-tracking-title">Branch Tracking</h2></div>
+		<div class="ds-panel-body">
 
 		<div class="setting-item">
 			<div class="setting-info">
@@ -440,16 +440,18 @@
 				</p>
 			</div>
 			<div class="branch-input-group">
-				<input
-					id="default-branch"
-					type="text"
-					class="text-input branch-input"
-					bind:value={defaultBranchValue}
-					placeholder="main"
-				/>
+				<div class="ds-field branch-field">
+					<input
+						id="default-branch"
+						type="text"
+						bind:value={defaultBranchValue}
+						placeholder="main"
+					/>
+				</div>
 				<div class="emails-actions">
 					<button
-						class="save-emails-btn"
+						type="button"
+						class="ds-btn ds-btn-primary ds-btn-compact"
 						onclick={saveDefaultBranch}
 						disabled={isSavingDefaultBranch}
 					>
@@ -463,11 +465,13 @@
 				</div>
 			</div>
 		</div>
+		</div>
 	</section>
 
 	<!-- Repository Management Section -->
-	<section class="settings-section">
-		<h2>Repository Management</h2>
+	<section class="ds-panel settings-section" aria-labelledby="repository-management-title">
+		<div class="ds-panel-head"><h2 class="ds-panel-title" id="repository-management-title">Repository Management</h2></div>
+		<div class="ds-panel-body">
 
 		<div class="setting-item">
 			<div class="setting-info">
@@ -492,8 +496,13 @@
 					</p>
 				{/if}
 			</div>
-			<button class="sync-button" onclick={syncWithGitHub} disabled={isSyncing}>
-				<RefreshCw size={18} class={isSyncing ? 'spinning' : ''} />
+			<button
+				type="button"
+				class="ds-btn ds-btn-primary sync-button"
+				onclick={syncWithGitHub}
+				disabled={isSyncing}
+			>
+				<RefreshCw size={16} class={isSyncing ? 'spinning' : ''} />
 				<span>{isSyncing ? 'Syncing...' : 'Sync with GitHub'}</span>
 			</button>
 		</div>
@@ -618,6 +627,7 @@
 				{/each}
 			</div>
 		</div>
+		</div>
 	</section>
 </div>
 
@@ -630,8 +640,8 @@
 			</p>
 			<p class="modal-warning">This will remove all commit data for this repository.</p>
 			<div class="modal-actions">
-				<button class="modal-btn cancel" onclick={cancelDelete}>Cancel</button>
-				<button class="modal-btn confirm" onclick={confirmDelete}>Delete</button>
+				<button type="button" class="ds-btn" onclick={cancelDelete}>Cancel</button>
+				<button type="button" class="ds-btn ds-btn-danger" onclick={confirmDelete}>Delete</button>
 			</div>
 		</div>
 	</div>
@@ -658,8 +668,8 @@
 			</div>
 
 			<div class="modal-actions">
-				<button class="modal-btn cancel" onclick={cancelEditDisplayName}>Cancel</button>
-				<button class="modal-btn save" onclick={saveDisplayName}>Save</button>
+				<button type="button" class="ds-btn" onclick={cancelEditDisplayName}>Cancel</button>
+				<button type="button" class="ds-btn ds-btn-primary" onclick={saveDisplayName}>Save</button>
 			</div>
 		</div>
 	</div>
@@ -692,19 +702,7 @@
 	}
 
 	.settings-section {
-		background: var(--color-surface);
-		border: 1px solid var(--color-border);
-		border-radius: var(--radius);
-		padding: var(--space-lg);
 		margin-bottom: var(--space-lg);
-	}
-
-	.settings-section h2 {
-		font-size: 1rem;
-		font-weight: 600;
-		margin-bottom: var(--space-lg);
-		padding-bottom: var(--space-md);
-		border-bottom: 1px solid var(--color-border);
 	}
 
 	.setting-item {
@@ -718,7 +716,8 @@
 		flex: 1;
 	}
 
-	.setting-info label {
+	.setting-info label,
+	.setting-label {
 		display: block;
 		font-weight: 500;
 		margin-bottom: var(--space-xs);
@@ -727,34 +726,6 @@
 	.setting-description {
 		font-size: 0.875rem;
 		color: var(--color-text-secondary);
-	}
-
-	.theme-options {
-		display: flex;
-		gap: var(--space-sm);
-	}
-
-	.theme-option {
-		display: flex;
-		align-items: center;
-		gap: var(--space-sm);
-		padding: var(--space-sm) var(--space-md);
-		background: var(--color-bg);
-		border: 2px solid var(--color-border);
-		border-radius: var(--radius);
-		color: var(--color-text);
-		cursor: pointer;
-		font-size: 0.875rem;
-		transition: all 0.2s ease;
-	}
-
-	.theme-option:hover {
-		border-color: var(--color-text-secondary);
-	}
-
-	.theme-option.active {
-		border-color: var(--color-accent);
-		background: var(--color-surface-hover);
 	}
 
 	.sort-options {
@@ -793,27 +764,7 @@
 	}
 
 	.sync-button {
-		display: flex;
-		align-items: center;
-		gap: var(--space-sm);
-		padding: var(--space-sm) var(--space-md);
-		background: var(--color-accent);
-		color: white;
-		border: none;
-		border-radius: var(--radius);
-		cursor: pointer;
-		font-size: 0.875rem;
-		font-weight: 500;
-		transition: opacity 0.2s ease;
-	}
-
-	.sync-button:hover:not(:disabled) {
-		opacity: 0.9;
-	}
-
-	.sync-button:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
+		flex-shrink: 0;
 	}
 
 	.sync-button :global(.spinning) {
@@ -1070,44 +1021,6 @@
 		justify-content: flex-end;
 	}
 
-	.modal-btn {
-		padding: var(--space-sm) var(--space-lg);
-		border: none;
-		border-radius: var(--radius);
-		font-size: 0.875rem;
-		font-weight: 500;
-		cursor: pointer;
-		transition: all 0.15s ease;
-	}
-
-	.modal-btn.cancel {
-		background: var(--color-surface-hover);
-		color: var(--color-text);
-		border: 1px solid var(--color-border);
-	}
-
-	.modal-btn.cancel:hover {
-		background: var(--color-bg);
-	}
-
-	.modal-btn.confirm {
-		background: var(--color-danger);
-		color: white;
-	}
-
-	.modal-btn.confirm:hover {
-		opacity: 0.9;
-	}
-
-	.modal-btn.save {
-		background: var(--color-accent);
-		color: white;
-	}
-
-	.modal-btn.save:hover {
-		opacity: 0.9;
-	}
-
 	.repo-names-inline {
 		display: flex;
 		align-items: baseline;
@@ -1241,27 +1154,6 @@
 		margin-top: var(--space-sm);
 	}
 
-	.save-emails-btn {
-		padding: var(--space-xs) var(--space-md);
-		background: var(--color-accent);
-		color: white;
-		border: none;
-		border-radius: var(--radius);
-		cursor: pointer;
-		font-size: 0.875rem;
-		font-weight: 500;
-		transition: opacity 0.2s ease;
-	}
-
-	.save-emails-btn:hover:not(:disabled) {
-		opacity: 0.9;
-	}
-
-	.save-emails-btn:disabled {
-		opacity: 0.6;
-		cursor: not-allowed;
-	}
-
 	.emails-save-msg {
 		font-size: 0.875rem;
 		color: var(--color-success);
@@ -1306,14 +1198,26 @@
 		color: var(--color-accent);
 	}
 
+	.branch-field {
+		margin-bottom: 0;
+	}
+
+	/* .ds-panel clips overflow, so on narrow screens the controls wrap below their description instead. */
+	@media (max-width: 640px) {
+		.setting-item,
+		.sort-options {
+			flex-wrap: wrap;
+		}
+
+		.setting-info {
+			flex-basis: 100%;
+		}
+	}
+
 	.branch-input-group {
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-sm);
 		min-width: 200px;
-	}
-
-	.branch-input {
-		width: 100%;
 	}
 </style>
