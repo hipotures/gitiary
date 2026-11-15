@@ -2,9 +2,10 @@
 	import { getDisplayName } from '$lib/utils/repoDisplay.js';
 	import type { HeatMonthSection } from '$lib/domain/types.js';
 	import { page } from '$app/state';
+	import { queryParams } from '$lib/utils/queryParams';
 
 	let { year, months }: { year: number; months: HeatMonthSection[] } = $props();
-	const isCaptureMode = $derived(page.url.searchParams.get('capture') === '1');
+	const isCaptureMode = $derived(queryParams(page.url).get('capture') === '1');
 
 	let visibleMonthCount = $state(3);
 

@@ -4,13 +4,14 @@
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import { page } from '$app/state';
+	import { queryParams } from '$lib/utils/queryParams';
 	import { Settings } from 'lucide-svelte';
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 	import DateRangeSelector from '$lib/components/DateRangeSelector.svelte';
 	import { theme } from '$lib/stores/theme';
 
 	let { children, data } = $props();
-	const isCaptureMode = $derived(page.url.searchParams.get('capture') === '1');
+	const isCaptureMode = $derived(queryParams(page.url).get('capture') === '1');
 
 	// Initialize theme on mount
 	onMount(() => {

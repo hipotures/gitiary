@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
+	import { queryParams } from '$lib/utils/queryParams';
 	import YearHeatmap from '$lib/components/YearHeatmap.svelte';
 	import HeatTimeline from '$lib/components/HeatTimeline.svelte';
 	import type { HeatYearData } from '$lib/domain/types.js';
@@ -9,12 +10,12 @@
 
 	const years = $derived(data.yearData.map((entry) => entry.year));
 	const requestedYear = $derived.by(() => {
-		const raw = page.url.searchParams.get('year');
+		const raw = queryParams(page.url).get('year');
 		if (!raw) return null;
 		const parsed = Number(raw);
 		return Number.isInteger(parsed) ? parsed : null;
 	});
-	const isCaptureMode = $derived(page.url.searchParams.get('capture') === '1');
+	const isCaptureMode = $derived(queryParams(page.url).get('capture') === '1');
 	let selectedYear = $state<number>(2025);
 	let initializedYear = $state(false);
 

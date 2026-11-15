@@ -10,7 +10,9 @@ const config = {
 			assets: 'build',
 			fallback: undefined,
 			precompress: false,
-			strict: true
+			// Settings and the mutating API routes are server-only (prerender = false) and, as the README's
+			// "Static Export" section states, not part of the static output; strict mode would fail the build on them.
+			strict: false
 		})
 	},
 	onwarn: (warning, handler) => {
